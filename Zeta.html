@@ -1,0 +1,1757 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Lista de Compras</title>
+<link rel="manifest" href="data:application/manifest+json,%7B%22name%22%3A%22XZeta%22%2C%22short_name%22%3A%22XZeta%22%2C%22start_url%22%3A%22.%22%2C%22display%22%3A%22standalone%22%2C%22background_color%22%3A%22%230b0b0c%22%2C%22theme_color%22%3A%22%230b0b0c%22%2C%22icons%22%3A%5B%7B%22src%22%3A%22data%3Aimage/png%3Bbase64%2CiVBORw0KGgoAAAANSUhEUgAAAMAAAADACAYAAABS3GwHAAAEuElEQVR4nO3cTXLTShiG0XYKRmEVbIV1sxVWEY8YcEfODcGW9dOtbuk9Z0qVI6TvUbdsJ5cymNfXb396HwPtXK9vl97H8FHXgzHslNI3it1/sKFnyt4x7PbDDD5L7BVC8x9i8NmidQjNXtzgU1OrEKq/qMGnpdohvNR8McNPa7VnrEpNBp8eaqwGm1cAw08vNWZvUwCGn962zuDqAAw/o9gyi6sCMPyMZu1MLg7A8DOqNbO5KADDz%2BiWzujsAAw/R7FkVmcFYPg5mrkz%2BzQAw89RzZndql%2BFgKOZDMDdn6N7NsMPAzD8nMXULNsCEe1uAO7%2BnM2jmbYCEO2fANz9Oat7s20FINpfAbj7c3afZ9wKQLT3ANz9SfFx1q0ARBMA0V5Ksf0hz23mrQBEEwDRBEA0ARDt4gGYZFYAogmAaAIgmgCIJgCiCYBoAiCaAIgmAKIJgGgCIJoAiCYAogmAaF96H0Can1%2B/T/77j9%2B/djoSSvH7ALt4NvSPiKE9ATSydugfEUMbngEaqD38rV4TK0BVew2p1aAeK0Ale96hrQb1CKCCHgMpgjoEsFHPQRTBdgLYYIQBHOEYjkwAK400eCMdy9EIgGgCWGHEO%2B6Ix3QEAlho5EEb%2BdhG5ctwHTz6IMsA788nwQtsHdC5n%2BDu9XOwBdrNkqE0wPsRwExb7sprBnpLBLZS8wmgsS2DbCVoTwBEE8AMPX%2Bja%2B1r2AbNIwCiCaCRmvt3zwLtCIBoAiCaAJ448sPkkY99LwJooMWe3XNAGwIgmgCIJgCiCYBofh/gk4R3TjxQ/08AJWPoH0mPIX4LlDz8pfj/RweQfvFvks9DbADJF/2e1PMRGUDqxX4m8bzEBZB4kZdIOz9RAaRd3LWSzlNUAPCZAIgWE0DSsl5DyvmKCQDuEQDR/HXoCWf6nkzKlmYpKwDRBEA0ARBNAEQTANEEQDQBEE0ARBMA0QRANAEQTQBEEwDRBEA0ARBNAEQTANEEQDQBEE0ARBMA0QRANAEQTQBEEwDRBEA0ARBNAEQTANEEQDQBEE0ARBMA0QRANAEQTQBEEwDRBEA0ARBNAEQTANEEQDQBEE0ARBMA0QRANAEQTQBEEwDRBEA0ARBNAET70vsARvbz6/feh0BjVgCiCYBoMQH8%2BP2r9yEcSsr5igkA7hEA0aICSFnWt0o6T1EBlJJ1cddIOz9xAZSSd5HnSjwvL9fr26X3QfSQeLGnJJ6P6/XtErkC3CRe9HuSz0N0AKVkX/xS/P8vpZTy%2BvrtT%2B8DGUXC93/Sh/7men27CIBY788AqQ/C5LrNfPwzANkEQLT3AGyDSPFx1q0ARPsrAKsAZ/d5xq0ARPsnAKsAZ3Vvtq0ARLsbgFWAs3k001YAoj0MwCrAWUzN8uQKIAKO7tkM2wIR7WkAVgGOas7szloBRMDRzJ3Z2VsgEXAUS2Z10TOACBjd0hld/BAsAka1ZjZXvQskAkazdiZXvw0qAkaxZRY3fQ4gAnrbOoObPwgTAb3UmL2qw%2BvvC7GHmjfdql%2BFsBrQWu0ZazawVgNqanVzbX7HFgJbtN5V7LZlEQJL7LWd3n3PLgSm7P0c2fWhVQyU0vfNk%2BHetRHFuY32TuF/TexT8UEZp6kAAAAASUVORK5CYII%3D%22%2C%22sizes%22%3A%22192x192%22%2C%22type%22%3A%22image/png%22%2C%22purpose%22%3A%22any%22%7D%2C%7B%22src%22%3A%22data%3Aimage/png%3Bbase64%2CiVBORw0KGgoAAAANSUhEUgAAAMAAAADACAYAAABS3GwHAAAEuElEQVR4nO3cTXLTShiG0XYKRmEVbIV1sxVWEY8YcEfODcGW9dOtbuk9Z0qVI6TvUbdsJ5cymNfXb396HwPtXK9vl97H8FHXgzHslNI3it1/sKFnyt4x7PbDDD5L7BVC8x9i8NmidQjNXtzgU1OrEKq/qMGnpdohvNR8McNPa7VnrEpNBp8eaqwGm1cAw08vNWZvUwCGn962zuDqAAw/o9gyi6sCMPyMZu1MLg7A8DOqNbO5KADDz%2BiWzujsAAw/R7FkVmcFYPg5mrkz%2BzQAw89RzZndql%2BFgKOZDMDdn6N7NsMPAzD8nMXULNsCEe1uAO7%2BnM2jmbYCEO2fANz9Oat7s20FINpfAbj7c3afZ9wKQLT3ANz9SfFx1q0ARBMA0V5Ksf0hz23mrQBEEwDRBEA0ARDt4gGYZFYAogmAaAIgmgCIJgCiCYBoAiCaAIgmAKIJgGgCIJoAiCYAogmAaF96H0Can1%2B/T/77j9%2B/djoSSvH7ALt4NvSPiKE9ATSydugfEUMbngEaqD38rV4TK0BVew2p1aAeK0Ale96hrQb1CKCCHgMpgjoEsFHPQRTBdgLYYIQBHOEYjkwAK400eCMdy9EIgGgCWGHEO%2B6Ix3QEAlho5EEb%2BdhG5ctwHTz6IMsA788nwQtsHdC5n%2BDu9XOwBdrNkqE0wPsRwExb7sprBnpLBLZS8wmgsS2DbCVoTwBEE8AMPX%2Bja%2B1r2AbNIwCiCaCRmvt3zwLtCIBoAiCaAJ448sPkkY99LwJooMWe3XNAGwIgmgCIJgCiCYBofh/gk4R3TjxQ/08AJWPoH0mPIX4LlDz8pfj/RweQfvFvks9DbADJF/2e1PMRGUDqxX4m8bzEBZB4kZdIOz9RAaRd3LWSzlNUAPCZAIgWE0DSsl5DyvmKCQDuEQDR/HXoCWf6nkzKlmYpKwDRBEA0ARBNAEQTANEEQDQBEE0ARBMA0QRANAEQTQBEEwDRBEA0ARBNAEQTANEEQDQBEE0ARBMA0QRANAEQTQBEEwDRBEA0ARBNAEQTANEEQDQBEE0ARBMA0QRANAEQTQBEEwDRBEA0ARBNAEQTANEEQDQBEE0ARBMA0QRANAEQTQBEEwDRBEA0ARBNAET70vsARvbz6/feh0BjVgCiCYBoMQH8%2BP2r9yEcSsr5igkA7hEA0aICSFnWt0o6T1EBlJJ1cddIOz9xAZSSd5HnSjwvL9fr26X3QfSQeLGnJJ6P6/XtErkC3CRe9HuSz0N0AKVkX/xS/P8vpZTy%2BvrtT%2B8DGUXC93/Sh/7men27CIBY788AqQ/C5LrNfPwzANkEQLT3AGyDSPFx1q0ARPsrAKsAZ/d5xq0ARPsnAKsAZ3Vvtq0ARLsbgFWAs3k001YAoj0MwCrAWUzN8uQKIAKO7tkM2wIR7WkAVgGOas7szloBRMDRzJ3Z2VsgEXAUS2Z10TOACBjd0hld/BAsAka1ZjZXvQskAkazdiZXvw0qAkaxZRY3fQ4gAnrbOoObPwgTAb3UmL2qw%2BvvC7GHmjfdql%2BFsBrQWu0ZazawVgNqanVzbX7HFgJbtN5V7LZlEQJL7LWd3n3PLgSm7P0c2fWhVQyU0vfNk%2BHetRHFuY32TuF/TexT8UEZp6kAAAAASUVORK5CYII%3D%22%2C%22sizes%22%3A%22192x192%22%2C%22type%22%3A%22image/png%22%2C%22purpose%22%3A%22maskable%22%7D%2C%7B%22src%22%3A%22data%3Aimage/png%3Bbase64%2CiVBORw0KGgoAAAANSUhEUgAAAgAAAAIACAYAAAD0eNT6AAAPEElEQVR4nO3cS3bbPBaFUToracmjyFQy7kwlo4hbaaQaLv2RH3pRJHCBs3e3HosCKd6PoJynhZIOh%2Be/vY8BYAsvL7%2Bfeh8DHzkpnRjwAK8EQh8WvQHDHuA%2BomB/FngHBj7AtgTB9izoBgx8gLYEweMs4EqGPkANYmAdi3YHQx%2BgNjFwOwt1haEPMCYxcJnFOcPgB5iDEPicRTlh6APMTQz8YyEWgx8gjRAIDwCDHyBbcghEfnCDH4BTiSEQ9YENfgAuSQqBiA9q8ANwj4QQ%2BNL7APZm%2BANwr4TZMW3hJJw8APY3627AdB/K4AdgD7OFwFSvAAx/APYy24yZomZmOykA1DbDbsDwOwCGPwCtzTB7hg6AGU4AAGMafQYNuYUx%2BqIDMJcRXwkMtwNg%2BANQzYizaagAGHGBAcgw2owaYstitEUFINsIrwTK7wAY/gCMZoTZVToARlhAAPhM9RlWNgCqLxwAXFN5lpUMgMoLBgD3qDrTygVA1YUCgLUqzrZSAVBxgQBgC9VmXJkAqLYwALC1SrOuRABUWhAA2FOVmdc9AKosBAC0UmH2dQ2ACgsAAD30noHdAqD3BweA3nrOwi4BYPgDwKteM7F5ABj%2BAPBWj9nYNAAMfwD4XOsZ2SwADH8AuKzlrGwSAIY/ANym1czs/u8AAADt7R4Anv4B4D4tZueuAWD4A8A6e8/Q3QLA8AeAx%2Bw5S/0GAAAC7RIAnv4BYBt7zdTNA8DwB4Bt7TFbNw0Awx8A9rH1jPUbAAAItFkAePoHgH1tOWs3CQDDHwDa2GrmegUAAIEeDgBP/wDQ1haz1w4AAAR6KAA8/QNAH4/O4NUBYPgDQF%2BPzGKvAAAg0KoA8PQPADWsncl2AAAg0N0B4OkfAGpZM5vtAABAoLsCwNM/ANR074y2AwAAgW4OAE//AFDbPbPaDgAABLopADz9A8AYbp3ZdgAAIJAAAIBAVwPA9j8AjOWW2W0HAAACXQwAT/8AMKZrM9wOAAAEEgAAEOhsANj%2BB4CxXZrldgAAIJAAAIBAnwaA7X8AmMO5mW4HAAACCQAACPQhAGz/A8BcPpvtdgAAIJAAAIBAAgAAAr0JAO//AWBO72e8HQAACCQAACCQAACAQP8FgPf/ADC301lvBwAAAgkAAAgkAAAgkAAAgEBflsUPAAEgxXHm2wEAgEACAAACCQAACCQAACCQAACAQAIAAAIJAAAI9OTfAACAPHYAACCQAACAQAIAAAIJAAAIJAAAIJAAAIBAAgAAAgkAAAgkAAAgkAAAgEACAAACCQAACCQAACCQAACAQAIAAAIJAAAIJAAAIJAAAIBAAgAAAgkAAAgkAAAgkAAAgEACAAACCQAACCQAACCQAACAQAIAAAIJAAAIJAAAIJAAAIBAAgAAAgkAAAgkAAAgkAAAgEACAAACfe19AMC%2Bfn77vup/9%2BPPr42PBKjk6XB4/tv7IIBtrB32txIFMA8BAAPbe%2BBfIwhgXAIABtR78L8nBGA8AgAGUW3onyMGYAwCAIobZfC/JwSgNgEARY06%2BN8TAlCTAIBiZhn87wkBqMU/BASFzDr8l2XuzwYjsgMABaQNR7sB0J8dAOgsbfgvS%2BZnhmoEAHSUPAiTPztU4BUAdGD4veWVALRnBwAaM/w/sibQngCAhgy686wNtCUAoBED7jprBO0IAGjAYLudtYI2BADszEC7nzWD/QkA2JFBtp61g30JANiJAfY4awj7EQCwA4NrO9YS9iEAYGMG1vasKWxPAMCGDKr9WFvYlgAAgEACADbiCXV/1hi2IwBgAwZTO9YatiEA4EEGUnvWHB4nAAAgkACAB3gS7cfaw2MEAKxkAPXnHMB6AgAAAgkAWMGTZx3OBawjAOBOBk49zgncTwAAQCABAHfwpFmXcwP3EQAAEOjpcHj%2B2/sgYAQzPGH%2B%2BPPr4n%2Be8BmBV197HwCwr3sG4ul/d4YYAM6zAwA3GHEYbvUknPzZYWZ2AGAyWw%2B/4//fiCEAnOdHgHDFSINvzyffkZ6qRzpn0IsAgEm0GNAjRQBwmQCACbQczCIA5iAA4IIRtpJ7DOQRImCEcwc9CQAYWM9BPEIEAOcJADij%2BhNkhQFc4RguqX4OoScBAACBBAAMqNKTd6VjAW4nAOATlbeOKw7cisd0VPlcQk8CAAACCQAYSOUn7crHBnwkAAAgkACAd6q%2BMx7hCbvqMVY9p9CTAACAQAIABlD1yfozIx0rJBMAcMJW8bycW3hLAEBxIz5Rj3jMkEYAAEAgAQAAgQQAFDbyVvrIxw4JBAD8nx%2BJzc85hn8EAAAEEgAAEEgAQFEzvEOf4TPArAQAAAQSAAAQSAAAQCABAIs/D0viXMMrAQAAgQQAFDTTr%2Bdn%2BiwwEwEAAIEEAAAEEgAAEEgAAEAgAQAAgQQAAAQSAAAQ6OlweP7b%2ByBgL/7VNx7l3zFgVgKAaRj2tCIKmIEAYHgGP70IAUYmABiSoU81YoDRCACGYvBTnRBgFP4KgGEY/ozAdcoo7ABQnhsqo7IbQGV2ACjN8Gdkrl8qEwCU5ebJDFzHVCUAKMlNk5m4nqlIAFCOmyUzcl1TjQCgFDdJZub6phIBQBlujiRwnVOFAKAEN0WSuN6pQADQnZshiVz39CYA6MpNkGSuf3oSAAAQSADQjacf8D2gHwFAF2568I/vAz0IAAAIJABoztMOfOR7QWsCAAACCQAACCQAaMo2J5zn%2B0FLAgAAAgkAmvF0A9f5ntCKAACAQAIAAAIJAAAIJAAAIJAAoAk/bILb%2Bb7QggAAgEACAAACCQAACCQAACCQAACAQF97HwD08OPPr96HQDF%2BeU8aOwAAEEgAAEAgAQAAgQQAAAQSAAAQSAAAQCABAACBBAAABBIAABBIAABAIAEAAIEEAAAEEgAAEEgAAEAgAQAAgQQAAAQSAAAQSAAAQCABAACBBAAABBIAABBIAABAIAEAAIEEAAAEEgAAEEgAAEAgAQAAgQQAAAQSAAAQSAAAQCABAACBBAAABBIAABBIAABAIAEAAIEEAAAEEgAAEEgAAEAgAQAAgQQAAAQSAAAQSAAAQCABAACBBAAABBIAABBIAABAIAEAAIEEAAAEEgAAEEgAAEAgAQAAgQQAAAQSAAAQSAAAQCABAACBBAAABBIAABBIAABAIAEAAIEEAAAEEgAAEEgAAEAgAQAAgQQAAAQSAAAQSAAAQCABAACBBAAABBIAABBIAABAIAEAAIEEAAAEEgAAEEgAAEAgAQAAgQQAAAQSAAAQSAAAQCABAACBBAAABBIAABBIAABAIAEAAIEEAAAEEgAAEEgAAEAgAQAAgQQAAAQSAAAQSAAAQCABAACBBAAABBIAABBIAABAIAEAAIEEAAAEEgAAEEgAAEAgAQAAgQQAAAQSAAAQSAAAQCABAACBBAAABBIAABBIAABAIAEAAIEEAAAEEgAAEEgAAEAgAQAAgQQAAAQSAAAQSAAAQCABAACBBAAABBIAABBIAABAIAEAAIEEAAAEEgAAEEgAAEAgAQAAgQQAAAQSAAAQSAAAQCABAACBBAAABBIAABBIAABAIAEAAIEEAAAEEgAAEEgAAEAgAQAAgQQAAAQSAAAQSAAAQKCvvQ8Aevj57XvvQwDoyg4AAAQSAAAQSAAAQCABAACBBAAABBIANPHjz6/ehwDD8H2hBQEAAIEEAAAEEgAAEEgAAEAgAUAzftgE1/me0IoAAIBAAoCmPN3Aeb4ftCQAACCQAACAQAKA5mxzwke%2BF7QmAAAgkACgC0878I/vAz0IALpx0wPfA/r58vLy%2B6n3QQAA7by8/H6yA0BXnn5I5vqnJwFAd26CJHLd05sAoAQ3Q5K43qlAAFCGmyIJXOdUIQAoxc2Rmbm%2BqUQAUI6bJDNyXVONAKAkN0tm4nqmoi/L8vr3gL0PBN5z02QGrmOqOc58OwCU5ubJyFy/VPbfk//h8Py354HANT%2B/fe99CHATg5/K7AAwHDdVRuA6ZRR2ABiS3QCqMfgZxXEH4M2P/0QAIxID9GLoM5rTH/0LAKYhBGjF4GdUAoAYooBHGfbMRAAAQKDTAPhy7j8AAObxfsb7M0AACCQAACCQAACAQB8CwO8AAGAun812OwAAEEgAAECgTwPAawAAmMO5mW4HAAACCQAACHQ2ALwGAICxXZrldgAAIJAAAIBAFwPAawAAGNO1GW4HAAACXQ0AuwAAMJZbZrcdAAAIJAAAINBNAeA1AACM4daZbQcAAALdHAB2AQCgtntmtR0AAAh0VwDYBQCAmu6d0XYAACDQ3QFgFwAAalkzm%2B0AAECgVQFgFwAAalg7k%2B0AAECg1QFgFwAA%2BnpkFj%2B0AyACAKCPR2ewVwAAEOjhALALAABtbTF77QAAQKBNAsAuAAC0sdXM3WwHQAQAwL62nLVeAQBAoE0DwC4AAOxj6xm7%2BQ6ACACAbe0xW3d5BSACAGAbe81UvwEAgEC7BYBdAAB4zJ6zdNcdABEAAOvsPUN3fwUgAgDgPi1mp98AAECgJgFgFwAAbtNqZjbbARABAHBZy1nZ9BWACACAz7Wekc1/AyACAOCtHrOxy48ARQAAvOo1E7v9FYAIACBdz1nY9c8ARQAAqXrPwO7/DkDvBQCA1irMvu4BsCw1FgIAWqgy80oEwLLUWRAA2EulWVcmAJal1sIAwJaqzbhSAbAs9RYIAB5VcbaVC4BlqblQALBG1ZlWMgCWpe6CAcCtKs%2BysgGwLLUXDgAuqT7DSgfAstRfQAB4b4TZVf4ATx0Oz397HwMAnDPC4D8qvwNwaqSFBSDLaDNqqABYlvEWGID5jTibhjvgU14JANDTiIP/aLgdgFMjLzwAYxt9Bg0dAMsy/gkAYDwzzJ7hP8AprwQA2NMMg/9o%2BB2AUzOdGABqmW3GTPVhTtkNAGALsw3%2Boyk/1CkhAMAasw7%2Bo6leAXxm9hMIwPYSZsf0H/CU3QAALkkY/EcxH/SUEADgVNLgP4r7wKeEAEC2xMF/FPvBTwkBgCzJg/8ofgFOCQGAuRn8/1iIM8QAwBwM/c9ZlCuEAMCYDP7LLM4dxABAbYb%2B7SzUSmIAoAZDfx2LtgExANCWof84C7gDQQCwLQN/exa0AUEAcB8Df38WuBNRAPDKsO/DohclEIBZGPA1/Q%2B8kmhXSEK1XAAAAABJRU5ErkJggg%3D%3D%22%2C%22sizes%22%3A%22512x512%22%2C%22type%22%3A%22image/png%22%2C%22purpose%22%3A%22any%22%7D%2C%7B%22src%22%3A%22data%3Aimage/png%3Bbase64%2CiVBORw0KGgoAAAANSUhEUgAAAgAAAAIACAYAAAD0eNT6AAAPEElEQVR4nO3cS3bbPBaFUToracmjyFQy7kwlo4hbaaQaLv2RH3pRJHCBs3e3HosCKd6PoJynhZIOh%2Be/vY8BYAsvL7%2Bfeh8DHzkpnRjwAK8EQh8WvQHDHuA%2BomB/FngHBj7AtgTB9izoBgx8gLYEweMs4EqGPkANYmAdi3YHQx%2BgNjFwOwt1haEPMCYxcJnFOcPgB5iDEPicRTlh6APMTQz8YyEWgx8gjRAIDwCDHyBbcghEfnCDH4BTiSEQ9YENfgAuSQqBiA9q8ANwj4QQ%2BNL7APZm%2BANwr4TZMW3hJJw8APY3627AdB/K4AdgD7OFwFSvAAx/APYy24yZomZmOykA1DbDbsDwOwCGPwCtzTB7hg6AGU4AAGMafQYNuYUx%2BqIDMJcRXwkMtwNg%2BANQzYizaagAGHGBAcgw2owaYstitEUFINsIrwTK7wAY/gCMZoTZVToARlhAAPhM9RlWNgCqLxwAXFN5lpUMgMoLBgD3qDrTygVA1YUCgLUqzrZSAVBxgQBgC9VmXJkAqLYwALC1SrOuRABUWhAA2FOVmdc9AKosBAC0UmH2dQ2ACgsAAD30noHdAqD3BweA3nrOwi4BYPgDwKteM7F5ABj%2BAPBWj9nYNAAMfwD4XOsZ2SwADH8AuKzlrGwSAIY/ANym1czs/u8AAADt7R4Anv4B4D4tZueuAWD4A8A6e8/Q3QLA8AeAx%2Bw5S/0GAAAC7RIAnv4BYBt7zdTNA8DwB4Bt7TFbNw0Awx8A9rH1jPUbAAAItFkAePoHgH1tOWs3CQDDHwDa2GrmegUAAIEeDgBP/wDQ1haz1w4AAAR6KAA8/QNAH4/O4NUBYPgDQF%2BPzGKvAAAg0KoA8PQPADWsncl2AAAg0N0B4OkfAGpZM5vtAABAoLsCwNM/ANR074y2AwAAgW4OAE//AFDbPbPaDgAABLopADz9A8AYbp3ZdgAAIJAAAIBAVwPA9j8AjOWW2W0HAAACXQwAT/8AMKZrM9wOAAAEEgAAEOhsANj%2BB4CxXZrldgAAIJAAAIBAnwaA7X8AmMO5mW4HAAACCQAACPQhAGz/A8BcPpvtdgAAIJAAAIBAAgAAAr0JAO//AWBO72e8HQAACCQAACCQAACAQP8FgPf/ADC301lvBwAAAgkAAAgkAAAgkAAAgEBflsUPAAEgxXHm2wEAgEACAAACCQAACCQAACCQAACAQAIAAAIJAAAI9OTfAACAPHYAACCQAACAQAIAAAIJAAAIJAAAIJAAAIBAAgAAAgkAAAgkAAAgkAAAgEACAAACCQAACCQAACCQAACAQAIAAAIJAAAIJAAAIJAAAIBAAgAAAgkAAAgkAAAgkAAAgEACAAACCQAACCQAACCQAACAQAIAAAIJAAAIJAAAIJAAAIBAAgAAAgkAAAgkAAAgkAAAgEACAAACfe19AMC%2Bfn77vup/9%2BPPr42PBKjk6XB4/tv7IIBtrB32txIFMA8BAAPbe%2BBfIwhgXAIABtR78L8nBGA8AgAGUW3onyMGYAwCAIobZfC/JwSgNgEARY06%2BN8TAlCTAIBiZhn87wkBqMU/BASFzDr8l2XuzwYjsgMABaQNR7sB0J8dAOgsbfgvS%2BZnhmoEAHSUPAiTPztU4BUAdGD4veWVALRnBwAaM/w/sibQngCAhgy686wNtCUAoBED7jprBO0IAGjAYLudtYI2BADszEC7nzWD/QkA2JFBtp61g30JANiJAfY4awj7EQCwA4NrO9YS9iEAYGMG1vasKWxPAMCGDKr9WFvYlgAAgEACADbiCXV/1hi2IwBgAwZTO9YatiEA4EEGUnvWHB4nAAAgkACAB3gS7cfaw2MEAKxkAPXnHMB6AgAAAgkAWMGTZx3OBawjAOBOBk49zgncTwAAQCABAHfwpFmXcwP3EQAAEOjpcHj%2B2/sgYAQzPGH%2B%2BPPr4n%2Be8BmBV197HwCwr3sG4ul/d4YYAM6zAwA3GHEYbvUknPzZYWZ2AGAyWw%2B/4//fiCEAnOdHgHDFSINvzyffkZ6qRzpn0IsAgEm0GNAjRQBwmQCACbQczCIA5iAA4IIRtpJ7DOQRImCEcwc9CQAYWM9BPEIEAOcJADij%2BhNkhQFc4RguqX4OoScBAACBBAAMqNKTd6VjAW4nAOATlbeOKw7cisd0VPlcQk8CAAACCQAYSOUn7crHBnwkAAAgkACAd6q%2BMx7hCbvqMVY9p9CTAACAQAIABlD1yfozIx0rJBMAcMJW8bycW3hLAEBxIz5Rj3jMkEYAAEAgAQAAgQQAFDbyVvrIxw4JBAD8nx%2BJzc85hn8EAAAEEgAAEEgAQFEzvEOf4TPArAQAAAQSAAAQSAAAQCABAIs/D0viXMMrAQAAgQQAFDTTr%2Bdn%2BiwwEwEAAIEEAAAEEgAAEEgAAEAgAQAAgQQAAAQSAAAQ6OlweP7b%2ByBgL/7VNx7l3zFgVgKAaRj2tCIKmIEAYHgGP70IAUYmABiSoU81YoDRCACGYvBTnRBgFP4KgGEY/ozAdcoo7ABQnhsqo7IbQGV2ACjN8Gdkrl8qEwCU5ebJDFzHVCUAKMlNk5m4nqlIAFCOmyUzcl1TjQCgFDdJZub6phIBQBlujiRwnVOFAKAEN0WSuN6pQADQnZshiVz39CYA6MpNkGSuf3oSAAAQSADQjacf8D2gHwFAF2568I/vAz0IAAAIJABoztMOfOR7QWsCAAACCQAACCQAaMo2J5zn%2B0FLAgAAAgkAmvF0A9f5ntCKAACAQAIAAAIJAAAIJAAAIJAAoAk/bILb%2Bb7QggAAgEACAAACCQAACCQAACCQAACAQF97HwD08OPPr96HQDF%2BeU8aOwAAEEgAAEAgAQAAgQQAAAQSAAAQSAAAQCABAACBBAAABBIAABBIAABAIAEAAIEEAAAEEgAAEEgAAEAgAQAAgQQAAAQSAAAQSAAAQCABAACBBAAABBIAABBIAABAIAEAAIEEAAAEEgAAEEgAAEAgAQAAgQQAAAQSAAAQSAAAQCABAACBBAAABBIAABBIAABAIAEAAIEEAAAEEgAAEEgAAEAgAQAAgQQAAAQSAAAQSAAAQCABAACBBAAABBIAABBIAABAIAEAAIEEAAAEEgAAEEgAAEAgAQAAgQQAAAQSAAAQSAAAQCABAACBBAAABBIAABBIAABAIAEAAIEEAAAEEgAAEEgAAEAgAQAAgQQAAAQSAAAQSAAAQCABAACBBAAABBIAABBIAABAIAEAAIEEAAAEEgAAEEgAAEAgAQAAgQQAAAQSAAAQSAAAQCABAACBBAAABBIAABBIAABAIAEAAIEEAAAEEgAAEEgAAEAgAQAAgQQAAAQSAAAQSAAAQCABAACBBAAABBIAABBIAABAIAEAAIEEAAAEEgAAEEgAAEAgAQAAgQQAAAQSAAAQSAAAQCABAACBBAAABBIAABBIAABAIAEAAIEEAAAEEgAAEEgAAEAgAQAAgQQAAAQSAAAQSAAAQCABAACBBAAABBIAABBIAABAIAEAAIEEAAAEEgAAEEgAAEAgAQAAgQQAAAQSAAAQSAAAQCABAACBBAAABBIAABBIAABAIAEAAIEEAAAEEgAAEEgAAEAgAQAAgQQAAAQSAAAQSAAAQKCvvQ8Aevj57XvvQwDoyg4AAAQSAAAQSAAAQCABAACBBAAABBIANPHjz6/ehwDD8H2hBQEAAIEEAAAEEgAAEEgAAEAgAUAzftgE1/me0IoAAIBAAoCmPN3Aeb4ftCQAACCQAACAQAKA5mxzwke%2BF7QmAAAgkACgC0878I/vAz0IALpx0wPfA/r58vLy%2B6n3QQAA7by8/H6yA0BXnn5I5vqnJwFAd26CJHLd05sAoAQ3Q5K43qlAAFCGmyIJXOdUIQAoxc2Rmbm%2BqUQAUI6bJDNyXVONAKAkN0tm4nqmoi/L8vr3gL0PBN5z02QGrmOqOc58OwCU5ubJyFy/VPbfk//h8Py354HANT%2B/fe99CHATg5/K7AAwHDdVRuA6ZRR2ABiS3QCqMfgZxXEH4M2P/0QAIxID9GLoM5rTH/0LAKYhBGjF4GdUAoAYooBHGfbMRAAAQKDTAPhy7j8AAObxfsb7M0AACCQAACCQAACAQB8CwO8AAGAun812OwAAEEgAAECgTwPAawAAmMO5mW4HAAACCQAACHQ2ALwGAICxXZrldgAAIJAAAIBAFwPAawAAGNO1GW4HAAACXQ0AuwAAMJZbZrcdAAAIJAAAINBNAeA1AACM4daZbQcAAALdHAB2AQCgtntmtR0AAAh0VwDYBQCAmu6d0XYAACDQ3QFgFwAAalkzm%2B0AAECgVQFgFwAAalg7k%2B0AAECg1QFgFwAA%2BnpkFj%2B0AyACAKCPR2ewVwAAEOjhALALAABtbTF77QAAQKBNAsAuAAC0sdXM3WwHQAQAwL62nLVeAQBAoE0DwC4AAOxj6xm7%2BQ6ACACAbe0xW3d5BSACAGAbe81UvwEAgEC7BYBdAAB4zJ6zdNcdABEAAOvsPUN3fwUgAgDgPi1mp98AAECgJgFgFwAAbtNqZjbbARABAHBZy1nZ9BWACACAz7Wekc1/AyACAOCtHrOxy48ARQAAvOo1E7v9FYAIACBdz1nY9c8ARQAAqXrPwO7/DkDvBQCA1irMvu4BsCw1FgIAWqgy80oEwLLUWRAA2EulWVcmAJal1sIAwJaqzbhSAbAs9RYIAB5VcbaVC4BlqblQALBG1ZlWMgCWpe6CAcCtKs%2BysgGwLLUXDgAuqT7DSgfAstRfQAB4b4TZVf4ATx0Oz397HwMAnDPC4D8qvwNwaqSFBSDLaDNqqABYlvEWGID5jTibhjvgU14JANDTiIP/aLgdgFMjLzwAYxt9Bg0dAMsy/gkAYDwzzJ7hP8AprwQA2NMMg/9o%2BB2AUzOdGABqmW3GTPVhTtkNAGALsw3%2Boyk/1CkhAMAasw7%2Bo6leAXxm9hMIwPYSZsf0H/CU3QAALkkY/EcxH/SUEADgVNLgP4r7wKeEAEC2xMF/FPvBTwkBgCzJg/8ofgFOCQGAuRn8/1iIM8QAwBwM/c9ZlCuEAMCYDP7LLM4dxABAbYb%2B7SzUSmIAoAZDfx2LtgExANCWof84C7gDQQCwLQN/exa0AUEAcB8Df38WuBNRAPDKsO/DohclEIBZGPA1/Q%2B8kmhXSEK1XAAAAABJRU5ErkJggg%3D%3D%22%2C%22sizes%22%3A%22512x512%22%2C%22type%22%3A%22image/png%22%2C%22purpose%22%3A%22maskable%22%7D%5D%7D">
+<link rel="icon" type="image/png" sizes="192x192" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMAAAADACAYAAABS3GwHAAAEuElEQVR4nO3cTXLTShiG0XYKRmEVbIV1sxVWEY8YcEfODcGW9dOtbuk9Z0qVI6TvUbdsJ5cymNfXb396HwPtXK9vl97H8FHXgzHslNI3it1/sKFnyt4x7PbDDD5L7BVC8x9i8NmidQjNXtzgU1OrEKq/qMGnpdohvNR8McNPa7VnrEpNBp8eaqwGm1cAw08vNWZvUwCGn962zuDqAAw/o9gyi6sCMPyMZu1MLg7A8DOqNbO5KADDz+iWzujsAAw/R7FkVmcFYPg5mrkz+zQAw89RzZndql+FgKOZDMDdn6N7NsMPAzD8nMXULNsCEe1uAO7+nM2jmbYCEO2fANz9Oat7s20FINpfAbj7c3afZ9wKQLT3ANz9SfFx1q0ARBMA0V5Ksf0hz23mrQBEEwDRBEA0ARDt4gGYZFYAogmAaAIgmgCIJgCiCYBoAiCaAIgmAKIJgGgCIJoAiCYAogmAaF96H0Can1+/T/77j9+/djoSSvH7ALt4NvSPiKE9ATSydugfEUMbngEaqD38rV4TK0BVew2p1aAeK0Ale96hrQb1CKCCHgMpgjoEsFHPQRTBdgLYYIQBHOEYjkwAK400eCMdy9EIgGgCWGHEO+6Ix3QEAlho5EEb+dhG5ctwHTz6IMsA788nwQtsHdC5n+Du9XOwBdrNkqE0wPsRwExb7sprBnpLBLZS8wmgsS2DbCVoTwBEE8AMPX+ja+1r2AbNIwCiCaCRmvt3zwLtCIBoAiCaAJ448sPkkY99LwJooMWe3XNAGwIgmgCIJgCiCYBofh/gk4R3TjxQ/08AJWPoH0mPIX4LlDz8pfj/RweQfvFvks9DbADJF/2e1PMRGUDqxX4m8bzEBZB4kZdIOz9RAaRd3LWSzlNUAPCZAIgWE0DSsl5DyvmKCQDuEQDR/HXoCWf6nkzKlmYpKwDRBEA0ARBNAEQTANEEQDQBEE0ARBMA0QRANAEQTQBEEwDRBEA0ARBNAEQTANEEQDQBEE0ARBMA0QRANAEQTQBEEwDRBEA0ARBNAEQTANEEQDQBEE0ARBMA0QRANAEQTQBEEwDRBEA0ARBNAEQTANEEQDQBEE0ARBMA0QRANAEQTQBEEwDRBEA0ARBNAET70vsARvbz6/feh0BjVgCiCYBoMQH8+P2r9yEcSsr5igkA7hEA0aICSFnWt0o6T1EBlJJ1cddIOz9xAZSSd5HnSjwvL9fr26X3QfSQeLGnJJ6P6/XtErkC3CRe9HuSz0N0AKVkX/xS/P8vpZTy+vrtT+8DGUXC93/Sh/7men27CIBY788AqQ/C5LrNfPwzANkEQLT3AGyDSPFx1q0ARPsrAKsAZ/d5xq0ARPsnAKsAZ3Vvtq0ARLsbgFWAs3k001YAoj0MwCrAWUzN8uQKIAKO7tkM2wIR7WkAVgGOas7szloBRMDRzJ3Z2VsgEXAUS2Z10TOACBjd0hld/BAsAka1ZjZXvQskAkazdiZXvw0qAkaxZRY3fQ4gAnrbOoObPwgTAb3UmL2qw+vvC7GHmjfdql+FsBrQWu0ZazawVgNqanVzbX7HFgJbtN5V7LZlEQJL7LWd3n3PLgSm7P0c2fWhVQyU0vfNk+HetRHFuY32TuF/TexT8UEZp6kAAAAASUVORK5CYII=">
+<link rel="icon" type="image/png" sizes="512x512" href="data:image/png;base64,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">
+<link rel="apple-touch-icon" sizes="180x180" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAALQAAAC0CAYAAAA9zQYyAAAEU0lEQVR4nO3cS3ITMRSG0XYKRmEVbIV1ZyusIh4xgJEhMX70Q2qpf50zokiVo7S/3Fy7A6epA6+v3363PgPbnc/vp9ZnaHIAAY+hReC7fUIRj22vuKt+EhFzS824qzywkJmjRtgvpR9QzMxVo5Vi3yFCZotS07rIhBYzW5VqaNN3hZCpYcu0Xj2hxUwtW9paFbSYqW1tY4uDFjN7WdPaoqDFzN6WNjc7aDHTypL2ZgUtZlqb2+DToMVML+a0WPzWN7T0MGjTmd48a/Ju0GKmV4/atHIQ5WbQpjO9u9fof0GLmaO41aqVgyifgjadOZrrZk1oogiaKH+Dtm5wVB/bNaGJImiivEyTdYPjuzRsQhNF0EQRNFFO9meSmNBEETRRBE0UQRNF0EQRNFEETRRBE0XQRBE0UQRNFEETRdBEETRRvrQ+QKq3r98ffvzHr587nWQsfh+6oGcR3yPucgRdwNqQrwl7O0FvUCrka8Jez4vClWrFXPux0wl6hT2CE/U6gl5oz9BEvZygF2gRmKiXEfRMLcMS9XyCnqGHoHo4wxEImiiCfqKnydjTWXolaKK4U/hAiYl4fdevxmPyj9+2q+RedJe/tz7UYeW4Y0twcybolinrm+E+QRe2JFSrQ3mCLmhNoKIuS9A3HOFH+hHO2IKgC9kyaU3pcgRNFEETRdBXjrSbHumsexF0ASV2YHt0GYImiqCJImiiCJooQ//6aPK7BKO+yBwy6OSQr40W9lBBjxTytVHCHmaHHjnmaRrn6x8i6FGezGdGuA7xQY/wJC6Rfj3ig2Ys0UGnT6O1kq9LdNCMJzbo5ClUQur1iQ2aMQmaKIImiv8K7IMj3x5O3YmXMqGJImiiCJoogiaKoIkiaKIImiiCJoqgiSJoogiaKIImiqCJImiiCJoogiaKoIkiaKIImiiCJoqgiSJoogiaKIImiqCJImiiCJoogiaKoIkiaKIImiiCJoqgiSJoogiaKIImiqCJImiiCJoogiaKoIkiaKIImiiCJoqgiSJoogiaKF9aH6Anb1+/tz4CG5nQRBE0UQRNlNigf/z62foIXUu9PrFBM6booFOn0FbJ1yU6aMYTH3TyNFoj/XrEBz1N+U/iXCNch5fz+f3U+hB7GOHJfGSEr/98fj+dpmmaXl+//W59mD2NdIt7hJAvhg36IjnskUK+GD5ospzP76eXyx9aHwa2uDQ8xLscjEPQRPkbtLWDo/rYrglNFEET5VPQ1g6O5rpZE5oo/wVtSnMUt1q9OaFFTe/uNWrlIMrdoE1pevWozYcTWtT05lmTVg6iPA3alKYXc1qcNaFFTWtzG5y9coiaVpa0t2iHFjV7W9rc4heFomYva1pb9S6HqKltbWOr37YTNbVsaatIlP7VOCWUGJJFbqyY1mxVqqHiIZrWLFF6GBa/9W1aM1eNVqrGZ1pzS82ht9s0FffY9vrJ3WQ9EPcYWqyfXey7As/Qw+unP5ZyPxbiTm/wAAAAAElFTkSuQmCC">
+<meta name="theme-color" content="#0b0b0c">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0b0b0c;
+    --red:#c8102e;
+    --red-rgb:200,16,46;
+    --red-dark:#7a0d1e;
+    --red-soft:#5c1a1f;
+    --paper:#181616;
+    --paper-2:#0f0d0d;
+    --paper-shadow:rgba(0,0,0,0.6);
+    --ink:#f5efe9;
+    --ink-soft:#b9aca7;
+    --grey:#4a4444;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    min-height:100vh;
+    font-family:'DM Sans', -apple-system, sans-serif;
+    color:var(--ink);
+    background-color:var(--bg);
+    background-image:
+      radial-gradient(ellipse at 50% -10%, rgba(200,16,46,0.22), transparent 55%),
+      radial-gradient(ellipse at 100% 100%, rgba(200,16,46,0.10), transparent 60%);
+    background-attachment:fixed;
+    padding-bottom:100px;
+    position:relative;
+  }
+  body.has-custom-bg{ background-image:none; }
+  #bg-layer{
+    position:fixed; inset:0; z-index:-2;
+    background-size:cover; background-position:center;
+    display:none;
+  }
+  #bg-overlay{
+    position:fixed; inset:0; z-index:-1;
+    background:rgba(6,5,5,0.6);
+    display:none;
+  }
+  body.has-custom-bg #bg-layer, body.has-custom-bg #bg-overlay{ display:block; }
+
+  /* ---------- Top bar ---------- */
+  .topbar{ display:flex; justify-content:flex-end; gap:8px; padding:14px 16px 0; }
+  .icon-btn{
+    width:38px;height:38px;
+    border-radius:50%;
+    border:1px solid var(--red-soft);
+    background:rgba(24,22,22,0.8);
+    color:var(--ink);
+    font-size:1.1rem;
+    display:flex;align-items:center;justify-content:center;
+    cursor:pointer;
+  }
+
+  /* ---------- Header sign ---------- */
+  .sign-wrap{ display:flex; justify-content:center; padding:6px 16px 10px; }
+  .sign{
+    position:relative;
+    background:rgba(20,18,18,0.55);
+    backdrop-filter:blur(6px);
+    -webkit-backdrop-filter:blur(6px);
+    padding:14px 28px 16px;
+    border-radius:2px;
+    border:1px solid var(--red-soft);
+    box-shadow:0 6px 16px var(--paper-shadow);
+    max-width:90%;
+  }
+  .sign h1{
+    margin:0;
+    font-family:'DM Sans', sans-serif;
+    font-weight:700;
+    font-size:1.9rem;
+    text-align:center;
+    color:var(--red);
+    line-height:1;
+  }
+  .pin{
+    position:absolute;
+    width:14px;height:14px;
+    border-radius:50%;
+    background:radial-gradient(circle at 35% 30%, #ff5f57, var(--red) 70%);
+    box-shadow:0 2px 4px rgba(0,0,0,0.7);
+    top:-7px;
+  }
+  .pin.left{left:18px;}
+  .pin.right{right:18px;}
+
+  /* ---------- Sections row ---------- */
+  .sections-row{
+    display:flex;
+    gap:8px;
+    overflow-x:auto;
+    padding:2px 16px 12px;
+    -webkit-overflow-scrolling:touch;
+    scrollbar-width:none;
+  }
+  .sections-row::-webkit-scrollbar{ display:none; }
+  .section-chip{
+    flex:0 0 auto;
+    display:flex;
+    align-items:center;
+    gap:2px;
+    background:rgba(24,22,22,0.65);
+    border:1px solid rgba(var(--red-rgb),0.3);
+    border-radius:16px;
+    padding:4px 6px 4px 14px;
+    color:var(--ink-soft);
+    font-size:0.82rem;
+    font-weight:700;
+    white-space:nowrap;
+  }
+  .section-chip.active{
+    background:var(--paper);
+    border-color:var(--red);
+    color:var(--red);
+    box-shadow:0 2px 8px rgba(0,0,0,0.5);
+  }
+  .section-chip-label{ padding:4px 4px; cursor:pointer; }
+  .section-chip-edit{
+    background:transparent; border:none; color:inherit;
+    opacity:0.7; font-size:0.85rem;
+    padding:4px 8px 4px 2px; cursor:pointer;
+  }
+  .section-chip-add{
+    border-style:dashed;
+    border-color:rgba(var(--red-rgb),0.5);
+    color:var(--red);
+    padding:6px 14px;
+    cursor:pointer;
+    background:transparent;
+    font-size:0.82rem;
+    font-weight:700;
+    border-radius:16px;
+  }
+
+  /* ---------- Tabs ---------- */
+  .tabs{ display:flex; justify-content:center; gap:6px; margin:2px auto 6px; padding:0 16px; }
+  .tab{
+    font-family:'DM Sans', sans-serif;
+    font-weight:700; font-size:0.85rem;
+    padding:8px 16px;
+    border:1px solid transparent;
+    border-radius:16px 16px 4px 4px;
+    background:rgba(24,22,22,0.6);
+    color:var(--ink-soft);
+    cursor:pointer;
+    transition:background 0.15s, color 0.15s;
+  }
+  .tab.active{
+    background:var(--paper);
+    color:var(--red);
+    border-color:var(--red-soft);
+    box-shadow:0 2px 8px rgba(0,0,0,0.5);
+  }
+
+  .totals-bar{
+    text-align:center;
+    font-size:0.85rem;
+    font-weight:700;
+    color:var(--ink-soft);
+    padding:0 16px 10px;
+  }
+  .totals-bar strong{ color:var(--red); }
+
+  /* ---------- Board / grid ---------- */
+  .board{
+    display:grid;
+    grid-template-columns:repeat(auto-fill, minmax(150px, 1fr));
+    gap:22px 14px;
+    padding:22px 16px 10px;
+    max-width:640px;
+    margin:0 auto;
+  }
+  .empty-state{
+    grid-column:1/-1; text-align:center; color:var(--ink-soft);
+    padding:40px 20px; font-size:1rem; line-height:1.5;
+  }
+  .empty-state span.emoji{ display:block; font-size:2rem; margin-bottom:8px; }
+
+  /* ---------- Card ---------- */
+  .card{
+    position:relative;
+    background:var(--paper);
+    padding:10px 10px 14px;
+    border-radius:2px;
+    border:1px solid rgba(var(--red-rgb),0.25);
+    box-shadow:0 5px 12px var(--paper-shadow);
+  }
+  .card .pin{ left:50%; margin-left:-7px; top:-7px; z-index:3;}
+  .photo-frame{
+    width:100%; aspect-ratio:1/1;
+    background:var(--paper-2);
+    border-radius:1px; overflow:hidden;
+    display:flex; align-items:center; justify-content:center;
+    margin-bottom:8px; position:relative;
+  }
+  .photo-frame img{ width:100%; height:100%; object-fit:cover; display:block; }
+  .photo-placeholder{ font-size:2.1rem; opacity:0.35; }
+  .qty-badge{
+    position:absolute; top:6px; left:6px;
+    background:rgba(0,0,0,0.65); color:#fff;
+    font-size:0.72rem; font-weight:700;
+    padding:2px 7px; border-radius:10px;
+    z-index:2;
+  }
+  .card.bought .photo-frame img{ filter:grayscale(0.7) brightness(0.55); }
+  .stamp{
+    position:absolute; top:38%; left:50%;
+    transform:translate(-50%,-50%) rotate(-14deg);
+    font-family:'DM Sans', sans-serif;
+    font-weight:700; font-size:1.15rem;
+    color:#fff; background:var(--red);
+    border-radius:6px; padding:4px 12px;
+    opacity:0.92; pointer-events:none;
+  }
+  .item-name{
+    font-weight:700; font-size:0.92rem; line-height:1.25;
+    margin:0 0 4px; color:var(--ink); word-break:break-word;
+  }
+  .item-price{
+    display:inline-block;
+    font-family:'DM Sans', sans-serif;
+    font-weight:700; font-size:0.9rem;
+    color:#fff;
+    background:linear-gradient(135deg, var(--red), var(--red-dark));
+    padding:3px 10px; border-radius:3px; margin-bottom:8px;
+  }
+  .card-actions{ display:flex; gap:6px; flex-wrap:wrap; }
+  .btn-chip{
+    font-family:'DM Sans', sans-serif; font-size:0.72rem; font-weight:700;
+    border:none; border-radius:12px; padding:6px 10px; cursor:pointer;
+  }
+  .btn-buy{ background:var(--red); color:#fff; }
+  .btn-buy.active{ background:var(--grey); color:var(--ink-soft); }
+  .btn-trash{ background:transparent; color:var(--ink-soft); border:1px solid rgba(var(--red-rgb),0.35); }
+  .btn-edit{ background:transparent; color:var(--ink-soft); border:1px solid rgba(var(--red-rgb),0.35); }
+  .confirm-row{ display:flex; gap:6px; }
+  .btn-confirm-yes{ background:var(--red); color:#fff; }
+  .btn-confirm-no{ background:transparent; border:1px solid rgba(var(--red-rgb),0.35); color:var(--ink-soft); }
+
+  /* ---------- Floating add pin ---------- */
+  .add-pin{
+    position:fixed; right:20px; bottom:24px;
+    width:58px;height:58px; border-radius:50%;
+    background:radial-gradient(circle at 35% 30%, #ff4d4d, var(--red) 70%);
+    color:#fff; font-size:2rem; border:none;
+    box-shadow:0 6px 16px rgba(0,0,0,0.6);
+    cursor:pointer;
+    display:flex; align-items:center; justify-content:center; line-height:1;
+  }
+  .add-pin:active{ transform:scale(0.94); }
+
+  /* ---------- Sheet / modal ---------- */
+  .overlay{
+    position:fixed; inset:0; background:rgba(0,0,0,0.7);
+    display:flex; align-items:flex-end; z-index:10;
+  }
+  .sheet{
+    background:var(--paper); width:100%; max-width:480px; margin:0 auto;
+    border-radius:16px 16px 0 0; padding:20px 20px 26px;
+    max-height:88vh; overflow-y:auto;
+    border-top:1px solid rgba(var(--red-rgb),0.4);
+  }
+  .sheet h2{
+    font-family:'DM Sans', sans-serif; font-weight:700; font-size:1.25rem;
+    margin:0 0 14px; text-align:center; color:var(--red);
+  }
+  .field{ margin-bottom:14px; }
+  .field label{ display:block; font-size:0.78rem; font-weight:700; color:var(--ink-soft); margin-bottom:6px; }
+  .field input[type="text"], .field input[type="number"]{
+    width:100%; padding:10px 12px;
+    border:1px solid rgba(var(--red-rgb),0.3); border-radius:8px;
+    font-family:'DM Sans', sans-serif; font-size:0.95rem;
+    background:var(--paper-2); color:var(--ink);
+  }
+  .field input:focus{ outline:none; border-color:var(--red); }
+  .photo-picker{
+    width:100%; aspect-ratio:4/3;
+    border:2px dashed rgba(var(--red-rgb),0.4); border-radius:10px;
+    background:var(--paper-2);
+    display:flex; align-items:center; justify-content:center; flex-direction:column; gap:6px;
+    color:var(--ink-soft); font-size:0.85rem; cursor:pointer; overflow:hidden; position:relative;
+  }
+  .photo-picker input{ position:absolute; inset:0; opacity:0; cursor:pointer; }
+  .sheet-actions{ display:flex; gap:10px; margin-top:18px; }
+  .btn-main{ flex:1; padding:12px; border-radius:10px; border:none; font-weight:700; font-size:0.95rem; cursor:pointer; }
+  .btn-save{ background:var(--red); color:#fff; }
+  .btn-save:disabled{ background:var(--grey); color:var(--ink-soft); cursor:not-allowed; }
+  .btn-cancel{ background:transparent; border:1px solid rgba(var(--red-rgb),0.35); color:var(--ink-soft); }
+  .btn-remove-bg{ background:transparent; border:1px solid rgba(var(--red-rgb),0.35); color:var(--red); font-size:0.85rem; }
+  .btn-remove-bg.confirming{ background:var(--red); color:#fff; }
+
+  .color-row{ display:flex; align-items:center; gap:10px; }
+  .color-row input[type="color"]{
+    -webkit-appearance:none; appearance:none; width:44px; height:44px;
+    border:none; border-radius:50%; padding:0; background:none; cursor:pointer; overflow:hidden;
+  }
+  .color-row input[type="color"]::-webkit-color-swatch-wrapper{ padding:0; border-radius:50%; }
+  .color-row input[type="color"]::-webkit-color-swatch{ border:2px solid rgba(255,255,255,0.3); border-radius:50%; }
+  .color-row input[type="color"]::-moz-color-swatch{ border:2px solid rgba(255,255,255,0.3); border-radius:50%; }
+  #color-hex-label{ font-family:'DM Sans', sans-serif; font-size:0.85rem; color:var(--ink-soft); flex:1; }
+  .btn-reset-color{
+    background:transparent; border:1px solid rgba(var(--red-rgb),0.35); color:var(--ink-soft);
+    border-radius:12px; padding:6px 12px; font-size:0.72rem; font-weight:700; cursor:pointer;
+  }
+
+  .bg-position-box{
+    width:100%; aspect-ratio:9/16; max-height:320px;
+    border-radius:10px; background-size:cover; background-repeat:no-repeat;
+    background-color:var(--paper-2); background-position:50% 50%;
+    position:relative; overflow:hidden; touch-action:none;
+    border:1px solid rgba(var(--red-rgb),0.4); cursor:grab; user-select:none;
+  }
+  .bg-position-box:active{ cursor:grabbing; }
+  .bg-position-hint{
+    position:absolute; bottom:8px; left:50%; transform:translateX(-50%);
+    background:rgba(0,0,0,0.6); color:#fff; font-size:0.7rem; font-weight:700;
+    padding:4px 10px; border-radius:10px; pointer-events:none;
+  }
+
+  .loading{ text-align:center; color:var(--ink-soft); padding:60px 20px; font-size:0.95rem; }
+  [hidden]{ display:none !important; }
+
+  /* ---------- PIN gate ---------- */
+  #pin-gate{
+    position:fixed; inset:0; z-index:2000;
+    background-color:var(--bg);
+    display:flex; align-items:center; justify-content:center;
+  }
+  .pin-gate-box{ text-align:center; padding:20px; }
+  .pin-gate-label{ font-size:2.5rem; margin-bottom:16px; }
+  #pin-input{
+    width:160px; text-align:center; letter-spacing:10px; font-size:1.5rem;
+    padding:12px; border-radius:10px;
+    border:1px solid rgba(var(--red-rgb),0.4);
+    background:var(--paper-2); color:var(--ink);
+    font-family:'DM Sans', sans-serif;
+  }
+  #pin-input:focus{ outline:none; border-color:var(--red); }
+  .pin-error{ color:var(--red); font-size:0.85rem; margin-top:10px; font-weight:700; }
+
+  /* ---------- Splash / welcome screen ---------- */
+  #splash-screen{
+    position:fixed; inset:0; z-index:1000;
+    background-color:var(--bg);
+    background-image:
+      radial-gradient(ellipse at 50% -10%, rgba(200,16,46,0.22), transparent 55%),
+      radial-gradient(ellipse at 100% 100%, rgba(200,16,46,0.10), transparent 60%);
+    display:flex; align-items:flex-end; justify-content:center;
+    cursor:pointer;
+    transition:opacity 0.35s ease;
+    overflow:hidden;
+  }
+  #splash-screen.splash-hidden{ opacity:0; pointer-events:none; }
+  #splash-bg{ position:absolute; inset:0; background-size:cover; background-position:center; }
+  #splash-overlay-dark{ position:absolute; inset:0; background:rgba(0,0,0,0.35); display:none; }
+  #splash-text{
+    position:absolute;
+    transform:translate(-50%,-50%);
+    font-family:'DM Sans', sans-serif;
+    font-weight:700; font-size:1.8rem;
+    text-align:center; padding:0 24px;
+    text-shadow:0 2px 10px rgba(0,0,0,0.6);
+    max-width:90%; line-height:1.2;
+  }
+  #splash-tap-hint{
+    position:relative; margin-bottom:48px;
+    background:rgba(0,0,0,0.55); color:#fff;
+    padding:10px 22px; border-radius:20px;
+    font-weight:700; font-size:0.85rem; letter-spacing:0.3px;
+    animation:splash-pulse 1.8s ease-in-out infinite;
+  }
+  @keyframes splash-pulse{ 0%,100%{ opacity:0.7; } 50%{ opacity:1; } }
+
+  .splash-preview-box{
+    width:100%; aspect-ratio:9/16; max-height:320px;
+    border-radius:10px; background-size:cover; background-position:center; background-repeat:no-repeat;
+    background-color:var(--paper-2);
+    position:relative; overflow:hidden;
+    border:1px solid rgba(var(--red-rgb),0.4);
+    touch-action:none;
+  }
+  .splash-preview-text{
+    position:absolute;
+    transform:translate(-50%,-50%);
+    font-family:'DM Sans', sans-serif;
+    font-weight:700; font-size:1rem;
+    text-align:center; padding:4px 10px;
+    cursor:grab; user-select:none;
+    max-width:90%;
+    text-shadow:0 1px 6px rgba(0,0,0,0.6);
+  }
+  .splash-preview-text:active{ cursor:grabbing; }
+</style>
+</head>
+<body>
+
+  <div id="pin-gate">
+    <div class="pin-gate-box">
+      <div class="pin-gate-label">🔒</div>
+      <input type="password" inputmode="numeric" pattern="[0-9]*" maxlength="4" id="pin-input" placeholder="••••">
+      <button type="button" id="pin-submit-btn" class="btn-main btn-save" style="margin-top:14px;">Entrar</button>
+      <div id="pin-error" class="pin-error" hidden>PIN incorrecto</div>
+    </div>
+  </div>
+
+  <div id="splash-screen">
+    <div id="splash-bg"></div>
+    <div id="splash-overlay-dark"></div>
+    <div id="splash-text">Lista de Compras</div>
+    <div id="splash-tap-hint">Tocá para empezar</div>
+  </div>
+
+  <div id="bg-layer"></div>
+  <div id="bg-overlay"></div>
+
+  <div class="topbar">
+    <button class="icon-btn" id="music-toggle-btn" type="button" aria-label="Música">🎵</button>
+    <button class="icon-btn" id="settings-btn" type="button" aria-label="Personalizar color">⚙️</button>
+  </div>
+
+  <div id="yt-player" style="position:fixed; width:2px; height:2px; overflow:hidden; opacity:0; pointer-events:none; left:-9999px; top:-9999px;"></div>
+  <audio id="music-audio-player" style="display:none;"></audio>
+
+  <div class="sign-wrap">
+    <div class="sign">
+      <span class="pin left"></span>
+      <span class="pin right"></span>
+      <h1>Lista de Compras</h1>
+    </div>
+  </div>
+
+  <div class="sections-row" id="sections-row"></div>
+
+  <div class="tabs">
+    <button class="tab active" data-tab="pending" type="button">Por comprar</button>
+    <button class="tab" data-tab="bought" type="button">Comprados</button>
+  </div>
+
+  <div class="totals-bar" id="totals-bar"></div>
+
+  <div id="loading" class="loading">Colgando el corcho…</div>
+  <div id="board" class="board" hidden></div>
+
+  <button class="add-pin" id="add-btn" type="button" aria-label="Añadir algo nuevo">+</button>
+
+  <!-- Add/edit item sheet -->
+  <div class="overlay" id="overlay" hidden>
+    <div class="sheet">
+      <h2 id="item-sheet-title">Agrega algo nuevo</h2>
+      <div class="field">
+        <label for="photo-input">Foto (opcional)</label>
+        <label class="photo-picker" id="photo-picker-label">
+          <span id="photo-picker-placeholder">Toca para elegir una foto</span>
+          <input type="file" accept="image/*" id="photo-input">
+        </label>
+      </div>
+      <div class="field">
+        <label for="name-input">¿Qué es?</label>
+        <input type="text" id="name-input" placeholder="Ej: zapatillas para correr" maxlength="60">
+      </div>
+      <div class="field">
+        <label for="price-input">¿Cuánto cuesta? (opcional)</label>
+        <input type="text" inputmode="numeric" pattern="[0-9]*" id="price-input" placeholder="0">
+      </div>
+      <div class="field">
+        <label for="quantity-input">Cantidad</label>
+        <input type="text" inputmode="numeric" pattern="[0-9]*" id="quantity-input" placeholder="1">
+      </div>
+      <div class="sheet-actions">
+        <button class="btn-main btn-cancel" id="cancel-btn" type="button">Cancelar</button>
+        <button class="btn-main btn-save" id="save-btn" type="button" disabled>Clavarlo</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Color settings sheet -->
+  <div class="overlay" id="settings-overlay" hidden>
+    <div class="sheet">
+      <h2>Personalizar</h2>
+      <div class="field">
+        <label for="color-input">Color de la app</label>
+        <div class="color-row">
+          <input type="color" id="color-input" value="#c8102e">
+          <span id="color-hex-label">#c8102e</span>
+          <button type="button" class="btn-reset-color" id="color-reset-btn">Restablecer</button>
+        </div>
+      </div>
+      <div class="field">
+        <label>Ícono de la app</label>
+        <label class="photo-picker" id="app-icon-picker-label" style="aspect-ratio:auto; padding:20px;">
+          <span id="app-icon-placeholder">Toca para elegir una imagen</span>
+          <input type="file" accept="image/*" id="app-icon-input">
+        </label>
+        <button type="button" class="btn-reset-color" id="app-icon-reset-btn" style="margin-top:8px;">Usar ícono por defecto</button>
+      </div>
+      <div class="field">
+        <label>Música de fondo</label>
+        <button type="button" class="btn-main btn-cancel" id="music-edit-open-btn" style="width:100%;">Editar música de fondo</button>
+      </div>
+      <div class="field">
+        <label>Pantalla de inicio</label>
+        <button type="button" class="btn-main btn-cancel" id="splash-edit-open-btn" style="width:100%;">Editar pantalla de inicio</button>
+      </div>
+      <div class="field">
+        <label>Respaldo de tus datos</label>
+        <div class="sheet-actions" style="margin-top:0;">
+          <button type="button" class="btn-main btn-cancel" id="export-btn">Descargar respaldo</button>
+          <button type="button" class="btn-main btn-cancel" id="import-btn">Restaurar respaldo</button>
+        </div>
+        <input type="file" accept="application/json" id="import-file-input" hidden>
+      </div>
+      <div class="sheet-actions">
+        <button class="btn-main btn-cancel" id="settings-close-btn" type="button">Cerrar</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Music editor -->
+  <div class="overlay" id="music-overlay" hidden>
+    <div class="sheet">
+      <h2>Música de fondo</h2>
+      <div class="field">
+        <label>Fuente</label>
+        <div class="tabs" style="justify-content:flex-start; padding:0; margin:0;">
+          <button type="button" class="tab" id="music-source-youtube-btn">Link de YouTube</button>
+          <button type="button" class="tab" id="music-source-mp3-btn">Archivo MP3</button>
+        </div>
+      </div>
+      <div class="field" id="music-youtube-field" hidden>
+        <label for="music-youtube-input">Pegá el link del video</label>
+        <input type="text" id="music-youtube-input" placeholder="https://www.youtube.com/watch?v=...">
+      </div>
+      <div class="field" id="music-mp3-field" hidden>
+        <label for="music-mp3-input">Elegí un archivo de tu celular</label>
+        <label class="photo-picker" id="music-mp3-picker-label" style="aspect-ratio:auto; padding:20px;">
+          <span id="music-mp3-placeholder">Toca para elegir un archivo</span>
+          <input type="file" accept="audio/*" id="music-mp3-input">
+        </label>
+      </div>
+      <div class="field">
+        <label for="music-volume-input">Volumen</label>
+        <input type="range" min="0" max="100" id="music-volume-input" value="70" style="width:100%; accent-color:var(--red);">
+      </div>
+      <div class="sheet-actions">
+        <button type="button" class="btn-main btn-remove-bg" id="music-remove-btn">Quitar música</button>
+        <button type="button" class="btn-main btn-cancel" id="music-cancel-btn">Cancelar</button>
+        <button type="button" class="btn-main btn-save" id="music-save-btn">Guardar</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Splash screen editor -->
+  <div class="overlay" id="splash-edit-overlay" hidden>
+    <div class="sheet">
+      <h2>Pantalla de inicio</h2>
+      <div class="field">
+        <label for="splash-text-input">Texto</label>
+        <input type="text" id="splash-text-input" maxlength="40" placeholder="Lista de Compras">
+      </div>
+      <div class="field">
+        <label for="splash-color-input">Color del texto</label>
+        <div class="color-row">
+          <input type="color" id="splash-color-input" value="#ffffff">
+          <span id="splash-color-hex-label">#ffffff</span>
+        </div>
+      </div>
+      <div class="field">
+        <label for="splash-photo-input">Foto de fondo (opcional)</label>
+        <label class="photo-picker" id="splash-photo-picker-label">
+          <span id="splash-photo-placeholder">Toca para elegir una foto</span>
+          <input type="file" accept="image/*" id="splash-photo-input">
+        </label>
+        <button type="button" class="btn-reset-color" id="splash-remove-bg-btn" style="margin-top:8px;">Quitar foto</button>
+      </div>
+      <div class="field">
+        <label>Arrastrá la imagen para ajustarla, o el texto para moverlo</label>
+        <div class="splash-preview-box" id="splash-preview-box">
+          <span class="splash-preview-text" id="splash-preview-text">Lista de Compras</span>
+        </div>
+      </div>
+      <div class="sheet-actions">
+        <button class="btn-main btn-cancel" id="splash-cancel-btn" type="button">Cancelar</button>
+        <button class="btn-main btn-save" id="splash-save-btn" type="button">Guardar</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Section (add/edit) sheet -->
+  <div class="overlay" id="section-overlay" hidden>
+    <div class="sheet">
+      <h2 id="section-sheet-title">Nueva sección</h2>
+      <div class="field">
+        <label for="section-name-input">Nombre de la sección</label>
+        <input type="text" id="section-name-input" placeholder="Ej: Supermercado" maxlength="30">
+      </div>
+      <div class="field">
+        <label for="section-photo-input">Fondo de esta sección (opcional)</label>
+        <label class="photo-picker" id="section-photo-picker-label">
+          <span id="section-photo-placeholder">Toca para elegir una foto</span>
+          <input type="file" accept="image/*" id="section-photo-input">
+        </label>
+      </div>
+      <div class="field" id="section-position-field" hidden>
+        <label>Ajustá qué parte se ve (arrastrá la imagen)</label>
+        <div class="bg-position-box" id="section-position-box">
+          <span class="bg-position-hint">Arrastrá para mover</span>
+        </div>
+        <button type="button" class="btn-reset-color" id="section-remove-bg-btn" style="margin-top:10px;">Quitar fondo de esta sección</button>
+      </div>
+      <div class="sheet-actions" id="section-delete-row" hidden>
+        <button type="button" class="btn-main btn-remove-bg" id="section-delete-btn">Eliminar sección</button>
+      </div>
+      <div class="sheet-actions">
+        <button class="btn-main btn-cancel" id="section-cancel-btn" type="button">Cancelar</button>
+        <button class="btn-main btn-save" id="section-save-btn" type="button" disabled>Guardar</button>
+      </div>
+    </div>
+  </div>
+
+<script>
+(function(){
+  var ITEMS_KEY = 'wishlist-items';
+  var SECTIONS_KEY = 'wishlist-sections';
+  var ACTIVE_SECTION_KEY = 'wishlist-active-section';
+  var COLOR_KEY = 'wishlist-color';
+  var APP_PIN = '6910';
+  var PIN_UNLOCK_KEY = 'wishlist-unlocked';
+  var APP_ICON_KEY = 'wishlist-app-icon';
+  var APP_NAME = 'Zeta';
+  var SPLASH_KEY = 'wishlist-splash';
+  var MUSIC_CONFIG_KEY = 'wishlist-music';
+  var MUSIC_FILE_KEY = 'wishlist-music-file';
+  var LEGACY_BG_KEY = 'wishlist-background';
+  var DEFAULT_COLOR = '#c8102e';
+
+  var hasHostStorage = (typeof window.storage !== 'undefined') && window.storage !== null;
+  var storageAdapter = {
+    async get(key){
+      if (hasHostStorage){ try{ return await window.storage.get(key, false); } catch(e){ return null; } }
+      var v = localStorage.getItem(key);
+      return v !== null ? {value:v} : null;
+    },
+    async set(key, value){
+      if (hasHostStorage){ try{ return await window.storage.set(key, value, false); } catch(e){ return null; } }
+      try{ localStorage.setItem(key, value); return {value:value}; } catch(e){ return null; }
+    }
+  };
+
+  var state = {
+    items: [],
+    sections: [],
+    activeSectionId: null,
+    tab: 'pending',
+    confirmingDeleteId: null,
+    pendingPhoto: null,
+    itemSheetMode: 'add',
+    itemEditingId: null,
+    sectionSheetMode: 'add',
+    sectionEditingId: null,
+    sectionDraftPhoto: null,
+    sectionDraftX: 50,
+    sectionDraftY: 50,
+    sectionDeleteConfirming: false,
+    splash: { text: 'Lista de Compras', textColor: '#ffffff', textX: 50, textY: 45, photo: null, bgX: 50, bgY: 50 },
+    splashDraftPhoto: null,
+    splashDraftX: 50,
+    splashDraftY: 45,
+    splashDraftBgX: 50,
+    splashDraftBgY: 50,
+    music: { source:'none', youtubeId:null, youtubeUrl:null, volume:70, mp3Data:null },
+    musicDraftSource: 'youtube',
+    musicDraftMp3Data: null,
+    musicDraftVolume: 70
+  };
+
+  var boardEl = document.getElementById('board');
+  var loadingEl = document.getElementById('loading');
+  var sectionsRowEl = document.getElementById('sections-row');
+  var totalsBarEl = document.getElementById('totals-bar');
+
+  var overlayEl = document.getElementById('overlay');
+  var itemSheetTitle = document.getElementById('item-sheet-title');
+  var photoInput = document.getElementById('photo-input');
+  var photoPlaceholder = document.getElementById('photo-picker-placeholder');
+  var nameInput = document.getElementById('name-input');
+  var priceInput = document.getElementById('price-input');
+  var quantityInput = document.getElementById('quantity-input');
+  var saveBtn = document.getElementById('save-btn');
+
+  var settingsOverlay = document.getElementById('settings-overlay');
+  var colorInput = document.getElementById('color-input');
+  var colorHexLabel = document.getElementById('color-hex-label');
+
+  var bgLayer = document.getElementById('bg-layer');
+
+  var splashScreenEl = document.getElementById('splash-screen');
+  var splashBgEl = document.getElementById('splash-bg');
+  var splashOverlayDarkEl = document.getElementById('splash-overlay-dark');
+  var splashTextEl = document.getElementById('splash-text');
+  var splashEditOverlay = document.getElementById('splash-edit-overlay');
+  var splashTextInput = document.getElementById('splash-text-input');
+  var splashColorInput = document.getElementById('splash-color-input');
+  var splashColorHexLabel = document.getElementById('splash-color-hex-label');
+  var splashPhotoInput = document.getElementById('splash-photo-input');
+  var splashPhotoPlaceholder = document.getElementById('splash-photo-placeholder');
+  var splashRemoveBgBtn = document.getElementById('splash-remove-bg-btn');
+  var splashPreviewBox = document.getElementById('splash-preview-box');
+  var splashPreviewText = document.getElementById('splash-preview-text');
+  var splashSaveBtn = document.getElementById('splash-save-btn');
+
+  var musicToggleBtn = document.getElementById('music-toggle-btn');
+  var ytPlayerDiv = document.getElementById('yt-player');
+  var audioEl = document.getElementById('music-audio-player');
+  var musicOverlay = document.getElementById('music-overlay');
+  var musicSourceYoutubeBtn = document.getElementById('music-source-youtube-btn');
+  var musicSourceMp3Btn = document.getElementById('music-source-mp3-btn');
+  var musicYoutubeField = document.getElementById('music-youtube-field');
+  var musicMp3Field = document.getElementById('music-mp3-field');
+  var musicYoutubeInput = document.getElementById('music-youtube-input');
+  var musicMp3Input = document.getElementById('music-mp3-input');
+  var musicMp3Placeholder = document.getElementById('music-mp3-placeholder');
+  var musicVolumeInput = document.getElementById('music-volume-input');
+  var musicRemoveBtn = document.getElementById('music-remove-btn');
+  var musicSaveBtn = document.getElementById('music-save-btn');
+
+  var sectionOverlay = document.getElementById('section-overlay');
+  var sectionSheetTitle = document.getElementById('section-sheet-title');
+  var sectionNameInput = document.getElementById('section-name-input');
+  var sectionPhotoInput = document.getElementById('section-photo-input');
+  var sectionPhotoPlaceholder = document.getElementById('section-photo-placeholder');
+  var sectionPositionField = document.getElementById('section-position-field');
+  var sectionPositionBox = document.getElementById('section-position-box');
+  var sectionRemoveBgBtn = document.getElementById('section-remove-bg-btn');
+  var sectionDeleteRow = document.getElementById('section-delete-row');
+  var sectionDeleteBtn = document.getElementById('section-delete-btn');
+  var sectionSaveBtn = document.getElementById('section-save-btn');
+
+  function escapeHtml(str){
+    var div = document.createElement('div');
+    div.textContent = str;
+    return div.innerHTML;
+  }
+
+  function formatPrice(p){
+    if (p === null || p === undefined || p === '') return null;
+    var n = Number(p);
+    if (isNaN(n)) return null;
+    return '$' + n.toLocaleString('es-CL', {maximumFractionDigits:0});
+  }
+
+  function resizeImage(file, maxDim, quality){
+    return new Promise(function(resolve, reject){
+      var reader = new FileReader();
+      reader.onload = function(e){
+        var img = new Image();
+        img.onload = function(){
+          var w = img.width, h = img.height;
+          if (w > h && w > maxDim){ h = Math.round(h * (maxDim / w)); w = maxDim; }
+          else if (h > maxDim){ w = Math.round(w * (maxDim / h)); h = maxDim; }
+          var canvas = document.createElement('canvas');
+          canvas.width = w; canvas.height = h;
+          canvas.getContext('2d').drawImage(img, 0, 0, w, h);
+          resolve(canvas.toDataURL('image/jpeg', quality));
+        };
+        img.onerror = reject;
+        img.src = e.target.result;
+      };
+      reader.onerror = reject;
+      reader.readAsDataURL(file);
+    });
+  }
+
+  function setupDrag(boxEl, getPos, setPos){
+    var dragging = false, startClientX = 0, startClientY = 0, startX = 50, startY = 50;
+    boxEl.addEventListener('pointerdown', function(e){
+      dragging = true;
+      startClientX = e.clientX; startClientY = e.clientY;
+      var p = getPos(); startX = p.x; startY = p.y;
+    });
+    boxEl.addEventListener('pointermove', function(e){
+      if (!dragging) return;
+      var rect = boxEl.getBoundingClientRect();
+      var dx = (e.clientX - startClientX) / rect.width * 100;
+      var dy = (e.clientY - startClientY) / rect.height * 100;
+      var nx = Math.max(0, Math.min(100, startX - dx));
+      var ny = Math.max(0, Math.min(100, startY - dy));
+      setPos(nx, ny);
+      boxEl.style.backgroundPosition = nx + '% ' + ny + '%';
+    });
+    window.addEventListener('pointerup', function(){ dragging = false; });
+  }
+
+  // ---------- Items ----------
+  async function loadItems(){
+    try{
+      var res = await storageAdapter.get(ITEMS_KEY);
+      state.items = (res && res.value) ? JSON.parse(res.value) : [];
+    } catch (e){ state.items = []; }
+  }
+  async function persistItems(){
+    try{ await storageAdapter.set(ITEMS_KEY, JSON.stringify(state.items)); }
+    catch(e){ console.error('No se pudo guardar la lista', e); }
+  }
+
+  // ---------- Sections ----------
+  async function loadSections(){
+    try{
+      var res = await storageAdapter.get(SECTIONS_KEY);
+      state.sections = (res && res.value) ? JSON.parse(res.value) : [];
+    } catch(e){ state.sections = []; }
+
+    if (state.sections.length === 0){
+      var legacyPhoto = null, legacyX = 50, legacyY = 50;
+      try{
+        var legacy = await storageAdapter.get(LEGACY_BG_KEY);
+        if (legacy && legacy.value){
+          var parsed = null;
+          try{ parsed = JSON.parse(legacy.value); } catch(e){}
+          if (parsed && parsed.photo){ legacyPhoto = parsed.photo; legacyX = parsed.x || 50; legacyY = parsed.y || 50; }
+          else if (typeof legacy.value === 'string' && legacy.value.indexOf('data:image') === 0){ legacyPhoto = legacy.value; }
+        }
+      } catch(e){}
+      state.sections = [{
+        id: 'general', name: 'General',
+        bgPhoto: legacyPhoto, bgX: legacyX, bgY: legacyY,
+        createdAt: Date.now()
+      }];
+      await persistSections();
+    }
+  }
+  async function persistSections(){
+    try{ await storageAdapter.set(SECTIONS_KEY, JSON.stringify(state.sections)); }
+    catch(e){ console.error('No se pudo guardar las secciones', e); }
+  }
+  async function loadActiveSection(){
+    try{
+      var res = await storageAdapter.get(ACTIVE_SECTION_KEY);
+      if (res && res.value && state.sections.some(function(s){ return s.id === res.value; })){
+        state.activeSectionId = res.value;
+        return;
+      }
+    } catch(e){}
+    state.activeSectionId = state.sections[0].id;
+  }
+  function persistActiveSection(){
+    storageAdapter.set(ACTIVE_SECTION_KEY, state.activeSectionId);
+  }
+  function getActiveSection(){
+    return state.sections.find(function(s){ return s.id === state.activeSectionId; }) || state.sections[0];
+  }
+
+  function applyBackground(dataUrl, x, y){
+    bgLayer.style.backgroundImage = "url('" + dataUrl + "')";
+    bgLayer.style.backgroundPosition = (x == null ? 50 : x) + '% ' + (y == null ? 50 : y) + '%';
+    document.body.classList.add('has-custom-bg');
+  }
+  function clearBackgroundDisplay(){
+    bgLayer.style.backgroundImage = '';
+    document.body.classList.remove('has-custom-bg');
+  }
+  function applySectionBackground(){
+    var sec = getActiveSection();
+    if (sec && sec.bgPhoto){ applyBackground(sec.bgPhoto, sec.bgX, sec.bgY); }
+    else { clearBackgroundDisplay(); }
+  }
+
+  function renderSections(){
+    var html = state.sections.map(function(s){
+      var isActive = s.id === state.activeSectionId;
+      return '<div class="section-chip' + (isActive ? ' active' : '') + '">' +
+        '<span class="section-chip-label" data-action="select-section" data-id="' + s.id + '">' + escapeHtml(s.name) + '</span>' +
+        '<button type="button" class="section-chip-edit" data-action="edit-section" data-id="' + s.id + '" aria-label="Editar sección">✎</button>' +
+      '</div>';
+    }).join('');
+    html += '<button type="button" class="section-chip-add" data-action="add-section">+ Nueva</button>';
+    sectionsRowEl.innerHTML = html;
+  }
+
+  sectionsRowEl.addEventListener('click', function(e){
+    var target = e.target.closest('[data-action]');
+    if (!target) return;
+    var action = target.getAttribute('data-action');
+    if (action === 'select-section'){
+      state.activeSectionId = target.getAttribute('data-id');
+      persistActiveSection();
+      applySectionBackground();
+      renderSections();
+      render();
+    } else if (action === 'edit-section'){
+      openSectionSheet('edit', target.getAttribute('data-id'));
+    } else if (action === 'add-section'){
+      openSectionSheet('add', null);
+    }
+  });
+
+  // ---------- Board render ----------
+  function render(){
+    var sec = getActiveSection();
+    var items = state.items.filter(function(it){
+      var sectionMatch = it.sectionId === state.activeSectionId;
+      var boughtMatch = state.tab === 'pending' ? !it.bought : it.bought;
+      return sectionMatch && boughtMatch;
+    });
+
+    if (items.length === 0){
+      var secName = sec ? escapeHtml(sec.name) : '';
+      boardEl.innerHTML = state.tab === 'pending'
+        ? '<div class="empty-state"><span class="emoji">📌</span>Todavía no agregaste nada en "' + secName + '".<br>Tocá el botón + para clavar lo primero.</div>'
+        : '<div class="empty-state"><span class="emoji">✓</span>Todavía no marcaste nada como comprado en "' + secName + '".</div>';
+      totalsBarEl.innerHTML = '';
+      return;
+    }
+
+    var totalSum = items.reduce(function(sum, it){
+      return sum + (it.price || 0) * (it.quantity || 1);
+    }, 0);
+    var totalLabel = state.tab === 'pending' ? 'Total por comprar' : 'Total comprado';
+    totalsBarEl.innerHTML = totalLabel + ': <strong>' + (formatPrice(totalSum) || '$0') + '</strong>';
+
+    var sorted = items.slice().sort(function(a,b){ return b.createdAt - a.createdAt; });
+
+    boardEl.innerHTML = sorted.map(function(it){
+      var qty = it.quantity || 1;
+      var priceLabel = formatPrice(it.price != null ? it.price * qty : null);
+      var photoHtml = it.photo ? '<img src="' + it.photo + '" alt="">' : '<span class="photo-placeholder">🛍️</span>';
+      var qtyBadgeHtml = qty > 1 ? '<span class="qty-badge">×' + qty + '</span>' : '';
+      var isConfirming = state.confirmingDeleteId === it.id;
+
+      var actionsHtml;
+      if (isConfirming){
+        actionsHtml =
+          '<div class="confirm-row">' +
+            '<button class="btn-chip btn-confirm-yes" data-action="delete-confirm" data-id="' + it.id + '">Sí, quitar</button>' +
+            '<button class="btn-chip btn-confirm-no" data-action="delete-cancel" data-id="' + it.id + '">No</button>' +
+          '</div>';
+      } else {
+        actionsHtml =
+          '<button class="btn-chip btn-buy ' + (it.bought ? 'active' : '') + '" data-action="toggle" data-id="' + it.id + '">' +
+            (it.bought ? '↺ Sin comprar' : '✓ Comprado') +
+          '</button>' +
+          '<button class="btn-chip btn-edit" data-action="edit" data-id="' + it.id + '">✎ Editar</button>' +
+          '<button class="btn-chip btn-trash" data-action="delete" data-id="' + it.id + '">Quitar</button>';
+      }
+
+      return (
+        '<div class="card' + (it.bought ? ' bought' : '') + '">' +
+          '<span class="pin"></span>' +
+          '<div class="photo-frame">' + photoHtml + qtyBadgeHtml + (it.bought ? '<span class="stamp">Comprado</span>' : '') + '</div>' +
+          '<p class="item-name">' + escapeHtml(it.name) + '</p>' +
+          (priceLabel ? '<span class="item-price">' + priceLabel + '</span><br>' : '') +
+          '<div class="card-actions">' + actionsHtml + '</div>' +
+        '</div>'
+      );
+    }).join('');
+  }
+
+  boardEl.addEventListener('click', function(e){
+    var btn = e.target.closest('button[data-action]');
+    if (!btn) return;
+    var action = btn.getAttribute('data-action');
+    var id = btn.getAttribute('data-id');
+
+    if (action === 'toggle'){
+      var item = state.items.find(function(it){ return it.id === id; });
+      if (item){ item.bought = !item.bought; persistItems(); render(); }
+    } else if (action === 'edit'){
+      var editItem = state.items.find(function(it){ return it.id === id; });
+      if (editItem) openItemSheet(editItem);
+    } else if (action === 'delete'){
+      state.confirmingDeleteId = id; render();
+    } else if (action === 'delete-cancel'){
+      state.confirmingDeleteId = null; render();
+    } else if (action === 'delete-confirm'){
+      state.items = state.items.filter(function(it){ return it.id !== id; });
+      state.confirmingDeleteId = null;
+      persistItems(); render();
+    }
+  });
+
+  document.querySelectorAll('.tab').forEach(function(tabBtn){
+    tabBtn.addEventListener('click', function(){
+      document.querySelectorAll('.tab').forEach(function(t){ t.classList.remove('active'); });
+      tabBtn.classList.add('active');
+      state.tab = tabBtn.getAttribute('data-tab');
+      state.confirmingDeleteId = null;
+      render();
+    });
+  });
+
+  // ---------- Add/edit item sheet ----------
+  function openItemSheet(item){
+    photoInput.value = '';
+    if (item){
+      state.itemSheetMode = 'edit';
+      state.itemEditingId = item.id;
+      nameInput.value = item.name;
+      priceInput.value = item.price != null ? String(item.price) : '';
+      quantityInput.value = item.quantity != null ? String(item.quantity) : '';
+      state.pendingPhoto = item.photo || null;
+      photoPlaceholder.textContent = item.photo ? 'Foto elegida — tocá para cambiarla' : 'Toca para elegir una foto';
+      itemSheetTitle.textContent = 'Editar producto';
+      saveBtn.textContent = 'Guardar cambios';
+      saveBtn.disabled = false;
+    } else {
+      state.itemSheetMode = 'add';
+      state.itemEditingId = null;
+      nameInput.value = '';
+      priceInput.value = '';
+      quantityInput.value = '';
+      state.pendingPhoto = null;
+      photoPlaceholder.textContent = 'Toca para elegir una foto';
+      itemSheetTitle.textContent = 'Agrega algo nuevo';
+      saveBtn.textContent = 'Clavarlo';
+      saveBtn.disabled = true;
+    }
+    overlayEl.hidden = false;
+  }
+  function closeItemSheet(){ overlayEl.hidden = true; }
+
+  document.getElementById('add-btn').addEventListener('click', function(){ openItemSheet(); });
+  document.getElementById('cancel-btn').addEventListener('click', closeItemSheet);
+  overlayEl.addEventListener('click', function(e){ if (e.target === overlayEl) closeItemSheet(); });
+
+  photoInput.addEventListener('change', async function(){
+    var file = photoInput.files && photoInput.files[0];
+    if (!file) return;
+    try{
+      var dataUrl = await resizeImage(file, 1000, 0.87);
+      state.pendingPhoto = dataUrl;
+      photoPlaceholder.textContent = 'Foto elegida — tocá para cambiarla';
+    } catch(e){ console.error('No se pudo procesar la foto', e); }
+  });
+
+  nameInput.addEventListener('input', function(){
+    saveBtn.disabled = nameInput.value.trim().length === 0;
+  });
+  priceInput.addEventListener('input', function(){
+    this.value = this.value.replace(/[^0-9]/g, '');
+  });
+  quantityInput.addEventListener('input', function(){
+    this.value = this.value.replace(/[^0-9]/g, '');
+  });
+
+  saveBtn.addEventListener('click', function(){
+    var name = nameInput.value.trim();
+    if (!name) return;
+    var priceVal = priceInput.value.trim();
+    var qtyVal = quantityInput.value.trim();
+    var priceNum = priceVal === '' ? null : Number(priceVal);
+    var qtyNum = qtyVal === '' ? 1 : Math.max(1, Number(qtyVal));
+
+    if (state.itemSheetMode === 'edit'){
+      var editItem = state.items.find(function(it){ return it.id === state.itemEditingId; });
+      if (editItem){
+        editItem.name = name;
+        editItem.price = priceNum;
+        editItem.quantity = qtyNum;
+        editItem.photo = state.pendingPhoto;
+      }
+      persistItems();
+      closeItemSheet();
+      render();
+      return;
+    }
+
+    var newItem = {
+      id: Date.now().toString(36) + Math.random().toString(36).slice(2, 8),
+      name: name,
+      price: priceNum,
+      quantity: qtyNum,
+      photo: state.pendingPhoto,
+      bought: false,
+      createdAt: Date.now(),
+      sectionId: state.activeSectionId
+    };
+    state.items.push(newItem);
+    persistItems();
+    closeItemSheet();
+    if (state.tab !== 'pending'){
+      state.tab = 'pending';
+      document.querySelectorAll('.tab').forEach(function(t){
+        t.classList.toggle('active', t.getAttribute('data-tab') === 'pending');
+      });
+    }
+    render();
+  });
+
+  // ---------- Color settings sheet ----------
+  function hexToRgb(hex){
+    var h = hex.replace('#','');
+    if (h.length === 3){ h = h.split('').map(function(c){ return c+c; }).join(''); }
+    var num = parseInt(h, 16);
+    return { r:(num>>16)&255, g:(num>>8)&255, b:num&255 };
+  }
+  function shade(rgb, factor){
+    var r = Math.round(rgb.r*factor), g = Math.round(rgb.g*factor), b = Math.round(rgb.b*factor);
+    return '#' + [r,g,b].map(function(v){ return v.toString(16).padStart(2,'0'); }).join('');
+  }
+  function applyColor(hex){
+    var rgb = hexToRgb(hex);
+    var root = document.documentElement.style;
+    root.setProperty('--red', hex);
+    root.setProperty('--red-rgb', rgb.r + ',' + rgb.g + ',' + rgb.b);
+    root.setProperty('--red-dark', shade(rgb, 0.62));
+    root.setProperty('--red-soft', shade(rgb, 0.42));
+    colorInput.value = hex;
+    colorHexLabel.textContent = hex;
+  }
+  async function loadColor(){
+    try{
+      var res = await storageAdapter.get(COLOR_KEY);
+      applyColor((res && res.value) ? res.value : DEFAULT_COLOR);
+    } catch(e){ applyColor(DEFAULT_COLOR); }
+  }
+  colorInput.addEventListener('input', function(){
+    applyColor(colorInput.value);
+    storageAdapter.set(COLOR_KEY, colorInput.value);
+  });
+  document.getElementById('color-reset-btn').addEventListener('click', function(){
+    applyColor(DEFAULT_COLOR);
+    storageAdapter.set(COLOR_KEY, DEFAULT_COLOR);
+  });
+  document.getElementById('settings-btn').addEventListener('click', function(){ settingsOverlay.hidden = false; });
+  document.getElementById('settings-close-btn').addEventListener('click', function(){ settingsOverlay.hidden = true; });
+  settingsOverlay.addEventListener('click', function(e){ if (e.target === settingsOverlay) settingsOverlay.hidden = true; });
+
+  document.getElementById('export-btn').addEventListener('click', function(){
+    var backup = {
+      items: state.items,
+      sections: state.sections,
+      color: colorInput.value,
+      exportedAt: new Date().toISOString()
+    };
+    var blob = new Blob([JSON.stringify(backup, null, 2)], {type: 'application/json'});
+    var url = URL.createObjectURL(blob);
+    var a = document.createElement('a');
+    a.href = url;
+    a.download = 'respaldo-lista-compras.json';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  });
+
+  var importFileInput = document.getElementById('import-file-input');
+  document.getElementById('import-btn').addEventListener('click', function(){ importFileInput.click(); });
+  importFileInput.addEventListener('change', function(){
+    var file = importFileInput.files && importFileInput.files[0];
+    if (!file) return;
+    var reader = new FileReader();
+    reader.onload = async function(e){
+      try{
+        var data = JSON.parse(e.target.result);
+        if (!data || !Array.isArray(data.items) || !Array.isArray(data.sections) || data.sections.length === 0){
+          alert('Ese archivo de respaldo no tiene el formato correcto.');
+          return;
+        }
+        state.items = data.items;
+        state.sections = data.sections;
+        if (!state.sections.some(function(s){ return s.id === state.activeSectionId; })){
+          state.activeSectionId = state.sections[0].id;
+        }
+        await persistItems();
+        await persistSections();
+        persistActiveSection();
+        if (data.color){
+          applyColor(data.color);
+          storageAdapter.set(COLOR_KEY, data.color);
+        }
+        renderSections();
+        applySectionBackground();
+        render();
+        settingsOverlay.hidden = true;
+        alert('Respaldo restaurado.');
+      } catch(err){
+        alert('No se pudo leer ese archivo.');
+      }
+      importFileInput.value = '';
+    };
+    reader.readAsText(file);
+  });
+
+  // ---------- Section (add/edit) sheet ----------
+  function showSectionPositionBox(photo, x, y){
+    sectionPositionField.hidden = false;
+    sectionPositionBox.style.backgroundImage = "url('" + photo + "')";
+    sectionPositionBox.style.backgroundPosition = x + '% ' + y + '%';
+  }
+
+  setupDrag(sectionPositionBox,
+    function(){ return { x: state.sectionDraftX, y: state.sectionDraftY }; },
+    function(x, y){ state.sectionDraftX = x; state.sectionDraftY = y; }
+  );
+
+  function openSectionSheet(mode, id){
+    state.sectionSheetMode = mode;
+    state.sectionEditingId = id;
+    state.sectionDeleteConfirming = false;
+    sectionDeleteBtn.textContent = 'Eliminar sección';
+    sectionDeleteBtn.classList.remove('confirming');
+
+    sectionNameInput.value = '';
+    sectionPhotoInput.value = '';
+    sectionPhotoPlaceholder.textContent = 'Toca para elegir una foto';
+    state.sectionDraftPhoto = null;
+    state.sectionDraftX = 50;
+    state.sectionDraftY = 50;
+    sectionPositionField.hidden = true;
+    sectionDeleteRow.hidden = true;
+    sectionSaveBtn.disabled = true;
+
+    if (mode === 'edit'){
+      var sec = state.sections.find(function(s){ return s.id === id; });
+      if (!sec) return;
+      sectionSheetTitle.textContent = 'Editar sección';
+      sectionNameInput.value = sec.name;
+      sectionSaveBtn.disabled = false;
+      if (sec.bgPhoto){
+        state.sectionDraftPhoto = sec.bgPhoto;
+        state.sectionDraftX = sec.bgX;
+        state.sectionDraftY = sec.bgY;
+        sectionPhotoPlaceholder.textContent = 'Foto elegida — tocá para cambiarla';
+        showSectionPositionBox(sec.bgPhoto, sec.bgX, sec.bgY);
+      }
+      sectionDeleteRow.hidden = state.sections.length <= 1;
+    } else {
+      sectionSheetTitle.textContent = 'Nueva sección';
+    }
+    sectionOverlay.hidden = false;
+  }
+
+  document.getElementById('section-cancel-btn').addEventListener('click', function(){ sectionOverlay.hidden = true; });
+  sectionOverlay.addEventListener('click', function(e){ if (e.target === sectionOverlay) sectionOverlay.hidden = true; });
+
+  sectionNameInput.addEventListener('input', function(){
+    sectionSaveBtn.disabled = sectionNameInput.value.trim().length === 0;
+  });
+
+  sectionPhotoInput.addEventListener('change', async function(){
+    var file = sectionPhotoInput.files && sectionPhotoInput.files[0];
+    if (!file) return;
+    try{
+      var dataUrl = await resizeImage(file, 2800, 0.95);
+      state.sectionDraftPhoto = dataUrl;
+      state.sectionDraftX = 50;
+      state.sectionDraftY = 50;
+      sectionPhotoPlaceholder.textContent = 'Foto elegida — tocá para cambiarla';
+      showSectionPositionBox(dataUrl, 50, 50);
+    } catch(e){ console.error('No se pudo procesar la foto de la sección', e); }
+  });
+
+  sectionRemoveBgBtn.addEventListener('click', function(){
+    state.sectionDraftPhoto = null;
+    state.sectionDraftX = 50;
+    state.sectionDraftY = 50;
+    sectionPositionField.hidden = true;
+    sectionPhotoInput.value = '';
+    sectionPhotoPlaceholder.textContent = 'Toca para elegir una foto';
+  });
+
+  sectionSaveBtn.addEventListener('click', async function(){
+    var name = sectionNameInput.value.trim();
+    if (!name) return;
+
+    if (state.sectionSheetMode === 'add'){
+      var newSec = {
+        id: Date.now().toString(36) + Math.random().toString(36).slice(2, 8),
+        name: name,
+        bgPhoto: state.sectionDraftPhoto,
+        bgX: state.sectionDraftX,
+        bgY: state.sectionDraftY,
+        createdAt: Date.now()
+      };
+      state.sections.push(newSec);
+      state.activeSectionId = newSec.id;
+      persistActiveSection();
+    } else {
+      var sec = state.sections.find(function(s){ return s.id === state.sectionEditingId; });
+      if (sec){
+        sec.name = name;
+        sec.bgPhoto = state.sectionDraftPhoto;
+        sec.bgX = state.sectionDraftX;
+        sec.bgY = state.sectionDraftY;
+      }
+    }
+    await persistSections();
+    sectionOverlay.hidden = true;
+    renderSections();
+    applySectionBackground();
+    render();
+  });
+
+  sectionDeleteBtn.addEventListener('click', function(){
+    if (!state.sectionDeleteConfirming){
+      state.sectionDeleteConfirming = true;
+      sectionDeleteBtn.textContent = '¿Seguro? Se borran también sus productos';
+      sectionDeleteBtn.classList.add('confirming');
+      return;
+    }
+    var idToDelete = state.sectionEditingId;
+    state.sections = state.sections.filter(function(s){ return s.id !== idToDelete; });
+    state.items = state.items.filter(function(it){ return it.sectionId !== idToDelete; });
+    persistSections();
+    persistItems();
+    if (state.activeSectionId === idToDelete){
+      state.activeSectionId = state.sections[0].id;
+      persistActiveSection();
+    }
+    state.sectionDeleteConfirming = false;
+    sectionDeleteBtn.classList.remove('confirming');
+    sectionOverlay.hidden = true;
+    renderSections();
+    applySectionBackground();
+    render();
+  });
+
+  // ---------- Splash / welcome screen ----------
+  async function loadSplash(){
+    try{
+      var res = await storageAdapter.get(SPLASH_KEY);
+      state.splash = (res && res.value) ? JSON.parse(res.value) : state.splash;
+    } catch(e){ /* keep default */ }
+  }
+  async function persistSplash(){
+    try{ await storageAdapter.set(SPLASH_KEY, JSON.stringify(state.splash)); }
+    catch(e){ console.error('No se pudo guardar la pantalla de inicio', e); }
+  }
+  function renderSplashScreen(){
+    var s = state.splash;
+    if (s.photo){
+      splashBgEl.style.backgroundImage = "url('" + s.photo + "')";
+      splashBgEl.style.backgroundPosition = (s.bgX == null ? 50 : s.bgX) + '% ' + (s.bgY == null ? 50 : s.bgY) + '%';
+      splashOverlayDarkEl.style.display = 'block';
+    } else {
+      splashBgEl.style.backgroundImage = '';
+      splashOverlayDarkEl.style.display = 'none';
+    }
+    splashTextEl.textContent = s.text || 'Lista de Compras';
+    splashTextEl.style.color = s.textColor || '#ffffff';
+    splashTextEl.style.left = s.textX + '%';
+    splashTextEl.style.top = s.textY + '%';
+  }
+  splashScreenEl.addEventListener('click', function(){
+    splashScreenEl.classList.add('splash-hidden');
+    setTimeout(function(){ splashScreenEl.hidden = true; }, 350);
+    if (state.music.source !== 'none'){ playConfiguredMusic(); }
+  });
+
+  function updateSplashPreview(){
+    splashPreviewBox.style.backgroundImage = state.splashDraftPhoto ? "url('" + state.splashDraftPhoto + "')" : 'none';
+    splashPreviewBox.style.backgroundPosition = state.splashDraftBgX + '% ' + state.splashDraftBgY + '%';
+    splashPreviewText.textContent = splashTextInput.value.trim() || 'Lista de Compras';
+    splashPreviewText.style.color = splashColorInput.value;
+    splashPreviewText.style.left = state.splashDraftX + '%';
+    splashPreviewText.style.top = state.splashDraftY + '%';
+  }
+
+  document.getElementById('splash-edit-open-btn').addEventListener('click', function(){
+    state.splashDraftPhoto = state.splash.photo;
+    state.splashDraftX = state.splash.textX;
+    state.splashDraftY = state.splash.textY;
+    state.splashDraftBgX = state.splash.bgX == null ? 50 : state.splash.bgX;
+    state.splashDraftBgY = state.splash.bgY == null ? 50 : state.splash.bgY;
+    splashTextInput.value = state.splash.text;
+    splashColorInput.value = state.splash.textColor;
+    splashColorHexLabel.textContent = state.splash.textColor;
+    splashPhotoInput.value = '';
+    splashPhotoPlaceholder.textContent = state.splash.photo ? 'Foto elegida — tocá para cambiarla' : 'Toca para elegir una foto';
+    updateSplashPreview();
+    settingsOverlay.hidden = true;
+    splashEditOverlay.hidden = false;
+  });
+
+  document.getElementById('splash-cancel-btn').addEventListener('click', function(){ splashEditOverlay.hidden = true; });
+  splashEditOverlay.addEventListener('click', function(e){ if (e.target === splashEditOverlay) splashEditOverlay.hidden = true; });
+
+  splashTextInput.addEventListener('input', updateSplashPreview);
+  splashColorInput.addEventListener('input', function(){
+    splashColorHexLabel.textContent = splashColorInput.value;
+    updateSplashPreview();
+  });
+
+  splashPhotoInput.addEventListener('change', async function(){
+    var file = splashPhotoInput.files && splashPhotoInput.files[0];
+    if (!file) return;
+    try{
+      var dataUrl = await resizeImage(file, 2800, 0.95);
+      state.splashDraftPhoto = dataUrl;
+      state.splashDraftBgX = 50;
+      state.splashDraftBgY = 50;
+      splashPhotoPlaceholder.textContent = 'Foto elegida — tocá para cambiarla';
+      updateSplashPreview();
+    } catch(e){ console.error('No se pudo procesar la foto de inicio', e); }
+  });
+
+  splashRemoveBgBtn.addEventListener('click', function(){
+    state.splashDraftPhoto = null;
+    splashPhotoInput.value = '';
+    splashPhotoPlaceholder.textContent = 'Toca para elegir una foto';
+    updateSplashPreview();
+  });
+
+  (function(){
+    var dragging = false, startClientX = 0, startClientY = 0, startX = 50, startY = 45;
+    splashPreviewText.addEventListener('pointerdown', function(e){
+      dragging = true;
+      startClientX = e.clientX; startClientY = e.clientY;
+      startX = state.splashDraftX; startY = state.splashDraftY;
+      e.stopPropagation();
+    });
+    splashPreviewBox.addEventListener('pointermove', function(e){
+      if (!dragging) return;
+      var rect = splashPreviewBox.getBoundingClientRect();
+      var dx = (e.clientX - startClientX) / rect.width * 100;
+      var dy = (e.clientY - startClientY) / rect.height * 100;
+      var nx = Math.max(5, Math.min(95, startX + dx));
+      var ny = Math.max(5, Math.min(95, startY + dy));
+      state.splashDraftX = nx; state.splashDraftY = ny;
+      splashPreviewText.style.left = nx + '%';
+      splashPreviewText.style.top = ny + '%';
+    });
+    window.addEventListener('pointerup', function(){ dragging = false; });
+  })();
+
+  (function(){
+    var dragging = false, startClientX = 0, startClientY = 0, startX = 50, startY = 50;
+    splashPreviewBox.addEventListener('pointerdown', function(e){
+      if (!state.splashDraftPhoto) return;
+      dragging = true;
+      startClientX = e.clientX; startClientY = e.clientY;
+      startX = state.splashDraftBgX; startY = state.splashDraftBgY;
+    });
+    splashPreviewBox.addEventListener('pointermove', function(e){
+      if (!dragging) return;
+      var rect = splashPreviewBox.getBoundingClientRect();
+      var dx = (e.clientX - startClientX) / rect.width * 100;
+      var dy = (e.clientY - startClientY) / rect.height * 100;
+      var nx = Math.max(0, Math.min(100, startX - dx));
+      var ny = Math.max(0, Math.min(100, startY - dy));
+      state.splashDraftBgX = nx; state.splashDraftBgY = ny;
+      splashPreviewBox.style.backgroundPosition = nx + '% ' + ny + '%';
+    });
+    window.addEventListener('pointerup', function(){ dragging = false; });
+  })();
+
+  splashSaveBtn.addEventListener('click', async function(){
+    state.splash = {
+      text: splashTextInput.value.trim() || 'Lista de Compras',
+      textColor: splashColorInput.value,
+      textX: state.splashDraftX,
+      textY: state.splashDraftY,
+      photo: state.splashDraftPhoto,
+      bgX: state.splashDraftBgX,
+      bgY: state.splashDraftBgY
+    };
+    await persistSplash();
+    renderSplashScreen();
+    splashEditOverlay.hidden = true;
+  });
+
+  // ---------- Music ----------
+  var ytPlayer = null;
+  var ytApiPromise = null;
+  var musicPlaying = false;
+
+  function loadYouTubeAPI(){
+    if (ytApiPromise) return ytApiPromise;
+    ytApiPromise = new Promise(function(resolve){
+      if (window.YT && window.YT.Player){ resolve(); return; }
+      window.onYouTubeIframeAPIReady = function(){ resolve(); };
+      var tag = document.createElement('script');
+      tag.src = 'https://www.youtube.com/iframe_api';
+      document.head.appendChild(tag);
+    });
+    return ytApiPromise;
+  }
+
+  function extractYouTubeId(url){
+    if (!url) return null;
+    var m = url.match(/(?:youtube\.com\/watch\?v=|youtube\.com\/embed\/|youtube\.com\/shorts\/|youtu\.be\/)([a-zA-Z0-9_-]{11})/);
+    return m ? m[1] : null;
+  }
+
+  function updateMusicToggleIcon(){
+    if (state.music.source === 'none'){ musicToggleBtn.textContent = '🎵'; musicToggleBtn.style.opacity = '0.5'; return; }
+    musicToggleBtn.style.opacity = '1';
+    musicToggleBtn.textContent = musicPlaying ? '🎵' : '🔇';
+  }
+
+  function stopAllMusic(){
+    if (ytPlayer && ytPlayer.pauseVideo){ try{ ytPlayer.pauseVideo(); } catch(e){} }
+    audioEl.pause();
+    musicPlaying = false;
+    updateMusicToggleIcon();
+  }
+
+  function playConfiguredMusic(){
+    if (state.music.source === 'youtube' && state.music.youtubeId){
+      loadYouTubeAPI().then(function(){
+        if (!ytPlayer){
+          ytPlayer = new YT.Player('yt-player', {
+            videoId: state.music.youtubeId,
+            playerVars: { autoplay:0, controls:0, loop:1, playlist: state.music.youtubeId },
+            events: {
+              onReady: function(e){
+                e.target.setVolume(state.music.volume);
+                e.target.playVideo();
+                musicPlaying = true;
+                updateMusicToggleIcon();
+              }
+            }
+          });
+        } else {
+          ytPlayer.setVolume(state.music.volume);
+          ytPlayer.playVideo();
+          musicPlaying = true;
+          updateMusicToggleIcon();
+        }
+      });
+    } else if (state.music.source === 'mp3' && state.music.mp3Data){
+      if (audioEl.src !== state.music.mp3Data){ audioEl.src = state.music.mp3Data; }
+      audioEl.loop = true;
+      audioEl.volume = state.music.volume / 100;
+      audioEl.play().then(function(){ musicPlaying = true; updateMusicToggleIcon(); })
+        .catch(function(e){ console.error('No se pudo reproducir el audio', e); });
+    }
+  }
+
+  musicToggleBtn.addEventListener('click', function(){
+    if (state.music.source === 'none'){ settingsOverlay.hidden = false; return; }
+    if (musicPlaying){ stopAllMusic(); } else { playConfiguredMusic(); }
+  });
+
+  async function loadMusic(){
+    try{
+      var res = await storageAdapter.get(MUSIC_CONFIG_KEY);
+      var cfg = (res && res.value) ? JSON.parse(res.value) : { source:'none', youtubeId:null, youtubeUrl:null, volume:70 };
+      state.music = { source: cfg.source || 'none', youtubeId: cfg.youtubeId || null, youtubeUrl: cfg.youtubeUrl || null, volume: (cfg.volume == null ? 70 : cfg.volume), mp3Data: null };
+      if (state.music.source === 'mp3'){
+        var fileRes = await storageAdapter.get(MUSIC_FILE_KEY);
+        if (fileRes && fileRes.value){ state.music.mp3Data = fileRes.value; }
+        else { state.music.source = 'none'; }
+      }
+    } catch(e){ state.music = { source:'none', youtubeId:null, youtubeUrl:null, volume:70, mp3Data:null }; }
+    updateMusicToggleIcon();
+  }
+
+  function setMusicSourceUI(source){
+    state.musicDraftSource = source;
+    musicSourceYoutubeBtn.classList.toggle('active', source === 'youtube');
+    musicSourceMp3Btn.classList.toggle('active', source === 'mp3');
+    musicYoutubeField.hidden = source !== 'youtube';
+    musicMp3Field.hidden = source !== 'mp3';
+  }
+  musicSourceYoutubeBtn.addEventListener('click', function(){ setMusicSourceUI('youtube'); });
+  musicSourceMp3Btn.addEventListener('click', function(){ setMusicSourceUI('mp3'); });
+
+  document.getElementById('music-edit-open-btn').addEventListener('click', function(){
+    state.musicDraftMp3Data = state.music.mp3Data || null;
+    state.musicDraftVolume = state.music.volume;
+    musicYoutubeInput.value = state.music.youtubeUrl || '';
+    musicMp3Input.value = '';
+    musicMp3Placeholder.textContent = (state.music.source === 'mp3' && state.music.mp3Data) ? 'Archivo cargado — tocá para cambiarlo' : 'Toca para elegir un archivo';
+    musicVolumeInput.value = state.music.volume;
+    setMusicSourceUI(state.music.source === 'mp3' ? 'mp3' : 'youtube');
+    settingsOverlay.hidden = true;
+    musicOverlay.hidden = false;
+  });
+
+  document.getElementById('music-cancel-btn').addEventListener('click', function(){ musicOverlay.hidden = true; });
+  musicOverlay.addEventListener('click', function(e){ if (e.target === musicOverlay) musicOverlay.hidden = true; });
+
+  musicVolumeInput.addEventListener('input', function(){ state.musicDraftVolume = Number(musicVolumeInput.value); });
+
+  musicMp3Input.addEventListener('change', function(){
+    var file = musicMp3Input.files && musicMp3Input.files[0];
+    if (!file) return;
+    var reader = new FileReader();
+    reader.onload = function(e){
+      state.musicDraftMp3Data = e.target.result;
+      var sizeMB = (file.size / 1024 / 1024).toFixed(1);
+      musicMp3Placeholder.textContent = 'Cargado: ' + file.name + ' (' + sizeMB + ' MB)' +
+        (file.size > 4.5 * 1024 * 1024 ? ' — puede ser muy grande para guardarse' : '');
+    };
+    reader.onerror = function(){ console.error('No se pudo leer el archivo de audio'); };
+    reader.readAsDataURL(file);
+  });
+
+  musicSaveBtn.addEventListener('click', async function(){
+    if (state.musicDraftSource === 'youtube'){
+      var url = musicYoutubeInput.value.trim();
+      var id = extractYouTubeId(url);
+      if (!id){ alert('No reconocí ese link de YouTube. Revisalo e intentá de nuevo.'); return; }
+      state.music = { source:'youtube', youtubeId:id, youtubeUrl:url, volume: state.musicDraftVolume, mp3Data:null };
+      await storageAdapter.set(MUSIC_FILE_KEY, '');
+    } else {
+      if (!state.musicDraftMp3Data){ alert('Elegí un archivo de audio primero.'); return; }
+      state.music = { source:'mp3', youtubeId:null, youtubeUrl:null, volume: state.musicDraftVolume, mp3Data: state.musicDraftMp3Data };
+      var saveResult = await storageAdapter.set(MUSIC_FILE_KEY, state.musicDraftMp3Data);
+      if (!saveResult){ alert('El archivo es grande y no se pudo guardar permanentemente, pero va a sonar en esta sesión.'); }
+    }
+    await storageAdapter.set(MUSIC_CONFIG_KEY, JSON.stringify({ source: state.music.source, youtubeId: state.music.youtubeId, youtubeUrl: state.music.youtubeUrl, volume: state.music.volume }));
+    musicOverlay.hidden = true;
+    updateMusicToggleIcon();
+    stopAllMusic();
+    playConfiguredMusic();
+  });
+
+  musicRemoveBtn.addEventListener('click', async function(){
+    stopAllMusic();
+    state.music = { source:'none', youtubeId:null, youtubeUrl:null, volume: state.music.volume, mp3Data:null };
+    await storageAdapter.set(MUSIC_CONFIG_KEY, JSON.stringify({ source:'none', youtubeId:null, youtubeUrl:null, volume: state.music.volume }));
+    await storageAdapter.set(MUSIC_FILE_KEY, '');
+    updateMusicToggleIcon();
+    musicOverlay.hidden = true;
+  });
+
+  // ---------- PIN gate ----------
+  var pinGateEl = document.getElementById('pin-gate');
+  var pinInput = document.getElementById('pin-input');
+  var pinSubmitBtn = document.getElementById('pin-submit-btn');
+  var pinError = document.getElementById('pin-error');
+
+  async function checkPinUnlocked(){
+    try{
+      var res = await storageAdapter.get(PIN_UNLOCK_KEY);
+      if (res && res.value === 'true'){ pinGateEl.hidden = true; }
+    } catch(e){}
+  }
+  function submitPin(){
+    if (pinInput.value === APP_PIN){
+      storageAdapter.set(PIN_UNLOCK_KEY, 'true');
+      pinGateEl.hidden = true;
+    } else {
+      pinError.hidden = false;
+      pinInput.value = '';
+    }
+  }
+  pinSubmitBtn.addEventListener('click', submitPin);
+  pinInput.addEventListener('keydown', function(e){ if (e.key === 'Enter') submitPin(); });
+  pinInput.addEventListener('input', function(){
+    this.value = this.value.replace(/[^0-9]/g, '');
+    pinError.hidden = true;
+  });
+  checkPinUnlocked();
+
+  // ---------- Custom app icon ----------
+  var DEFAULT_ICON_192 = document.querySelector('link[rel="icon"][sizes="192x192"]').href;
+  var DEFAULT_ICON_512 = document.querySelector('link[rel="icon"][sizes="512x512"]').href;
+  var appIconInput = document.getElementById('app-icon-input');
+  var appIconPlaceholder = document.getElementById('app-icon-placeholder');
+
+  function resizeDataUrlSquare(dataUrl, size){
+    return new Promise(function(resolve, reject){
+      var img = new Image();
+      img.onload = function(){
+        var side = Math.min(img.width, img.height);
+        var sx = (img.width - side) / 2, sy = (img.height - side) / 2;
+        var canvas = document.createElement('canvas');
+        canvas.width = size; canvas.height = size;
+        canvas.getContext('2d').drawImage(img, sx, sy, side, side, 0, 0, size, size);
+        resolve(canvas.toDataURL('image/png'));
+      };
+      img.onerror = reject;
+      img.src = dataUrl;
+    });
+  }
+
+  function buildManifestDataUri(icon192, icon512){
+    var manifest = {
+      name: APP_NAME, short_name: APP_NAME, start_url: ".", display: "standalone",
+      background_color: "#0b0b0c", theme_color: "#0b0b0c",
+      icons: [
+        { src: icon192, sizes: "192x192", type: "image/png", purpose: "any" },
+        { src: icon192, sizes: "192x192", type: "image/png", purpose: "maskable" },
+        { src: icon512, sizes: "512x512", type: "image/png", purpose: "any" },
+        { src: icon512, sizes: "512x512", type: "image/png", purpose: "maskable" }
+      ]
+    };
+    return 'data:application/manifest+json,' + encodeURIComponent(JSON.stringify(manifest));
+  }
+
+  function applyIconLinks(icon192, icon512){
+    document.querySelector('link[rel="icon"][sizes="192x192"]').href = icon192;
+    document.querySelector('link[rel="icon"][sizes="512x512"]').href = icon512;
+    document.querySelector('link[rel="apple-touch-icon"]').href = icon192;
+    document.querySelector('link[rel="manifest"]').href = buildManifestDataUri(icon192, icon512);
+  }
+
+  async function loadAppIcon(){
+    try{
+      var res = await storageAdapter.get(APP_ICON_KEY);
+      if (res && res.value){
+        var custom192 = await resizeDataUrlSquare(res.value, 192);
+        applyIconLinks(custom192, res.value);
+        appIconPlaceholder.textContent = 'Ícono personalizado — tocá para cambiarlo';
+        return;
+      }
+    } catch(e){}
+    applyIconLinks(DEFAULT_ICON_192, DEFAULT_ICON_512);
+  }
+
+  appIconInput.addEventListener('change', async function(){
+    var file = appIconInput.files && appIconInput.files[0];
+    if (!file) return;
+    try{
+      var raw = await resizeImage(file, 1000, 0.95);
+      var square512 = await resizeDataUrlSquare(raw, 512);
+      var saveResult = await storageAdapter.set(APP_ICON_KEY, square512);
+      var square192 = await resizeDataUrlSquare(square512, 192);
+      applyIconLinks(square192, square512);
+      appIconPlaceholder.textContent = 'Ícono personalizado — tocá para cambiarlo';
+      if (!saveResult){ alert('El ícono no se pudo guardar permanentemente (puede ser muy grande), pero se aplicó en esta sesión.'); }
+    } catch(e){ console.error('No se pudo procesar el ícono', e); }
+  });
+
+  document.getElementById('app-icon-reset-btn').addEventListener('click', async function(){
+    await storageAdapter.set(APP_ICON_KEY, '');
+    appIconInput.value = '';
+    applyIconLinks(DEFAULT_ICON_192, DEFAULT_ICON_512);
+    appIconPlaceholder.textContent = 'Toca para elegir una imagen';
+  });
+
+  // ---------- Init ----------
+  (async function init(){
+    await loadItems();
+    await loadSections();
+    await loadActiveSection();
+    await loadColor();
+    await loadSplash();
+    await loadMusic();
+    await loadAppIcon();
+    applySectionBackground();
+    renderSections();
+    renderSplashScreen();
+    loadingEl.hidden = true;
+    boardEl.hidden = false;
+    render();
+  })();
+})();
+</script>
+</body>
+</html>
