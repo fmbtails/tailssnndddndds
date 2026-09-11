@@ -41,12 +41,16 @@
   }
   body.has-custom-bg{ background-image:none; }
   #bg-layer{
-    position:fixed; inset:0; z-index:-2;
+    position:fixed; top:0; left:0; right:0;
+    height:100vh; height:100dvh;
+    z-index:-2;
     background-size:cover; background-position:center;
     display:none;
   }
   #bg-overlay{
-    position:fixed; inset:0; z-index:-1;
+    position:fixed; top:0; left:0; right:0;
+    height:100vh; height:100dvh;
+    z-index:-1;
     background:rgba(6,5,5,0.6);
     display:none;
   }
@@ -1507,10 +1511,21 @@
     musicToggleBtn.textContent = musicPlaying ? '🎵' : '🔇';
   }
 
+  function setupMediaSession(){
+    if (!('mediaSession' in navigator)) return;
+    navigator.mediaSession.metadata = new MediaMetadata({
+      title: 'Zeta',
+      artist: 'Música de fondo'
+    });
+    navigator.mediaSession.setActionHandler('play', function(){ playConfiguredMusic(); });
+    navigator.mediaSession.setActionHandler('pause', function(){ stopAllMusic(); });
+  }
+
   function stopAllMusic(){
     if (ytPlayer && ytPlayer.pauseVideo){ try{ ytPlayer.pauseVideo(); } catch(e){} }
     audioEl.pause();
     musicPlaying = false;
+    if ('mediaSession' in navigator){ navigator.mediaSession.playbackState = 'paused'; }
     updateMusicToggleIcon();
   }
 
@@ -1541,8 +1556,12 @@
       if (audioEl.src !== state.music.mp3Data){ audioEl.src = state.music.mp3Data; }
       audioEl.loop = true;
       audioEl.volume = state.music.volume / 100;
-      audioEl.play().then(function(){ musicPlaying = true; updateMusicToggleIcon(); })
-        .catch(function(e){ console.error('No se pudo reproducir el audio', e); });
+      audioEl.play().then(function(){
+        musicPlaying = true;
+        updateMusicToggleIcon();
+        setupMediaSession();
+        if ('mediaSession' in navigator){ navigator.mediaSession.playbackState = 'playing'; }
+      }).catch(function(e){ console.error('No se pudo reproducir el audio', e); });
     }
   }
 
