@@ -648,6 +648,12 @@
   var DEFAULT_COLOR = '#c8102e';
 
   var hasHostStorage = (typeof window.storage !== 'undefined') && window.storage !== null;
+
+  // Register the service worker only when served over http(s) (e.g. GitHub Pages).
+  // This lets Chrome offer a real "Install app", not just a shortcut.
+  if ('serviceWorker' in navigator && (location.protocol === 'https:' || location.protocol === 'http:')) {
+    navigator.serviceWorker.register('sw.js').catch(function(e){ console.error('No se pudo registrar el service worker', e); });
+  }
   var storageAdapter = {
     async get(key){
       if (hasHostStorage){ try{ return await window.storage.get(key, false); } catch(e){ return null; } }
