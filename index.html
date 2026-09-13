@@ -317,6 +317,37 @@
   }
   .compare-thumb img{ width:100%; height:100%; object-fit:cover; }
   .compare-thumb-placeholder{ font-size:1.4rem; opacity:0.4; }
+  .compare-item-meta{ display:flex; align-items:center; gap:6px; flex-wrap:wrap; margin-top:3px; }
+  .compare-store-tag{
+    display:inline-flex; align-items:center; gap:4px;
+    font-size:0.72rem; color:var(--ink-soft);
+    background:var(--paper-2); padding:2px 8px; border-radius:20px;
+  }
+  .compare-store-tag img{ width:14px; height:14px; border-radius:50%; object-fit:cover; }
+  .compare-diff-tag{
+    display:inline-block; font-size:0.72rem; font-weight:700;
+    padding:2px 8px; border-radius:20px; white-space:nowrap;
+  }
+  .compare-diff-best{ background:rgba(60,200,120,0.18); color:#5fe0a0; }
+  .compare-diff-more{ background:rgba(var(--red-rgb),0.18); color:#ff8a8a; }
+  .store-chip-row{ display:flex; gap:8px; overflow-x:auto; padding:4px 2px 8px; }
+  .store-chip{
+    display:flex; flex-direction:column; align-items:center; gap:4px;
+    flex:0 0 auto; width:58px; padding:7px 4px;
+    border-radius:10px; border:1px solid rgba(var(--red-rgb),0.25);
+    background:var(--paper); cursor:pointer;
+  }
+  .store-chip.selected{ border-color:var(--red); background:rgba(var(--red-rgb),0.15); }
+  .store-chip img{ width:28px; height:28px; border-radius:50%; object-fit:cover; }
+  .store-chip-placeholder{
+    width:28px; height:28px; border-radius:50%; background:var(--paper-2);
+    display:flex; align-items:center; justify-content:center; font-size:0.9rem;
+  }
+  .store-chip span{
+    font-size:0.62rem; text-align:center; color:var(--ink-soft); line-height:1.15;
+    overflow:hidden; text-overflow:ellipsis; white-space:nowrap; max-width:54px;
+  }
+  .store-chip-add{ border-style:dashed; color:var(--red); }
   .compare-item-info{ flex:1; min-width:0; }
   .compare-item-name{
     margin:0 0 3px; font-size:0.85rem; font-weight:700; color:var(--ink);
@@ -606,6 +637,10 @@
         <button type="button" class="btn-main btn-cancel" id="music-edit-open-btn" style="width:100%;">Editar música de fondo</button>
       </div>
       <div class="field">
+        <label>Tiendas de Comparar</label>
+        <button type="button" class="btn-main btn-cancel" id="stores-manage-open-btn" style="width:100%;">Gestionar tiendas</button>
+      </div>
+      <div class="field">
         <label>Fondo de la pestaña Comparar</label>
         <button type="button" class="btn-main btn-cancel" id="compare-bg-edit-open-btn" style="width:100%;">Editar fondo de Comparar</button>
       </div>
@@ -738,12 +773,55 @@
         <label for="compare-item-link-input">Link (opcional)</label>
         <input type="text" id="compare-item-link-input" placeholder="https://...">
       </div>
+      <div class="field">
+        <label>Tienda (opcional)</label>
+        <div class="store-chip-row" id="compare-item-store-row"></div>
+      </div>
       <div class="sheet-actions" id="compare-item-delete-row" hidden>
         <button type="button" class="btn-main btn-remove-bg" id="compare-item-delete-btn">Eliminar producto</button>
       </div>
       <div class="sheet-actions">
         <button type="button" class="btn-main btn-cancel" id="compare-item-cancel-btn">Cancelar</button>
         <button type="button" class="btn-main btn-save" id="compare-item-save-btn" disabled>Guardar</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Store (add/edit) sheet -->
+  <div class="overlay" id="store-overlay" hidden>
+    <div class="sheet">
+      <h2 id="store-sheet-title">Nueva tienda</h2>
+      <div class="field">
+        <label for="store-icon-input">Ícono (opcional)</label>
+        <label class="photo-picker" id="store-icon-picker-label">
+          <span id="store-icon-placeholder">Toca para elegir una imagen</span>
+          <input type="file" accept="image/*" id="store-icon-input">
+        </label>
+      </div>
+      <div class="field">
+        <label for="store-name-input">Nombre de la tienda</label>
+        <input type="text" id="store-name-input" placeholder="Ej: Falabella" maxlength="30">
+      </div>
+      <div class="sheet-actions" id="store-delete-row" hidden>
+        <button type="button" class="btn-main btn-remove-bg" id="store-delete-btn">Eliminar tienda</button>
+      </div>
+      <div class="sheet-actions">
+        <button type="button" class="btn-main btn-cancel" id="store-cancel-btn">Cancelar</button>
+        <button type="button" class="btn-main btn-save" id="store-save-btn" disabled>Guardar</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Stores management list -->
+  <div class="overlay" id="stores-manage-overlay" hidden>
+    <div class="sheet">
+      <h2>Tiendas</h2>
+      <div id="stores-manage-list"></div>
+      <div class="sheet-actions">
+        <button type="button" class="btn-main btn-save" id="stores-manage-add-btn">+ Agregar tienda</button>
+      </div>
+      <div class="sheet-actions">
+        <button type="button" class="btn-main btn-cancel" id="stores-manage-close-btn">Cerrar</button>
       </div>
     </div>
   </div>
@@ -814,6 +892,7 @@
   var COMPARE_GROUPS_KEY = 'wishlist-compare-groups';
   var COMPARE_ITEMS_KEY = 'wishlist-compare-items';
   var COMPARE_BG_KEY = 'wishlist-compare-bg';
+  var STORES_KEY = 'wishlist-stores';
   var APP_PIN = '6910';
   var PIN_UNLOCK_KEY = 'wishlist-unlocked';
   var APP_ICON_KEY = 'wishlist-app-icon';
@@ -2028,16 +2107,34 @@
     try{ await storageAdapter.set(COMPARE_ITEMS_KEY, JSON.stringify(compareItems)); } catch(e){}
   }
 
-  function compareItemBarHtml(it){
+  function compareItemBarHtml(it, minPrice){
     var priceLabel = formatPrice(it.price);
     var photoHtml = it.photo ? '<img src="' + it.photo + '" alt="">' : '<span class="compare-thumb-placeholder">🛍️</span>';
     var linkHtml = it.link ? '<a href="' + escapeHtml(it.link) + '" target="_blank" rel="noopener" class="btn-chip btn-buy">Abrir ↗</a>' : '';
+    var store = it.storeId ? getStoreById(it.storeId) : null;
+    var storeHtml = store
+      ? ('<span class="compare-store-tag">' + (store.icon ? '<img src="' + store.icon + '" alt="">' : '🏬') + ' ' + escapeHtml(store.name) + '</span>')
+      : '';
+    var diffHtml = '';
+    if (typeof it.price === 'number' && it.price > 0 && minPrice != null){
+      if (it.price === minPrice){
+        diffHtml = '<span class="compare-diff-tag compare-diff-best">🏆 Más barato</span>';
+      } else {
+        var pct = Math.round(((it.price - minPrice) / minPrice) * 100);
+        var diffAmount = it.price - minPrice;
+        diffHtml = '<span class="compare-diff-tag compare-diff-more">+' + pct + '% (' + formatPrice(diffAmount) + ' más)</span>';
+      }
+    }
     return (
       '<div class="compare-item-bar">' +
         '<div class="compare-thumb">' + photoHtml + '</div>' +
         '<div class="compare-item-info">' +
           '<p class="compare-item-name">' + escapeHtml(it.name) + '</p>' +
-          (priceLabel ? '<span class="compare-item-price">' + priceLabel + '</span>' : '') +
+          '<div class="compare-item-meta">' +
+            (priceLabel ? '<span class="compare-item-price">' + priceLabel + '</span>' : '') +
+            storeHtml +
+            diffHtml +
+          '</div>' +
         '</div>' +
         '<div class="compare-item-actions">' +
           linkHtml +
@@ -2055,8 +2152,12 @@
     }
     container.innerHTML = compareGroups.map(function(g){
       var items = compareItems.filter(function(it){ return it.groupId === g.id; });
+      var validPrices = items
+        .filter(function(it){ return typeof it.price === 'number' && it.price > 0; })
+        .map(function(it){ return it.price; });
+      var minPrice = validPrices.length >= 2 ? Math.min.apply(null, validPrices) : null;
       var itemsHtml = items.length
-        ? items.map(compareItemBarHtml).join('')
+        ? items.map(function(it){ return compareItemBarHtml(it, minPrice); }).join('')
         : '<p class="compare-empty-group">Todavía no agregaste productos acá.</p>';
       return (
         '<div class="compare-group">' +
@@ -2167,6 +2268,7 @@
   function openCompareItemSheet(mode, groupId, item){
     compareItemGroupId = groupId;
     compareItemPhotoInput.value = '';
+    compareItemSelectedStoreId = (item && item.storeId) || null;
     if (mode === 'edit' && item){
       compareItemEditingId = item.id;
       compareItemSheetTitle.textContent = 'Editar producto';
@@ -2188,6 +2290,7 @@
       compareItemDeleteRow.hidden = true;
       compareItemSaveBtn.disabled = true;
     }
+    renderCompareItemStoreRow();
     compareItemOverlay.hidden = false;
   }
   document.getElementById('compare-item-cancel-btn').addEventListener('click', function(){ compareItemOverlay.hidden = true; });
@@ -2219,6 +2322,7 @@
         it.price = priceVal === '' ? null : Number(priceVal);
         it.link = link;
         it.photo = compareItemPendingPhoto;
+        it.storeId = compareItemSelectedStoreId;
       }
     } else {
       compareItems.push({
@@ -2228,6 +2332,7 @@
         price: priceVal === '' ? null : Number(priceVal),
         link: link,
         photo: compareItemPendingPhoto,
+        storeId: compareItemSelectedStoreId,
         createdAt: Date.now()
       });
     }
@@ -2240,6 +2345,186 @@
     persistCompareItems();
     compareItemOverlay.hidden = true;
     renderCompareGroups();
+  });
+
+  // ---------- Stores (brand icons) ----------
+  var stores = [];
+
+  async function loadStores(){
+    try{
+      var res = await storageAdapter.get(STORES_KEY);
+      stores = (res && res.value) ? JSON.parse(res.value) : [];
+    } catch(e){ stores = []; }
+  }
+  async function persistStores(){
+    try{ await storageAdapter.set(STORES_KEY, JSON.stringify(stores)); } catch(e){}
+  }
+  function getStoreById(id){ return stores.find(function(s){ return s.id === id; }); }
+
+  function storesManageRowHtml(s){
+    var img = s.icon ? '<img src="' + s.icon + '" alt="">' : '<span class="compare-thumb-placeholder">🏬</span>';
+    return (
+      '<div class="compare-item-bar">' +
+        '<div class="compare-thumb" style="border-radius:50%;">' + img + '</div>' +
+        '<div class="compare-item-info"><p class="compare-item-name">' + escapeHtml(s.name) + '</p></div>' +
+        '<div class="compare-item-actions">' +
+          '<button type="button" class="btn-chip btn-edit" data-action="edit-store" data-id="' + s.id + '">✎</button>' +
+        '</div>' +
+      '</div>'
+    );
+  }
+  function renderStoresManageList(){
+    var el = document.getElementById('stores-manage-list');
+    el.innerHTML = stores.length
+      ? stores.map(storesManageRowHtml).join('')
+      : '<p class="compare-empty-group">Todavía no agregaste ninguna tienda.</p>';
+  }
+
+  var storesManageOverlay = document.getElementById('stores-manage-overlay');
+  document.getElementById('stores-manage-open-btn').addEventListener('click', function(){
+    settingsOverlay.hidden = true;
+    renderStoresManageList();
+    storesManageOverlay.hidden = false;
+  });
+  document.getElementById('stores-manage-close-btn').addEventListener('click', function(){ storesManageOverlay.hidden = true; });
+  storesManageOverlay.addEventListener('click', function(e){ if (e.target === storesManageOverlay) storesManageOverlay.hidden = true; });
+  document.getElementById('stores-manage-add-btn').addEventListener('click', function(){
+    storesManageOverlay.hidden = true;
+    openStoreSheet('add', null, 'manage');
+  });
+  document.getElementById('stores-manage-list').addEventListener('click', function(e){
+    var btn = e.target.closest('button[data-action="edit-store"]');
+    if (!btn) return;
+    storesManageOverlay.hidden = true;
+    openStoreSheet('edit', btn.getAttribute('data-id'), 'manage');
+  });
+
+  // ---------- Store (add/edit) sheet ----------
+  var storeOverlay = document.getElementById('store-overlay');
+  var storeSheetTitle = document.getElementById('store-sheet-title');
+  var storeIconInput = document.getElementById('store-icon-input');
+  var storeIconPlaceholder = document.getElementById('store-icon-placeholder');
+  var storeNameInput = document.getElementById('store-name-input');
+  var storeDeleteRow = document.getElementById('store-delete-row');
+  var storeDeleteBtn = document.getElementById('store-delete-btn');
+  var storeSaveBtn = document.getElementById('store-save-btn');
+  var storePendingIcon = null;
+  var storeEditingId = null;
+  var storeContext = 'manage'; // 'manage' or 'item' — where to return after closing
+  var storeDeleteConfirming = false;
+
+  function openStoreSheet(mode, id, context){
+    storeContext = context;
+    storeIconInput.value = '';
+    storeDeleteConfirming = false;
+    storeDeleteBtn.textContent = 'Eliminar tienda';
+    storeDeleteBtn.classList.remove('confirming');
+    if (mode === 'edit'){
+      var s = getStoreById(id);
+      if (!s) return;
+      storeEditingId = id;
+      storeSheetTitle.textContent = 'Editar tienda';
+      storeNameInput.value = s.name;
+      storePendingIcon = s.icon || null;
+      storeIconPlaceholder.textContent = s.icon ? 'Ícono elegido — tocá para cambiarlo' : 'Toca para elegir una imagen';
+      storeDeleteRow.hidden = false;
+      storeSaveBtn.disabled = false;
+    } else {
+      storeEditingId = null;
+      storeSheetTitle.textContent = 'Nueva tienda';
+      storeNameInput.value = '';
+      storePendingIcon = null;
+      storeIconPlaceholder.textContent = 'Toca para elegir una imagen';
+      storeDeleteRow.hidden = true;
+      storeSaveBtn.disabled = true;
+    }
+    storeOverlay.hidden = false;
+  }
+  function closeStoreSheet(){
+    storeOverlay.hidden = true;
+    if (storeContext === 'item'){ compareItemOverlay.hidden = false; }
+    else { renderStoresManageList(); storesManageOverlay.hidden = false; }
+  }
+  document.getElementById('store-cancel-btn').addEventListener('click', closeStoreSheet);
+  storeOverlay.addEventListener('click', function(e){ if (e.target === storeOverlay) closeStoreSheet(); });
+  storeNameInput.addEventListener('input', function(){
+    storeSaveBtn.disabled = storeNameInput.value.trim().length === 0;
+  });
+  storeIconInput.addEventListener('change', async function(){
+    var file = storeIconInput.files && storeIconInput.files[0];
+    if (!file) return;
+    try{
+      var dataUrl = await resizeImage(file, 300, 0.85);
+      storePendingIcon = dataUrl;
+      storeIconPlaceholder.textContent = 'Ícono elegido — tocá para cambiarlo';
+    } catch(e){ console.error('No se pudo procesar el ícono', e); }
+  });
+  storeSaveBtn.addEventListener('click', function(){
+    var name = storeNameInput.value.trim();
+    if (!name) return;
+    var savedId;
+    if (storeEditingId){
+      var s = getStoreById(storeEditingId);
+      if (s){ s.name = name; s.icon = storePendingIcon; }
+      savedId = storeEditingId;
+    } else {
+      savedId = Date.now().toString(36) + Math.random().toString(36).slice(2,8);
+      stores.push({ id: savedId, name: name, icon: storePendingIcon });
+    }
+    persistStores();
+    storeOverlay.hidden = true;
+    renderCompareGroups();
+    if (storeContext === 'item'){
+      compareItemSelectedStoreId = savedId;
+      renderCompareItemStoreRow();
+      compareItemOverlay.hidden = false;
+    } else {
+      renderStoresManageList();
+      storesManageOverlay.hidden = false;
+    }
+  });
+  storeDeleteBtn.addEventListener('click', function(){
+    if (!storeDeleteConfirming){
+      storeDeleteConfirming = true;
+      storeDeleteBtn.textContent = '¿Seguro? Se quita de los productos que la tenían';
+      storeDeleteBtn.classList.add('confirming');
+      return;
+    }
+    var idToDelete = storeEditingId;
+    stores = stores.filter(function(s){ return s.id !== idToDelete; });
+    compareItems.forEach(function(it){ if (it.storeId === idToDelete) it.storeId = null; });
+    persistStores();
+    persistCompareItems();
+    storeOverlay.hidden = true;
+    renderCompareGroups();
+    renderStoresManageList();
+    storesManageOverlay.hidden = false;
+  });
+
+  // ---------- Store chip picker inside the item sheet ----------
+  var compareItemSelectedStoreId = null;
+  var compareItemStoreRowEl = document.getElementById('compare-item-store-row');
+  function renderCompareItemStoreRow(){
+    var html = stores.map(function(s){
+      var sel = s.id === compareItemSelectedStoreId ? ' selected' : '';
+      var img = s.icon ? '<img src="' + s.icon + '" alt="">' : '<span class="store-chip-placeholder">🏬</span>';
+      return '<div class="store-chip' + sel + '" data-store-id="' + s.id + '">' + img + '<span>' + escapeHtml(s.name) + '</span></div>';
+    }).join('');
+    html += '<div class="store-chip store-chip-add" data-action="new-store"><span class="store-chip-placeholder">+</span><span>Nueva</span></div>';
+    compareItemStoreRowEl.innerHTML = html;
+  }
+  compareItemStoreRowEl.addEventListener('click', function(e){
+    var addChip = e.target.closest('[data-action="new-store"]');
+    if (addChip){
+      compareItemOverlay.hidden = true;
+      openStoreSheet('add', null, 'item');
+      return;
+    }
+    var chip = e.target.closest('.store-chip[data-store-id]');
+    if (!chip) return;
+    var id = chip.getAttribute('data-store-id');
+    compareItemSelectedStoreId = (compareItemSelectedStoreId === id) ? null : id;
+    renderCompareItemStoreRow();
   });
 
   // ---------- Comparar-tab background editor ----------
@@ -2327,6 +2612,7 @@
     await loadMusic();
     await loadAppIcon();
     await loadCompareData();
+    await loadStores();
     await loadCompareBg();
     renderCompareGroups();
     applySectionBackground();
