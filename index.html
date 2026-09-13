@@ -36,7 +36,7 @@
       radial-gradient(ellipse at 50% -10%, rgba(200,16,46,0.22), transparent 55%),
       radial-gradient(ellipse at 100% 100%, rgba(200,16,46,0.10), transparent 60%);
     background-attachment:fixed;
-    padding-bottom:100px;
+    padding-bottom:150px;
     position:relative;
   }
   body.has-custom-bg{ background-image:none; }
@@ -257,15 +257,83 @@
 
   /* ---------- Floating add pin ---------- */
   .add-pin{
-    position:fixed; right:20px; bottom:24px;
+    position:fixed; right:20px; bottom:84px;
     width:58px;height:58px; border-radius:50%;
     background:radial-gradient(circle at 35% 30%, #ff4d4d, var(--red) 70%);
     color:#fff; font-size:2rem; border:none;
     box-shadow:0 6px 16px rgba(0,0,0,0.6);
     cursor:pointer;
     display:flex; align-items:center; justify-content:center; line-height:1;
+    z-index:5;
   }
   .add-pin:active{ transform:scale(0.94); }
+
+  /* ---------- Bottom nav ---------- */
+  .bottom-nav{
+    position:fixed; left:0; right:0; bottom:0;
+    display:flex;
+    background:rgba(15,13,13,0.92);
+    backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px);
+    border-top:1px solid rgba(var(--red-rgb),0.3);
+    z-index:6;
+    padding-bottom:env(safe-area-inset-bottom, 0);
+  }
+  .bottom-nav-btn{
+    flex:1; background:none; border:none; color:var(--ink-soft);
+    font-size:1.3rem; padding:10px 0 8px;
+    display:flex; flex-direction:column; align-items:center; gap:2px;
+    cursor:pointer;
+  }
+  .bottom-nav-btn span{ font-size:0.68rem; font-weight:700; font-family:'DM Sans', sans-serif; }
+  .bottom-nav-btn.active{ color:var(--red); }
+
+  /* ---------- Compare page ---------- */
+  #compare-groups{ padding:6px 16px 20px; max-width:640px; margin:0 auto; }
+  .compare-group{
+    background:rgba(24,22,22,0.55);
+    backdrop-filter:blur(4px); -webkit-backdrop-filter:blur(4px);
+    border:1px solid rgba(var(--red-rgb),0.25);
+    border-radius:12px;
+    padding:12px 12px 8px;
+    margin-bottom:18px;
+  }
+  .compare-group-header{
+    display:flex; align-items:center; justify-content:space-between;
+    margin-bottom:8px;
+  }
+  .compare-group-header h3{
+    margin:0; font-size:1rem; color:var(--red);
+    font-family:'DM Sans', sans-serif; font-weight:700;
+  }
+  .compare-empty-group{ color:var(--ink-soft); font-size:0.82rem; margin:4px 0 10px; }
+  .compare-item-bar{
+    display:flex; align-items:center; gap:10px;
+    background:var(--paper); border:1px solid rgba(var(--red-rgb),0.2);
+    border-radius:10px; padding:8px; margin-bottom:8px;
+  }
+  .compare-thumb{
+    width:52px; height:52px; flex:0 0 auto; border-radius:6px; overflow:hidden;
+    background:var(--paper-2); display:flex; align-items:center; justify-content:center;
+  }
+  .compare-thumb img{ width:100%; height:100%; object-fit:cover; }
+  .compare-thumb-placeholder{ font-size:1.4rem; opacity:0.4; }
+  .compare-item-info{ flex:1; min-width:0; }
+  .compare-item-name{
+    margin:0 0 3px; font-size:0.85rem; font-weight:700; color:var(--ink);
+    overflow:hidden; text-overflow:ellipsis; white-space:nowrap;
+  }
+  .compare-item-price{
+    display:inline-block; font-size:0.8rem; font-weight:700; color:#fff;
+    background:linear-gradient(135deg, var(--red), var(--red-dark));
+    padding:2px 8px; border-radius:3px;
+  }
+  .compare-item-actions{ display:flex; flex-direction:column; gap:4px; flex:0 0 auto; }
+  .compare-item-actions .btn-chip{ font-size:0.68rem; padding:5px 8px; white-space:nowrap; }
+  .compare-add-item-btn{
+    width:100%; background:transparent; border:1px dashed rgba(var(--red-rgb),0.4);
+    color:var(--red); border-radius:8px; padding:9px; font-weight:700; font-size:0.82rem;
+    cursor:pointer; margin-top:2px;
+  }
 
   /* ---------- Sheet / modal ---------- */
   .overlay{
@@ -433,33 +501,55 @@
 
   <div class="topbar">
     <button class="icon-btn" id="music-toggle-btn" type="button" aria-label="Música">🎵</button>
+    <button class="icon-btn" id="pip-btn" type="button" aria-label="Achicar reproductor" hidden>🖼️</button>
     <button class="icon-btn" id="settings-btn" type="button" aria-label="Personalizar color">⚙️</button>
   </div>
+
+  <canvas id="pip-canvas" width="400" height="400" style="display:none;"></canvas>
+  <video id="pip-video" style="position:fixed; width:2px; height:2px; opacity:0; pointer-events:none; left:-9999px; top:-9999px;" playsinline muted></video>
 
   <div id="yt-player" style="position:fixed; width:2px; height:2px; overflow:hidden; opacity:0; pointer-events:none; left:-9999px; top:-9999px;"></div>
   <audio id="music-audio-player" style="display:none;"></audio>
 
-  <div class="sign-wrap">
-    <div class="sign">
-      <span class="pin left"></span>
-      <span class="pin right"></span>
-      <h1>Lista de Compras</h1>
+  <div id="page-lista">
+    <div class="sign-wrap">
+      <div class="sign">
+        <span class="pin left"></span>
+        <span class="pin right"></span>
+        <h1>Lista de Compras</h1>
+      </div>
     </div>
+
+    <div class="sections-row" id="sections-row"></div>
+
+    <div class="tabs">
+      <button class="tab active" data-tab="pending" type="button">Por comprar</button>
+      <button class="tab" data-tab="bought" type="button">Comprados</button>
+    </div>
+
+    <div class="totals-bar" id="totals-bar"></div>
+
+    <div id="loading" class="loading">Colgando el corcho…</div>
+    <div id="board" class="board" hidden></div>
   </div>
 
-  <div class="sections-row" id="sections-row"></div>
-
-  <div class="tabs">
-    <button class="tab active" data-tab="pending" type="button">Por comprar</button>
-    <button class="tab" data-tab="bought" type="button">Comprados</button>
+  <div id="page-comparar" hidden>
+    <div class="sign-wrap">
+      <div class="sign">
+        <span class="pin left"></span>
+        <span class="pin right"></span>
+        <h1>Comparar</h1>
+      </div>
+    </div>
+    <div id="compare-groups"></div>
   </div>
-
-  <div class="totals-bar" id="totals-bar"></div>
-
-  <div id="loading" class="loading">Colgando el corcho…</div>
-  <div id="board" class="board" hidden></div>
 
   <button class="add-pin" id="add-btn" type="button" aria-label="Añadir algo nuevo">+</button>
+
+  <div class="bottom-nav">
+    <button type="button" class="bottom-nav-btn active" id="nav-lista-btn">🛍️<span>Lista</span></button>
+    <button type="button" class="bottom-nav-btn" id="nav-comparar-btn">⚖️<span>Comparar</span></button>
+  </div>
 
   <!-- Add/edit item sheet -->
   <div class="overlay" id="overlay" hidden>
@@ -514,6 +604,10 @@
       <div class="field">
         <label>Música de fondo</label>
         <button type="button" class="btn-main btn-cancel" id="music-edit-open-btn" style="width:100%;">Editar música de fondo</button>
+      </div>
+      <div class="field">
+        <label>Fondo de la pestaña Comparar</label>
+        <button type="button" class="btn-main btn-cancel" id="compare-bg-edit-open-btn" style="width:100%;">Editar fondo de Comparar</button>
       </div>
       <div class="field">
         <label>Pantalla de inicio</label>
@@ -603,6 +697,82 @@
     </div>
   </div>
 
+  <!-- Compare group (add/edit) sheet -->
+  <div class="overlay" id="compare-group-overlay" hidden>
+    <div class="sheet">
+      <h2 id="compare-group-sheet-title">Nuevo grupo</h2>
+      <div class="field">
+        <label for="compare-group-name-input">Nombre (ej: Serum vitamina C)</label>
+        <input type="text" id="compare-group-name-input" placeholder="Ej: Serum vitamina C" maxlength="40">
+      </div>
+      <div class="sheet-actions" id="compare-group-delete-row" hidden>
+        <button type="button" class="btn-main btn-remove-bg" id="compare-group-delete-btn">Eliminar grupo</button>
+      </div>
+      <div class="sheet-actions">
+        <button type="button" class="btn-main btn-cancel" id="compare-group-cancel-btn">Cancelar</button>
+        <button type="button" class="btn-main btn-save" id="compare-group-save-btn" disabled>Guardar</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Compare item (add/edit) sheet -->
+  <div class="overlay" id="compare-item-overlay" hidden>
+    <div class="sheet">
+      <h2 id="compare-item-sheet-title">Agregar producto</h2>
+      <div class="field">
+        <label for="compare-item-photo-input">Foto (opcional)</label>
+        <label class="photo-picker" id="compare-item-photo-picker-label">
+          <span id="compare-item-photo-placeholder">Toca para elegir una foto</span>
+          <input type="file" accept="image/*" id="compare-item-photo-input">
+        </label>
+      </div>
+      <div class="field">
+        <label for="compare-item-name-input">Nombre del producto</label>
+        <input type="text" id="compare-item-name-input" placeholder="Ej: The Ordinary Azelaic Acid" maxlength="60">
+      </div>
+      <div class="field">
+        <label for="compare-item-price-input">Precio (opcional)</label>
+        <input type="text" inputmode="numeric" pattern="[0-9]*" id="compare-item-price-input" placeholder="0">
+      </div>
+      <div class="field">
+        <label for="compare-item-link-input">Link (opcional)</label>
+        <input type="text" id="compare-item-link-input" placeholder="https://...">
+      </div>
+      <div class="sheet-actions" id="compare-item-delete-row" hidden>
+        <button type="button" class="btn-main btn-remove-bg" id="compare-item-delete-btn">Eliminar producto</button>
+      </div>
+      <div class="sheet-actions">
+        <button type="button" class="btn-main btn-cancel" id="compare-item-cancel-btn">Cancelar</button>
+        <button type="button" class="btn-main btn-save" id="compare-item-save-btn" disabled>Guardar</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Comparar-tab background editor -->
+  <div class="overlay" id="compare-bg-overlay" hidden>
+    <div class="sheet">
+      <h2>Fondo de Comparar</h2>
+      <div class="field">
+        <label for="compare-bg-photo-input">Foto (opcional)</label>
+        <label class="photo-picker" id="compare-bg-photo-picker-label">
+          <span id="compare-bg-photo-placeholder">Toca para elegir una foto</span>
+          <input type="file" accept="image/*" id="compare-bg-photo-input">
+        </label>
+      </div>
+      <div class="field" id="compare-bg-position-field" hidden>
+        <label>Ajustá qué parte se ve</label>
+        <div class="bg-position-box" id="compare-bg-position-box">
+          <span class="bg-position-hint">Arrastrá para mover</span>
+        </div>
+      </div>
+      <div class="sheet-actions">
+        <button type="button" class="btn-main btn-remove-bg" id="compare-bg-remove-btn">Quitar fondo</button>
+        <button type="button" class="btn-main btn-cancel" id="compare-bg-cancel-btn">Cancelar</button>
+        <button type="button" class="btn-main btn-save" id="compare-bg-save-btn" disabled>Guardar</button>
+      </div>
+    </div>
+  </div>
+
   <!-- Section (add/edit) sheet -->
   <div class="overlay" id="section-overlay" hidden>
     <div class="sheet">
@@ -641,6 +811,9 @@
   var SECTIONS_KEY = 'wishlist-sections';
   var ACTIVE_SECTION_KEY = 'wishlist-active-section';
   var COLOR_KEY = 'wishlist-color';
+  var COMPARE_GROUPS_KEY = 'wishlist-compare-groups';
+  var COMPARE_ITEMS_KEY = 'wishlist-compare-items';
+  var COMPARE_BG_KEY = 'wishlist-compare-bg';
   var APP_PIN = '6910';
   var PIN_UNLOCK_KEY = 'wishlist-unlocked';
   var APP_ICON_KEY = 'wishlist-app-icon';
@@ -1506,9 +1679,13 @@
   }
 
   function updateMusicToggleIcon(){
-    if (state.music.source === 'none'){ musicToggleBtn.textContent = '🎵'; musicToggleBtn.style.opacity = '0.5'; return; }
-    musicToggleBtn.style.opacity = '1';
-    musicToggleBtn.textContent = musicPlaying ? '🎵' : '🔇';
+    if (state.music.source === 'none'){ musicToggleBtn.textContent = '🎵'; musicToggleBtn.style.opacity = '0.5'; }
+    else {
+      musicToggleBtn.style.opacity = '1';
+      musicToggleBtn.textContent = musicPlaying ? '🎵' : '🔇';
+    }
+    var pipSupported = (typeof document.pictureInPictureEnabled !== 'undefined') && document.pictureInPictureEnabled;
+    pipBtn.hidden = !(pipSupported && state.music.source === 'mp3' && musicPlaying);
   }
 
   function setupMediaSession(){
@@ -1526,6 +1703,7 @@
     audioEl.pause();
     musicPlaying = false;
     if ('mediaSession' in navigator){ navigator.mediaSession.playbackState = 'paused'; }
+    if (document.pictureInPictureElement){ document.exitPictureInPicture().catch(function(){}); }
     updateMusicToggleIcon();
   }
 
@@ -1568,6 +1746,43 @@
   musicToggleBtn.addEventListener('click', function(){
     if (state.music.source === 'none'){ settingsOverlay.hidden = false; return; }
     if (musicPlaying){ stopAllMusic(); } else { playConfiguredMusic(); }
+  });
+
+  // ---------- Floating mini-player (Picture-in-Picture) ----------
+  var pipBtn = document.getElementById('pip-btn');
+  var pipCanvas = document.getElementById('pip-canvas');
+  var pipVideo = document.getElementById('pip-video');
+  var pipCtx = pipCanvas.getContext('2d');
+  var pipStreamStarted = false;
+
+  function drawPipArt(){
+    var w = pipCanvas.width, h = pipCanvas.height;
+    var grad = pipCtx.createLinearGradient(0, 0, w, h);
+    grad.addColorStop(0, '#2a0e0e');
+    grad.addColorStop(1, '#0b0b0c');
+    pipCtx.fillStyle = grad;
+    pipCtx.fillRect(0, 0, w, h);
+    pipCtx.textAlign = 'center';
+    pipCtx.textBaseline = 'middle';
+    pipCtx.font = '150px sans-serif';
+    pipCtx.fillText('🎵', w / 2, h / 2 - 20);
+    pipCtx.fillStyle = '#ffffff';
+    pipCtx.font = 'bold 26px sans-serif';
+    pipCtx.fillText(APP_NAME + ' sonando', w / 2, h - 46);
+  }
+
+  pipBtn.addEventListener('click', async function(){
+    if (!document.pictureInPictureEnabled){ return; }
+    drawPipArt();
+    try{
+      if (!pipStreamStarted){
+        var stream = pipCanvas.captureStream(1);
+        pipVideo.srcObject = stream;
+        await pipVideo.play();
+        pipStreamStarted = true;
+      }
+      await pipVideo.requestPictureInPicture();
+    } catch(e){ console.error('No se pudo achicar el reproductor', e); }
   });
 
   async function loadMusic(){
@@ -1760,6 +1975,348 @@
     appIconPlaceholder.textContent = 'Toca para elegir una imagen';
   });
 
+  // ---------- Bottom nav / pages ----------
+  var pageListaEl = document.getElementById('page-lista');
+  var pageCompararEl = document.getElementById('page-comparar');
+  var navListaBtn = document.getElementById('nav-lista-btn');
+  var navCompararBtn = document.getElementById('nav-comparar-btn');
+  var addBtnEl = document.getElementById('add-btn');
+  var currentPage = 'lista';
+
+  function showPage(page){
+    currentPage = page;
+    if (page === 'comparar'){
+      pageListaEl.hidden = true;
+      pageCompararEl.hidden = false;
+      navListaBtn.classList.remove('active');
+      navCompararBtn.classList.add('active');
+      applyCompareBackground();
+    } else {
+      pageListaEl.hidden = false;
+      pageCompararEl.hidden = true;
+      navCompararBtn.classList.remove('active');
+      navListaBtn.classList.add('active');
+      applySectionBackground();
+    }
+  }
+  navListaBtn.addEventListener('click', function(){ showPage('lista'); });
+  navCompararBtn.addEventListener('click', function(){ showPage('comparar'); });
+
+  addBtnEl.addEventListener('click', function(){
+    if (currentPage === 'comparar'){ openCompareGroupSheet('add', null); }
+    else { openItemSheet(); }
+  });
+
+  // ---------- Compare data ----------
+  var compareGroups = [];
+  var compareItems = [];
+
+  async function loadCompareData(){
+    try{
+      var res = await storageAdapter.get(COMPARE_GROUPS_KEY);
+      compareGroups = (res && res.value) ? JSON.parse(res.value) : [];
+    } catch(e){ compareGroups = []; }
+    try{
+      var res2 = await storageAdapter.get(COMPARE_ITEMS_KEY);
+      compareItems = (res2 && res2.value) ? JSON.parse(res2.value) : [];
+    } catch(e){ compareItems = []; }
+  }
+  async function persistCompareGroups(){
+    try{ await storageAdapter.set(COMPARE_GROUPS_KEY, JSON.stringify(compareGroups)); } catch(e){}
+  }
+  async function persistCompareItems(){
+    try{ await storageAdapter.set(COMPARE_ITEMS_KEY, JSON.stringify(compareItems)); } catch(e){}
+  }
+
+  function compareItemBarHtml(it){
+    var priceLabel = formatPrice(it.price);
+    var photoHtml = it.photo ? '<img src="' + it.photo + '" alt="">' : '<span class="compare-thumb-placeholder">🛍️</span>';
+    var linkHtml = it.link ? '<a href="' + escapeHtml(it.link) + '" target="_blank" rel="noopener" class="btn-chip btn-buy">Abrir ↗</a>' : '';
+    return (
+      '<div class="compare-item-bar">' +
+        '<div class="compare-thumb">' + photoHtml + '</div>' +
+        '<div class="compare-item-info">' +
+          '<p class="compare-item-name">' + escapeHtml(it.name) + '</p>' +
+          (priceLabel ? '<span class="compare-item-price">' + priceLabel + '</span>' : '') +
+        '</div>' +
+        '<div class="compare-item-actions">' +
+          linkHtml +
+          '<button type="button" class="btn-chip btn-edit" data-action="edit-compare-item" data-id="' + it.id + '">✎</button>' +
+        '</div>' +
+      '</div>'
+    );
+  }
+
+  function renderCompareGroups(){
+    var container = document.getElementById('compare-groups');
+    if (compareGroups.length === 0){
+      container.innerHTML = '<div class="empty-state" style="padding:40px 20px;"><span class="emoji">⚖️</span>Todavía no creaste ningún grupo.<br>Tocá el botón + para crear el primero (ej: "Serum vitamina C").</div>';
+      return;
+    }
+    container.innerHTML = compareGroups.map(function(g){
+      var items = compareItems.filter(function(it){ return it.groupId === g.id; });
+      var itemsHtml = items.length
+        ? items.map(compareItemBarHtml).join('')
+        : '<p class="compare-empty-group">Todavía no agregaste productos acá.</p>';
+      return (
+        '<div class="compare-group">' +
+          '<div class="compare-group-header">' +
+            '<h3>' + escapeHtml(g.name) + '</h3>' +
+            '<button type="button" class="btn-chip btn-edit" data-action="edit-compare-group" data-id="' + g.id + '">✎</button>' +
+          '</div>' +
+          itemsHtml +
+          '<button type="button" class="compare-add-item-btn" data-action="add-compare-item" data-group="' + g.id + '">+ Agregar producto</button>' +
+        '</div>'
+      );
+    }).join('');
+  }
+
+  document.getElementById('compare-groups').addEventListener('click', function(e){
+    var btn = e.target.closest('button[data-action]');
+    if (!btn) return;
+    var action = btn.getAttribute('data-action');
+    if (action === 'edit-compare-group'){
+      openCompareGroupSheet('edit', btn.getAttribute('data-id'));
+    } else if (action === 'add-compare-item'){
+      openCompareItemSheet('add', btn.getAttribute('data-group'), null);
+    } else if (action === 'edit-compare-item'){
+      var item = compareItems.find(function(it){ return it.id === btn.getAttribute('data-id'); });
+      if (item) openCompareItemSheet('edit', item.groupId, item);
+    }
+  });
+
+  // ---------- Compare group sheet ----------
+  var compareGroupOverlay = document.getElementById('compare-group-overlay');
+  var compareGroupSheetTitle = document.getElementById('compare-group-sheet-title');
+  var compareGroupNameInput = document.getElementById('compare-group-name-input');
+  var compareGroupDeleteRow = document.getElementById('compare-group-delete-row');
+  var compareGroupDeleteBtn = document.getElementById('compare-group-delete-btn');
+  var compareGroupSaveBtn = document.getElementById('compare-group-save-btn');
+  var compareGroupEditingId = null;
+  var compareGroupDeleteConfirming = false;
+
+  function openCompareGroupSheet(mode, id){
+    compareGroupEditingId = id;
+    compareGroupDeleteConfirming = false;
+    compareGroupDeleteBtn.textContent = 'Eliminar grupo';
+    compareGroupDeleteBtn.classList.remove('confirming');
+    if (mode === 'edit'){
+      var g = compareGroups.find(function(x){ return x.id === id; });
+      if (!g) return;
+      compareGroupSheetTitle.textContent = 'Editar grupo';
+      compareGroupNameInput.value = g.name;
+      compareGroupDeleteRow.hidden = false;
+      compareGroupSaveBtn.disabled = false;
+    } else {
+      compareGroupSheetTitle.textContent = 'Nuevo grupo';
+      compareGroupNameInput.value = '';
+      compareGroupDeleteRow.hidden = true;
+      compareGroupSaveBtn.disabled = true;
+    }
+    compareGroupOverlay.hidden = false;
+  }
+  document.getElementById('compare-group-cancel-btn').addEventListener('click', function(){ compareGroupOverlay.hidden = true; });
+  compareGroupOverlay.addEventListener('click', function(e){ if (e.target === compareGroupOverlay) compareGroupOverlay.hidden = true; });
+  compareGroupNameInput.addEventListener('input', function(){
+    compareGroupSaveBtn.disabled = compareGroupNameInput.value.trim().length === 0;
+  });
+  compareGroupSaveBtn.addEventListener('click', function(){
+    var name = compareGroupNameInput.value.trim();
+    if (!name) return;
+    if (compareGroupEditingId){
+      var g = compareGroups.find(function(x){ return x.id === compareGroupEditingId; });
+      if (g) g.name = name;
+    } else {
+      compareGroups.push({ id: Date.now().toString(36) + Math.random().toString(36).slice(2,8), name: name, createdAt: Date.now() });
+    }
+    persistCompareGroups();
+    compareGroupOverlay.hidden = true;
+    renderCompareGroups();
+  });
+  compareGroupDeleteBtn.addEventListener('click', function(){
+    if (!compareGroupDeleteConfirming){
+      compareGroupDeleteConfirming = true;
+      compareGroupDeleteBtn.textContent = '¿Seguro? Se borran también sus productos';
+      compareGroupDeleteBtn.classList.add('confirming');
+      return;
+    }
+    var idToDelete = compareGroupEditingId;
+    compareGroups = compareGroups.filter(function(g){ return g.id !== idToDelete; });
+    compareItems = compareItems.filter(function(it){ return it.groupId !== idToDelete; });
+    persistCompareGroups();
+    persistCompareItems();
+    compareGroupOverlay.hidden = true;
+    renderCompareGroups();
+  });
+
+  // ---------- Compare item sheet ----------
+  var compareItemOverlay = document.getElementById('compare-item-overlay');
+  var compareItemSheetTitle = document.getElementById('compare-item-sheet-title');
+  var compareItemPhotoInput = document.getElementById('compare-item-photo-input');
+  var compareItemPhotoPlaceholder = document.getElementById('compare-item-photo-placeholder');
+  var compareItemNameInput = document.getElementById('compare-item-name-input');
+  var compareItemPriceInput = document.getElementById('compare-item-price-input');
+  var compareItemLinkInput = document.getElementById('compare-item-link-input');
+  var compareItemDeleteRow = document.getElementById('compare-item-delete-row');
+  var compareItemDeleteBtn = document.getElementById('compare-item-delete-btn');
+  var compareItemSaveBtn = document.getElementById('compare-item-save-btn');
+  var compareItemPendingPhoto = null;
+  var compareItemEditingId = null;
+  var compareItemGroupId = null;
+
+  function openCompareItemSheet(mode, groupId, item){
+    compareItemGroupId = groupId;
+    compareItemPhotoInput.value = '';
+    if (mode === 'edit' && item){
+      compareItemEditingId = item.id;
+      compareItemSheetTitle.textContent = 'Editar producto';
+      compareItemNameInput.value = item.name;
+      compareItemPriceInput.value = item.price != null ? String(item.price) : '';
+      compareItemLinkInput.value = item.link || '';
+      compareItemPendingPhoto = item.photo || null;
+      compareItemPhotoPlaceholder.textContent = item.photo ? 'Foto elegida — tocá para cambiarla' : 'Toca para elegir una foto';
+      compareItemDeleteRow.hidden = false;
+      compareItemSaveBtn.disabled = false;
+    } else {
+      compareItemEditingId = null;
+      compareItemSheetTitle.textContent = 'Agregar producto';
+      compareItemNameInput.value = '';
+      compareItemPriceInput.value = '';
+      compareItemLinkInput.value = '';
+      compareItemPendingPhoto = null;
+      compareItemPhotoPlaceholder.textContent = 'Toca para elegir una foto';
+      compareItemDeleteRow.hidden = true;
+      compareItemSaveBtn.disabled = true;
+    }
+    compareItemOverlay.hidden = false;
+  }
+  document.getElementById('compare-item-cancel-btn').addEventListener('click', function(){ compareItemOverlay.hidden = true; });
+  compareItemOverlay.addEventListener('click', function(e){ if (e.target === compareItemOverlay) compareItemOverlay.hidden = true; });
+  compareItemNameInput.addEventListener('input', function(){
+    compareItemSaveBtn.disabled = compareItemNameInput.value.trim().length === 0;
+  });
+  compareItemPriceInput.addEventListener('input', function(){ this.value = this.value.replace(/[^0-9]/g, ''); });
+
+  compareItemPhotoInput.addEventListener('change', async function(){
+    var file = compareItemPhotoInput.files && compareItemPhotoInput.files[0];
+    if (!file) return;
+    try{
+      var dataUrl = await resizeImage(file, 1000, 0.87);
+      compareItemPendingPhoto = dataUrl;
+      compareItemPhotoPlaceholder.textContent = 'Foto elegida — tocá para cambiarla';
+    } catch(e){ console.error('No se pudo procesar la foto', e); }
+  });
+
+  compareItemSaveBtn.addEventListener('click', function(){
+    var name = compareItemNameInput.value.trim();
+    if (!name) return;
+    var priceVal = compareItemPriceInput.value.trim();
+    var link = compareItemLinkInput.value.trim();
+    if (compareItemEditingId){
+      var it = compareItems.find(function(x){ return x.id === compareItemEditingId; });
+      if (it){
+        it.name = name;
+        it.price = priceVal === '' ? null : Number(priceVal);
+        it.link = link;
+        it.photo = compareItemPendingPhoto;
+      }
+    } else {
+      compareItems.push({
+        id: Date.now().toString(36) + Math.random().toString(36).slice(2,8),
+        groupId: compareItemGroupId,
+        name: name,
+        price: priceVal === '' ? null : Number(priceVal),
+        link: link,
+        photo: compareItemPendingPhoto,
+        createdAt: Date.now()
+      });
+    }
+    persistCompareItems();
+    compareItemOverlay.hidden = true;
+    renderCompareGroups();
+  });
+  compareItemDeleteBtn.addEventListener('click', function(){
+    compareItems = compareItems.filter(function(it){ return it.id !== compareItemEditingId; });
+    persistCompareItems();
+    compareItemOverlay.hidden = true;
+    renderCompareGroups();
+  });
+
+  // ---------- Comparar-tab background editor ----------
+  var compareBg = { photo: null, x: 50, y: 50 };
+  var compareBgDraft = { photo: null, x: 50, y: 50 };
+  var compareBgOverlay = document.getElementById('compare-bg-overlay');
+  var compareBgPhotoInput = document.getElementById('compare-bg-photo-input');
+  var compareBgPhotoPlaceholder = document.getElementById('compare-bg-photo-placeholder');
+  var compareBgPositionField = document.getElementById('compare-bg-position-field');
+  var compareBgPositionBox = document.getElementById('compare-bg-position-box');
+  var compareBgSaveBtn = document.getElementById('compare-bg-save-btn');
+
+  async function loadCompareBg(){
+    try{
+      var res = await storageAdapter.get(COMPARE_BG_KEY);
+      if (res && res.value){
+        var parsed = JSON.parse(res.value);
+        compareBg = { photo: parsed.photo || null, x: parsed.x == null ? 50 : parsed.x, y: parsed.y == null ? 50 : parsed.y };
+      }
+    } catch(e){ /* keep default */ }
+  }
+  function applyCompareBackground(){
+    if (compareBg.photo){ applyBackground(compareBg.photo, compareBg.x, compareBg.y); }
+    else { clearBackgroundDisplay(); }
+  }
+
+  document.getElementById('compare-bg-edit-open-btn').addEventListener('click', function(){
+    compareBgDraft = { photo: compareBg.photo, x: compareBg.x, y: compareBg.y };
+    compareBgPhotoInput.value = '';
+    if (compareBgDraft.photo){
+      compareBgPhotoPlaceholder.textContent = 'Foto elegida — tocá para cambiarla';
+      compareBgPositionField.hidden = false;
+      compareBgPositionBox.style.backgroundImage = "url('" + compareBgDraft.photo + "')";
+      compareBgPositionBox.style.backgroundPosition = compareBgDraft.x + '% ' + compareBgDraft.y + '%';
+    } else {
+      compareBgPhotoPlaceholder.textContent = 'Toca para elegir una foto';
+      compareBgPositionField.hidden = true;
+    }
+    compareBgSaveBtn.disabled = !compareBgDraft.photo;
+    settingsOverlay.hidden = true;
+    compareBgOverlay.hidden = false;
+  });
+  document.getElementById('compare-bg-cancel-btn').addEventListener('click', function(){ compareBgOverlay.hidden = true; });
+  compareBgOverlay.addEventListener('click', function(e){ if (e.target === compareBgOverlay) compareBgOverlay.hidden = true; });
+
+  compareBgPhotoInput.addEventListener('change', async function(){
+    var file = compareBgPhotoInput.files && compareBgPhotoInput.files[0];
+    if (!file) return;
+    try{
+      var dataUrl = await resizeImage(file, 2800, 0.95);
+      compareBgDraft = { photo: dataUrl, x: 50, y: 50 };
+      compareBgPhotoPlaceholder.textContent = 'Foto elegida — tocá para cambiarla';
+      compareBgPositionField.hidden = false;
+      compareBgPositionBox.style.backgroundImage = "url('" + dataUrl + "')";
+      compareBgPositionBox.style.backgroundPosition = '50% 50%';
+      compareBgSaveBtn.disabled = false;
+    } catch(e){ console.error('No se pudo procesar la foto', e); }
+  });
+
+  setupDrag(compareBgPositionBox,
+    function(){ return { x: compareBgDraft.x, y: compareBgDraft.y }; },
+    function(x, y){ compareBgDraft.x = x; compareBgDraft.y = y; }
+  );
+
+  document.getElementById('compare-bg-remove-btn').addEventListener('click', async function(){
+    compareBg = { photo: null, x: 50, y: 50 };
+    await storageAdapter.set(COMPARE_BG_KEY, JSON.stringify(compareBg));
+    compareBgOverlay.hidden = true;
+    applyCompareBackground();
+  });
+  compareBgSaveBtn.addEventListener('click', async function(){
+    compareBg = { photo: compareBgDraft.photo, x: compareBgDraft.x, y: compareBgDraft.y };
+    await storageAdapter.set(COMPARE_BG_KEY, JSON.stringify(compareBg));
+    compareBgOverlay.hidden = true;
+    applyCompareBackground();
+  });
+
   // ---------- Init ----------
   (async function init(){
     await loadItems();
@@ -1769,6 +2326,9 @@
     await loadSplash();
     await loadMusic();
     await loadAppIcon();
+    await loadCompareData();
+    await loadCompareBg();
+    renderCompareGroups();
     applySectionBackground();
     renderSections();
     renderSplashScreen();
