@@ -740,6 +740,10 @@
         <label for="compare-group-name-input">Nombre (ej: Serum vitamina C)</label>
         <input type="text" id="compare-group-name-input" placeholder="Ej: Serum vitamina C" maxlength="40">
       </div>
+      <div class="field">
+        <label for="compare-group-color-input">Color del grupo</label>
+        <input type="color" id="compare-group-color-input" value="#c0392b" style="width:100%; height:44px; border:none; border-radius:8px; background:none; padding:0;">
+      </div>
       <div class="sheet-actions" id="compare-group-delete-row" hidden>
         <button type="button" class="btn-main btn-remove-bg" id="compare-group-delete-btn">Eliminar grupo</button>
       </div>
@@ -2159,14 +2163,19 @@
       var itemsHtml = items.length
         ? items.map(function(it){ return compareItemBarHtml(it, minPrice); }).join('')
         : '<p class="compare-empty-group">Todavía no agregaste productos acá.</p>';
+      var rgb = hexToRgb(g.color || '#c0392b');
+      var rgbStr = rgb.r + ',' + rgb.g + ',' + rgb.b;
+      var groupStyle = 'border-color:rgba(' + rgbStr + ',0.45); background:rgba(' + rgbStr + ',0.10);';
+      var titleStyle = 'color:' + (g.color || '#c0392b') + ';';
+      var addBtnStyle = 'border-color:rgba(' + rgbStr + ',0.5); color:' + (g.color || '#c0392b') + ';';
       return (
-        '<div class="compare-group">' +
+        '<div class="compare-group" style="' + groupStyle + '">' +
           '<div class="compare-group-header">' +
-            '<h3>' + escapeHtml(g.name) + '</h3>' +
+            '<h3 style="' + titleStyle + '">' + escapeHtml(g.name) + '</h3>' +
             '<button type="button" class="btn-chip btn-edit" data-action="edit-compare-group" data-id="' + g.id + '">✎</button>' +
           '</div>' +
           itemsHtml +
-          '<button type="button" class="compare-add-item-btn" data-action="add-compare-item" data-group="' + g.id + '">+ Agregar producto</button>' +
+          '<button type="button" class="compare-add-item-btn" style="' + addBtnStyle + '" data-action="add-compare-item" data-group="' + g.id + '">+ Agregar producto</button>' +
         '</div>'
       );
     }).join('');
@@ -2190,11 +2199,13 @@
   var compareGroupOverlay = document.getElementById('compare-group-overlay');
   var compareGroupSheetTitle = document.getElementById('compare-group-sheet-title');
   var compareGroupNameInput = document.getElementById('compare-group-name-input');
+  var compareGroupColorInput = document.getElementById('compare-group-color-input');
   var compareGroupDeleteRow = document.getElementById('compare-group-delete-row');
   var compareGroupDeleteBtn = document.getElementById('compare-group-delete-btn');
   var compareGroupSaveBtn = document.getElementById('compare-group-save-btn');
   var compareGroupEditingId = null;
   var compareGroupDeleteConfirming = false;
+  var DEFAULT_GROUP_COLOR = '#c0392b';
 
   function openCompareGroupSheet(mode, id){
     compareGroupEditingId = id;
@@ -2206,11 +2217,13 @@
       if (!g) return;
       compareGroupSheetTitle.textContent = 'Editar grupo';
       compareGroupNameInput.value = g.name;
+      compareGroupColorInput.value = g.color || DEFAULT_GROUP_COLOR;
       compareGroupDeleteRow.hidden = false;
       compareGroupSaveBtn.disabled = false;
     } else {
       compareGroupSheetTitle.textContent = 'Nuevo grupo';
       compareGroupNameInput.value = '';
+      compareGroupColorInput.value = DEFAULT_GROUP_COLOR;
       compareGroupDeleteRow.hidden = true;
       compareGroupSaveBtn.disabled = true;
     }
@@ -2224,11 +2237,12 @@
   compareGroupSaveBtn.addEventListener('click', function(){
     var name = compareGroupNameInput.value.trim();
     if (!name) return;
+    var color = compareGroupColorInput.value || DEFAULT_GROUP_COLOR;
     if (compareGroupEditingId){
       var g = compareGroups.find(function(x){ return x.id === compareGroupEditingId; });
-      if (g) g.name = name;
+      if (g){ g.name = name; g.color = color; }
     } else {
-      compareGroups.push({ id: Date.now().toString(36) + Math.random().toString(36).slice(2,8), name: name, createdAt: Date.now() });
+      compareGroups.push({ id: Date.now().toString(36) + Math.random().toString(36).slice(2,8), name: name, color: color, createdAt: Date.now() });
     }
     persistCompareGroups();
     compareGroupOverlay.hidden = true;
