@@ -330,6 +330,9 @@
   }
   .compare-diff-best{ background:rgba(60,200,120,0.18); color:#5fe0a0; }
   .compare-diff-more{ background:rgba(var(--red-rgb),0.18); color:#ff8a8a; }
+  .total-item-bar{ cursor:pointer; }
+  .total-item-checkbox{ width:20px; height:20px; flex:0 0 auto; accent-color:var(--red); }
+  .total-count-hint{ font-weight:400; opacity:0.75; }
   .store-chip-row{ display:flex; gap:8px; overflow-x:auto; padding:4px 2px 8px; }
   .store-chip{
     display:flex; flex-direction:column; align-items:center; gap:4px;
@@ -575,11 +578,24 @@
     <div id="compare-groups"></div>
   </div>
 
+  <div id="page-total" hidden>
+    <div class="sign-wrap">
+      <div class="sign">
+        <span class="pin left"></span>
+        <span class="pin right"></span>
+        <h1>Total</h1>
+      </div>
+    </div>
+    <div class="totals-bar" id="total-tab-sum-bar"></div>
+    <div id="total-groups"></div>
+  </div>
+
   <button class="add-pin" id="add-btn" type="button" aria-label="Añadir algo nuevo">+</button>
 
   <div class="bottom-nav">
     <button type="button" class="bottom-nav-btn active" id="nav-lista-btn">🛍️<span>Lista</span></button>
     <button type="button" class="bottom-nav-btn" id="nav-comparar-btn">⚖️<span>Comparar</span></button>
+    <button type="button" class="bottom-nav-btn" id="nav-total-btn">🧾<span>Total</span></button>
   </div>
 
   <!-- Add/edit item sheet -->
@@ -643,6 +659,10 @@
       <div class="field">
         <label>Fondo de la pestaña Comparar</label>
         <button type="button" class="btn-main btn-cancel" id="compare-bg-edit-open-btn" style="width:100%;">Editar fondo de Comparar</button>
+      </div>
+      <div class="field">
+        <label>Fondo de la pestaña Total</label>
+        <button type="button" class="btn-main btn-cancel" id="total-bg-edit-open-btn" style="width:100%;">Editar fondo de Total</button>
       </div>
       <div class="field">
         <label>Pantalla de inicio</label>
@@ -855,6 +875,31 @@
     </div>
   </div>
 
+  <!-- Total-tab background editor -->
+  <div class="overlay" id="total-bg-overlay" hidden>
+    <div class="sheet">
+      <h2>Fondo de Total</h2>
+      <div class="field">
+        <label for="total-bg-photo-input">Foto (opcional)</label>
+        <label class="photo-picker" id="total-bg-photo-picker-label">
+          <span id="total-bg-photo-placeholder">Toca para elegir una foto</span>
+          <input type="file" accept="image/*" id="total-bg-photo-input">
+        </label>
+      </div>
+      <div class="field" id="total-bg-position-field" hidden>
+        <label>Ajustá qué parte se ve</label>
+        <div class="bg-position-box" id="total-bg-position-box">
+          <span class="bg-position-hint">Arrastrá para mover</span>
+        </div>
+      </div>
+      <div class="sheet-actions">
+        <button type="button" class="btn-main btn-remove-bg" id="total-bg-remove-btn">Quitar fondo</button>
+        <button type="button" class="btn-main btn-cancel" id="total-bg-cancel-btn">Cancelar</button>
+        <button type="button" class="btn-main btn-save" id="total-bg-save-btn" disabled>Guardar</button>
+      </div>
+    </div>
+  </div>
+
   <!-- Section (add/edit) sheet -->
   <div class="overlay" id="section-overlay" hidden>
     <div class="sheet">
@@ -897,6 +942,7 @@
   var COMPARE_ITEMS_KEY = 'wishlist-compare-items';
   var COMPARE_BG_KEY = 'wishlist-compare-bg';
   var STORES_KEY = 'wishlist-stores';
+  var TOTAL_BG_KEY = 'wishlist-total-bg';
   var APP_PIN = '6910';
   var PIN_UNLOCK_KEY = 'wishlist-unlocked';
   var APP_ICON_KEY = 'wishlist-app-icon';
@@ -2061,33 +2107,33 @@
   // ---------- Bottom nav / pages ----------
   var pageListaEl = document.getElementById('page-lista');
   var pageCompararEl = document.getElementById('page-comparar');
+  var pageTotalEl = document.getElementById('page-total');
   var navListaBtn = document.getElementById('nav-lista-btn');
   var navCompararBtn = document.getElementById('nav-comparar-btn');
+  var navTotalBtn = document.getElementById('nav-total-btn');
   var addBtnEl = document.getElementById('add-btn');
   var currentPage = 'lista';
 
   function showPage(page){
     currentPage = page;
-    if (page === 'comparar'){
-      pageListaEl.hidden = true;
-      pageCompararEl.hidden = false;
-      navListaBtn.classList.remove('active');
-      navCompararBtn.classList.add('active');
-      applyCompareBackground();
-    } else {
-      pageListaEl.hidden = false;
-      pageCompararEl.hidden = true;
-      navCompararBtn.classList.remove('active');
-      navListaBtn.classList.add('active');
-      applySectionBackground();
-    }
+    pageListaEl.hidden = (page !== 'lista');
+    pageCompararEl.hidden = (page !== 'comparar');
+    pageTotalEl.hidden = (page !== 'total');
+    navListaBtn.classList.toggle('active', page === 'lista');
+    navCompararBtn.classList.toggle('active', page === 'comparar');
+    navTotalBtn.classList.toggle('active', page === 'total');
+    addBtnEl.style.display = (page === 'total') ? 'none' : 'flex';
+    if (page === 'comparar'){ applyCompareBackground(); }
+    else if (page === 'total'){ applyTotalBackground(); renderTotalGroups(); renderTotalSumBar(); }
+    else { applySectionBackground(); }
   }
   navListaBtn.addEventListener('click', function(){ showPage('lista'); });
   navCompararBtn.addEventListener('click', function(){ showPage('comparar'); });
+  navTotalBtn.addEventListener('click', function(){ showPage('total'); });
 
   addBtnEl.addEventListener('click', function(){
     if (currentPage === 'comparar'){ openCompareGroupSheet('add', null); }
-    else { openItemSheet(); }
+    else if (currentPage === 'lista'){ openItemSheet(); }
   });
 
   // ---------- Compare data ----------
@@ -2616,6 +2662,150 @@
     applyCompareBackground();
   });
 
+  // ---------- Total-tab background editor ----------
+  var totalBg = { photo: null, x: 50, y: 50 };
+  var totalBgDraft = { photo: null, x: 50, y: 50 };
+  var totalBgOverlay = document.getElementById('total-bg-overlay');
+  var totalBgPhotoInput = document.getElementById('total-bg-photo-input');
+  var totalBgPhotoPlaceholder = document.getElementById('total-bg-photo-placeholder');
+  var totalBgPositionField = document.getElementById('total-bg-position-field');
+  var totalBgPositionBox = document.getElementById('total-bg-position-box');
+  var totalBgSaveBtn = document.getElementById('total-bg-save-btn');
+
+  async function loadTotalBg(){
+    try{
+      var res = await storageAdapter.get(TOTAL_BG_KEY);
+      if (res && res.value){
+        var parsed = JSON.parse(res.value);
+        totalBg = { photo: parsed.photo || null, x: parsed.x == null ? 50 : parsed.x, y: parsed.y == null ? 50 : parsed.y };
+      }
+    } catch(e){ /* keep default */ }
+  }
+  function applyTotalBackground(){
+    if (totalBg.photo){ applyBackground(totalBg.photo, totalBg.x, totalBg.y); }
+    else { clearBackgroundDisplay(); }
+  }
+
+  document.getElementById('total-bg-edit-open-btn').addEventListener('click', function(){
+    totalBgDraft = { photo: totalBg.photo, x: totalBg.x, y: totalBg.y };
+    totalBgPhotoInput.value = '';
+    if (totalBgDraft.photo){
+      totalBgPhotoPlaceholder.textContent = 'Foto elegida — tocá para cambiarla';
+      totalBgPositionField.hidden = false;
+      totalBgPositionBox.style.backgroundImage = "url('" + totalBgDraft.photo + "')";
+      totalBgPositionBox.style.backgroundPosition = totalBgDraft.x + '% ' + totalBgDraft.y + '%';
+    } else {
+      totalBgPhotoPlaceholder.textContent = 'Toca para elegir una foto';
+      totalBgPositionField.hidden = true;
+    }
+    totalBgSaveBtn.disabled = !totalBgDraft.photo;
+    settingsOverlay.hidden = true;
+    totalBgOverlay.hidden = false;
+  });
+  document.getElementById('total-bg-cancel-btn').addEventListener('click', function(){ totalBgOverlay.hidden = true; });
+  totalBgOverlay.addEventListener('click', function(e){ if (e.target === totalBgOverlay) totalBgOverlay.hidden = true; });
+
+  totalBgPhotoInput.addEventListener('change', async function(){
+    var file = totalBgPhotoInput.files && totalBgPhotoInput.files[0];
+    if (!file) return;
+    try{
+      var dataUrl = await resizeImage(file, 2800, 0.95);
+      totalBgDraft = { photo: dataUrl, x: 50, y: 50 };
+      totalBgPhotoPlaceholder.textContent = 'Foto elegida — tocá para cambiarla';
+      totalBgPositionField.hidden = false;
+      totalBgPositionBox.style.backgroundImage = "url('" + dataUrl + "')";
+      totalBgPositionBox.style.backgroundPosition = '50% 50%';
+      totalBgSaveBtn.disabled = false;
+    } catch(e){ console.error('No se pudo procesar la foto', e); }
+  });
+
+  setupDrag(totalBgPositionBox,
+    function(){ return { x: totalBgDraft.x, y: totalBgDraft.y }; },
+    function(x, y){ totalBgDraft.x = x; totalBgDraft.y = y; }
+  );
+
+  document.getElementById('total-bg-remove-btn').addEventListener('click', async function(){
+    totalBg = { photo: null, x: 50, y: 50 };
+    await storageAdapter.set(TOTAL_BG_KEY, JSON.stringify(totalBg));
+    totalBgOverlay.hidden = true;
+    applyTotalBackground();
+  });
+  totalBgSaveBtn.addEventListener('click', async function(){
+    totalBg = { photo: totalBgDraft.photo, x: totalBgDraft.x, y: totalBgDraft.y };
+    await storageAdapter.set(TOTAL_BG_KEY, JSON.stringify(totalBg));
+    totalBgOverlay.hidden = true;
+    applyTotalBackground();
+  });
+
+  // ---------- Total tab: pick items and sum ----------
+  function totalItemBarHtml(it){
+    var priceLabel = formatPrice(it.price);
+    var photoHtml = it.photo ? '<img src="' + it.photo + '" alt="">' : '<span class="compare-thumb-placeholder">🛍️</span>';
+    var store = it.storeId ? getStoreById(it.storeId) : null;
+    var storeHtml = store
+      ? ('<span class="compare-store-tag">' + (store.icon ? '<img src="' + store.icon + '" alt="">' : '🏬') + ' ' + escapeHtml(store.name) + '</span>')
+      : '';
+    var checked = it.selectedForTotal ? ' checked' : '';
+    return (
+      '<label class="compare-item-bar total-item-bar">' +
+        '<input type="checkbox" class="total-item-checkbox" data-id="' + it.id + '"' + checked + '>' +
+        '<div class="compare-thumb">' + photoHtml + '</div>' +
+        '<div class="compare-item-info">' +
+          '<p class="compare-item-name">' + escapeHtml(it.name) + '</p>' +
+          '<div class="compare-item-meta">' +
+            (priceLabel ? '<span class="compare-item-price">' + priceLabel + '</span>' : '') +
+            storeHtml +
+          '</div>' +
+        '</div>' +
+      '</label>'
+    );
+  }
+
+  function renderTotalGroups(){
+    var container = document.getElementById('total-groups');
+    var groupsWithItems = compareGroups.filter(function(g){
+      return compareItems.some(function(it){ return it.groupId === g.id; });
+    });
+    if (groupsWithItems.length === 0){
+      container.innerHTML = '<div class="empty-state" style="padding:40px 20px;"><span class="emoji">🧾</span>Todavía no tenés productos cargados en Comparar.<br>Agregalos ahí primero y después marcá acá los que vas a comprar.</div>';
+      return;
+    }
+    container.innerHTML = groupsWithItems.map(function(g){
+      var items = compareItems.filter(function(it){ return it.groupId === g.id; });
+      var rgb = hexToRgb(g.color || '#c0392b');
+      var rgbStr = rgb.r + ',' + rgb.g + ',' + rgb.b;
+      var groupStyle = 'border-color:rgba(' + rgbStr + ',0.45); background:rgba(' + rgbStr + ',0.10);';
+      var titleStyle = 'color:' + (g.color || '#c0392b') + ';';
+      return (
+        '<div class="compare-group" style="' + groupStyle + '">' +
+          '<div class="compare-group-header">' +
+            '<h3 style="' + titleStyle + '">' + escapeHtml(g.name) + '</h3>' +
+          '</div>' +
+          items.map(totalItemBarHtml).join('') +
+        '</div>'
+      );
+    }).join('');
+  }
+
+  function renderTotalSumBar(){
+    var el = document.getElementById('total-tab-sum-bar');
+    var selected = compareItems.filter(function(it){ return it.selectedForTotal; });
+    var sum = selected.reduce(function(acc, it){ return acc + (typeof it.price === 'number' ? it.price : 0); }, 0);
+    el.innerHTML = 'Vas a gastar <strong>' + formatPrice(sum) + '</strong>' +
+      (selected.length ? ' <span class="total-count-hint">(' + selected.length + ' producto' + (selected.length === 1 ? '' : 's') + ')</span>' : '');
+  }
+
+  document.getElementById('total-groups').addEventListener('change', function(e){
+    var cb = e.target.closest('.total-item-checkbox');
+    if (!cb) return;
+    var it = compareItems.find(function(x){ return x.id === cb.getAttribute('data-id'); });
+    if (it){
+      it.selectedForTotal = cb.checked;
+      persistCompareItems();
+      renderTotalSumBar();
+    }
+  });
+
   // ---------- Init ----------
   (async function init(){
     await loadItems();
@@ -2628,6 +2818,7 @@
     await loadCompareData();
     await loadStores();
     await loadCompareBg();
+    await loadTotalBg();
     renderCompareGroups();
     applySectionBackground();
     renderSections();
