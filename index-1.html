@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#14062b">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="icon-192.png">
+<title>Rutina Miami</title>
+<link href="https://fonts.googleapis.com/css2?family=Bowlby+One&family=Russo+One&family=Permanent+Marker&display=swap" rel="stylesheet">
+<style>
+html,body{margin:0;height:100%;background:#000;overflow:hidden}
+#stage{position:fixed;left:0;top:0;width:100vw;height:100vh;container-type:size;overflow:hidden;background:#000;color:#34c6bf;font-family:"Russo One",Impact,sans-serif;font-style:italic;user-select:none;-webkit-user-select:none}
+#stage.rot{width:100vh;height:100vw;transform-origin:0 0;transform:translateX(100vw) rotate(90deg)}
+.bg,.bg>*{position:absolute;left:0;right:0}
+.sky{top:0;height:50cqh;background:linear-gradient(#000 0%,#000 55%,#5a0a0c 82%,#e0201a 100%)}
+.sun{left:calc(50cqw - 15cqh);top:21cqh;width:30cqh;height:30cqh;right:auto;border-radius:50%;background:linear-gradient(#ffb43a,#ff4a14 70%,#e0201a);opacity:.28;transition:opacity .6s}
+.floor{top:50cqh;bottom:0;background:linear-gradient(#2a0d06,#0c0503 60%,#000);border-top:.5cqh solid #ff3a1a;box-shadow:0 -1cqh 3cqh #ff2a1a}
+.refl{left:calc(50cqw - 15cqh);top:51cqh;width:30cqh;height:30cqh;right:auto;border-radius:50%;background:linear-gradient(#b03410,#3a0c06);opacity:.2;transition:opacity .6s;-webkit-mask:repeating-linear-gradient(#000 0 .8cqh,transparent .8cqh 1.6cqh);mask:repeating-linear-gradient(#000 0 .8cqh,transparent .8cqh 1.6cqh)}
+#stage[data-s="res"] .sun{opacity:1}
+#stage[data-s="res"] .refl{opacity:.75}
+.palms{top:41cqh;height:9cqh;width:100%}
+.scan{top:0;bottom:0;background:repeating-linear-gradient(0deg,rgba(0,0,0,.2) 0 1px,transparent 1px 3px);z-index:9;pointer-events:none}
+.scr{position:absolute;inset:0;display:none;z-index:2}
+.scr.on{display:block}
+.ft{color:#34c6bf;text-shadow:.3cqh 0 #ff2a5a,-.3cqh 0 #2a40ff;text-transform:uppercase;line-height:1}
+.a{position:absolute;white-space:nowrap}
+.pur{color:#b45ad0;font-size:3.8cqw;text-transform:uppercase}
+.pk{color:#ff2a5a;font-size:5cqw}
+.btn{font:inherit;font-style:italic;font-size:6cqw;line-height:1;color:#34c6bf;background:rgba(0,0,0,.7);border:.7cqw solid #34c6bf;padding:3cqw 5cqw;text-transform:uppercase;text-shadow:.25cqh 0 #ff2a5a;cursor:pointer;touch-action:manipulation}
+.btn:active{background:#ff2a5a;color:#fff;border-color:#ff2a5a}
+.btn.on{background:#ff2a5a;color:#fff;border-color:#ff2a5a}
+.btn.sq{padding:0;width:13cqw;height:13cqw;font-size:6cqw;margin:0 1.6cqw 1.6cqw 0}
+.gy{background:linear-gradient(#fff36a,#d9a800);-webkit-background-clip:text;background-clip:text;color:transparent}
+.gg{background:linear-gradient(#f4ff4a,#25c02b);-webkit-background-clip:text;background-clip:text;color:transparent}
+#file{display:none}
+.bar{position:absolute;left:6cqw;right:6cqw;top:47cqh;height:7cqw;border:.7cqw solid #34c6bf;background:rgba(0,0,0,.7)}
+.zone{position:absolute;top:0;bottom:0;background:rgba(255,230,0,.5)}
+.fill{height:100%;width:0;background:#ff2a5a}
+#rows{position:absolute;left:6cqw;right:7cqw;top:4cqh}
+.row{display:flex;justify-content:space-between;align-items:baseline;height:9cqh}
+.row .l,.row .v{font-size:8.2cqh}
+.hv{font-family:"Bowlby One","Russo One",Impact,sans-serif;-webkit-text-stroke:.35cqh currentColor}
+.gt{background:linear-gradient(#8cf5ee,#14948f);-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(.35cqh 0 0 #ff2a5a) drop-shadow(-.3cqh 0 0 #2a40ff);text-transform:uppercase;line-height:1}
+.hv.gt{-webkit-text-stroke:.35cqh #2fb3ad}
+.hv.gy{-webkit-text-stroke:.3cqh #e0b800}
+.hv.gg{-webkit-text-stroke:.3cqh #4cc82a}
+#stage[data-w="p"] .palms{top:45cqh;height:5cqh}
+.line{animation:in .25s both}
+@keyframes in{from{opacity:0;transform:translateX(-3cqw)}to{opacity:1;transform:none}}
+#bottom{visibility:hidden}
+#bottom.show{visibility:visible}
+#grade{font-family:"Permanent Marker",cursive;font-style:normal;font-size:25cqh;line-height:1;color:#c8101c;-webkit-text-stroke:.7cqh #c8101c;text-shadow:.7cqh .7cqh 0 #4a0508,-.4cqh 0 #ff5a5a;display:inline-block;transform:rotate(-6deg)}
+.stamp{animation:stamp .5s cubic-bezier(.2,1.6,.4,1) both}
+@keyframes stamp{from{transform:scale(3) rotate(-20deg);opacity:0}to{transform:scale(1) rotate(-6deg);opacity:1}}
+@media (prefers-reduced-motion:reduce){.line,.stamp{animation:none}}
+</style>
+</head>
+<body>
+<div id="stage" data-s="home" data-w="p">
+<div class="bg">
+  <div class="sky"></div><div class="sun"></div>
+  <svg class="palms" viewBox="0 0 800 45" preserveAspectRatio="none" fill="none" stroke="#7a1018" stroke-width="1.8" stroke-linecap="round">
+    <defs><g id="p"><path d="M0 45Q3 25 0 10"/><path d="M0 10q-10-8-18-2M0 10q10-8 18-2M0 10q-8-10-14-9M0 10q8-10 14-9M0 10v-9"/></g></defs>
+    <use href="#p" x="30" y="2"/><use href="#p" x="75" y="9"/><use href="#p" x="120" y="0"/><use href="#p" x="170" y="10"/>
+    <use href="#p" x="640" y="8"/><use href="#p" x="690" y="0"/><use href="#p" x="735" y="10"/><use href="#p" x="775" y="2"/>
+  </svg>
+  <div class="floor"></div><div class="refl"></div><div class="scan"></div>
+</div>
+
+<section id="home" class="scr on">
+  <div class="a ft" style="left:6cqw;top:5cqh;font-size:19cqw">Rutina</div>
+  <div class="a ft" style="left:6cqw;top:13cqh;font-size:19cqw">Miami</div>
+  <div class="a ft pk" style="left:6.5cqw;top:22cqh">Beta</div>
+  <div class="a ft" style="left:6cqw;top:29cqh;font-size:8cqw">Racha</div>
+  <div class="a ft gy" id="streak" style="left:6cqw;top:34cqh;font-size:28cqw">0</div>
+  <div class="a pur" style="left:6cqw;top:49cqh">días seguidos</div>
+  <div class="a" style="left:6cqw;right:6cqw;top:58cqh;white-space:normal">
+    <div class="ft" style="font-size:6cqw;margin-bottom:2cqh">Tu canción</div>
+    <input type="file" id="file" accept="audio/*,.mp3,.m4a,.wav,.ogg,.aac">
+    <button class="btn" id="pick" style="font-size:5cqw">Elegir archivo</button>
+    <div class="pur" id="songname" style="margin-top:2cqh;white-space:normal">Sin canción todavía</div>
+  </div>
+  <button class="btn a" id="start" style="left:6cqw;width:88cqw;bottom:4cqh;font-size:7cqw">Empezar</button>
+</section>
+
+<section id="work" class="scr">
+  <div class="a pur" id="prog" style="left:6cqw;top:4cqh"></div>
+  <div class="a ft" id="exname" style="left:6cqw;top:10cqh;font-size:12cqw"></div>
+  <div class="a gy" id="exsets" style="left:6cqw;top:19cqh;font-size:5cqw"></div>
+  <div class="a ft" id="clock" style="left:6cqw;top:27cqh;font-size:26cqw">0.0s</div>
+  <div class="bar"><div class="zone" id="zone"></div><div class="fill" id="fill"></div></div>
+  <div class="a pur" id="ideal" style="left:6cqw;width:88cqw;top:55cqh;white-space:normal"></div>
+  <button class="btn a" id="go" style="left:6cqw;width:88cqw;bottom:4cqh;font-size:7cqw">Empezar</button>
+  <button class="btn a" id="done" style="left:6cqw;width:88cqw;bottom:4cqh;font-size:7cqw;display:none">Terminé</button>
+</section>
+
+<section id="habits" class="scr">
+  <div class="a ft" style="left:6cqw;top:5cqh;font-size:14cqw">Hábitos</div>
+  <div class="a" style="left:6cqw;top:17cqh"><div class="ft" style="font-size:6cqw;margin-bottom:1.5cqh">Proteína</div>
+    <div data-h="prot"><button class="btn" data-v="1">Sí</button> <button class="btn" data-v="0">No</button></div></div>
+  <div class="a" style="left:6cqw;top:31cqh"><div class="ft" style="font-size:6cqw;margin-bottom:1.5cqh">Creatina</div>
+    <div data-h="crea"><button class="btn" data-v="1">Sí</button> <button class="btn" data-v="0">No</button></div></div>
+  <div class="a" style="left:6cqw;width:88cqw;top:45cqh;white-space:normal"><div class="ft" style="font-size:6cqw;margin-bottom:1.5cqh">Vasos de agua</div>
+    <div data-h="agua" id="agua"></div></div>
+  <button class="btn a" id="finish" style="left:6cqw;width:88cqw;bottom:4cqh;font-size:6.5cqw">Ver resultados</button>
+</section>
+
+<section id="res" class="scr">
+  <div id="rows"></div>
+  <div id="bottom" class="a" style="left:6cqw;right:7cqw;top:68cqh;height:30cqh">
+    <div class="a ft hv gt" style="left:0;top:8cqh;font-size:9cqh">Nota</div>
+    <div class="a" style="left:27cqw;top:-1cqh"><span id="grade"></span></div>
+    <div class="a ft hv gy" style="right:0;top:1cqh;font-size:10.5cqh">Puntaje total</div>
+    <div class="a ft hv gg" id="total" style="right:0;top:14cqh;font-size:9cqh"></div>
+    <div class="a pur" id="time" style="right:0;top:26cqh;font-size:3.6cqh"></div>
+  </div>
+  <div class="a" style="left:2cqw;bottom:1.5cqh;display:flex;gap:1.5cqw;z-index:3">
+    <button class="btn" id="play" style="display:none;font-size:3.6cqh;padding:1cqh 2cqw;border-width:.5cqh">Música</button>
+    <button class="btn" id="again" style="font-size:3.6cqh;padding:1cqh 2cqw;border-width:.5cqh">Salir</button>
+  </div>
+</section>
+</div>
+
+<script>
+(function(){
+var $=function(i){return document.getElementById(i)};
+var ROUTINE=[
+ {n:"Flexiones",s:"3 series de 12",t:8},
+ {n:"Sentadillas",s:"4 series de 15",t:10},
+ {n:"Plancha",s:"3 series de 40 s",t:12},
+ {n:"Zancadas",s:"3 series de 10 por pierna",t:9},
+ {n:"Abdominales",s:"3 series de 20",t:11}
+];
+var KEY="rutina-miami-racha",state={},audio=null;
+
+/* canción guardada en el teléfono */
+function idb(cb){try{var r=indexedDB.open("rutina-miami",1);r.onupgradeneeded=function(){r.result.createObjectStore("k")};r.onsuccess=function(){cb(r.result)};r.onerror=function(){cb(null)}}catch(e){cb(null)}}
+function putSong(f){idb(function(db){if(!db)return;try{db.transaction("k","readwrite").objectStore("k").put(f,"song")}catch(e){}})}
+function getSong(cb){idb(function(db){if(!db)return cb(null);try{var q=db.transaction("k").objectStore("k").get("song");q.onsuccess=function(){cb(q.result||null)};q.onerror=function(){cb(null)}}catch(e){cb(null)}})}
+function setSong(f){if(audio)audio.pause();audio=new Audio(URL.createObjectURL(f));audio.loop=true;$("songname").textContent="Lista: "+(f.name||"tu canción")}
+getSong(function(f){if(f)setSong(f)});
+$("pick").addEventListener("click",function(){$("file").click()});
+$("file").addEventListener("change",function(e){var f=e.target.files[0];if(!f)return;setSong(f);putSong(f)});
+
+function load(){try{var r=localStorage.getItem(KEY);return r?JSON.parse(r):{last:"",streak:0}}catch(e){return{last:"",streak:0}}}
+function save(o){try{localStorage.setItem(KEY,JSON.stringify(o))}catch(e){}}
+function dstr(d){return d.getFullYear()+"-"+(d.getMonth()+1)+"-"+d.getDate()}
+function yest(){var y=new Date();y.setDate(y.getDate()-1);return dstr(y)}
+var st=$("stage");
+function fit(){var coarse=matchMedia("(pointer:coarse)").matches,port=innerHeight>innerWidth,w=st.dataset.w;st.classList.toggle("rot",coarse&&((port&&w==="l")||(!port&&w==="p")))}
+function show(id){["home","work","habits","res"].forEach(function(s){$(s).classList.toggle("on",s===id)});st.dataset.s=id;
+ var w=id==="res"?"l":"p";st.dataset.w=w;
+ try{var pr=screen.orientation&&screen.orientation.lock&&screen.orientation.lock(w==="l"?"landscape":"portrait");if(pr&&pr.catch)pr.catch(function(){})}catch(e){}
+ fit()}
+function refreshStreak(){var o=load();$("streak").textContent=(o.last===dstr(new Date())||o.last===yest())?o.streak:0}
+
+function exercise(){
+ var e=ROUTINE[state.i];
+ $("prog").textContent="Ejercicio "+(state.i+1)+" de "+ROUTINE.length;
+ $("exname").textContent=e.n;$("exsets").textContent=e.s;
+ $("clock").textContent="0.0s";$("fill").style.width="0";
+ $("ideal").textContent="Tiempo ideal: "+e.t+" s (±10% es el punto dulce)";
+ var z=$("zone");z.style.left="45%";z.style.width="10%";
+ $("go").style.display="";$("done").style.display="none";
+}
+$("go").addEventListener("click",function(){
+ var e=ROUTINE[state.i];state.t0=Date.now();
+ $("go").style.display="none";$("done").style.display="";
+ state.timer=setInterval(function(){
+  var s=(Date.now()-state.t0)/1000;$("clock").textContent=s.toFixed(1)+"s";
+  $("fill").style.width=Math.min(100,s/(e.t*2)*100)+"%";
+ },100);
+});
+function score(t,ideal){var d=Math.abs(t-ideal)/ideal;return d<=0.1?1000:Math.max(0,Math.round(1000*(1-d)))}
+$("done").addEventListener("click",function(){
+ clearInterval(state.timer);
+ var s=(Date.now()-state.t0)/1000,e=ROUTINE[state.i];
+ state.pts.push({t:s,p:score(s,e.t)});state.i++;
+ if(state.i<ROUTINE.length)exercise();else show("habits");
+});
+$("start").addEventListener("click",function(){
+ if(audio){audio.play().then(function(){audio.pause();audio.currentTime=0}).catch(function(){})}
+ state={i:0,pts:[],habits:{},t0:0,timer:null};
+ document.querySelectorAll("#habits .btn").forEach(function(b){b.classList.remove("on")});
+ exercise();show("work");
+});
+
+(function(){var a=$("agua");for(var i=0;i<=8;i++){var b=document.createElement("button");b.className="btn sq";b.dataset.v=i;b.textContent=i;a.appendChild(b)}})();
+document.querySelectorAll("#habits [data-h]").forEach(function(g){
+ g.addEventListener("click",function(e){
+  var b=e.target.closest("button");if(!b)return;
+  g.querySelectorAll("button").forEach(function(x){x.classList.remove("on")});
+  b.classList.add("on");state.habits[g.dataset.h]=+b.dataset.v;
+ });
+});
+
+function fmt(t){var m=Math.floor(t/60),s=t-m*60;return (m<10?"0":"")+m+":"+(s<10?"0":"")+s.toFixed(3)}
+$("finish").addEventListener("click",function(){
+ var o=load(),today=dstr(new Date()),streak=o.streak;
+ if(o.last!==today){streak=(o.last===yest())?o.streak+1:1;save({last:today,streak:streak})}
+ var H=state.habits,prot=H.prot?300:0,crea=H.crea?300:0,agua=(H.agua||0)*100,bonus=Math.min(streak,7)*100;
+ var ex=state.pts.reduce(function(a,x){return a+x.p},0),tt=state.pts.reduce(function(a,x){return a+x.t},0);
+ var sw=state.pts.filter(function(x){return x.p===1000}).length,bt=sw*200,sp=(sw===ROUTINE.length&&H.prot&&H.crea&&(H.agua||0)>=8)?1000:0;
+ var total=ex+prot+crea+agua+bonus+bt+sp,max=ROUTINE.length*1200+300+300+800+700+1000,pct=total/max;
+ var rank=pct>=0.95?"S":pct>=0.85?"A+":pct>=0.75?"A":pct>=0.65?"B+":pct>=0.5?"B":"C";
+ var rows=[["Precisión",ex],["Proteína",prot],["Creatina",crea],["Hidratación",agua],["Racha",bonus],["Bono tiempo",bt],["Especial",sp]];
+ var box=$("rows");box.innerHTML="";$("bottom").classList.remove("show");$("grade").classList.remove("stamp");
+ show("res");
+ $("play").style.display="none";
+ if(audio){audio.currentTime=0;audio.play().catch(function(){$("play").style.display=""})}
+ rows.forEach(function(r,i){setTimeout(function(){
+  var d=document.createElement("div");d.className="row line";
+  d.innerHTML='<span class="l gt hv"></span><span class="v gt hv"></span>';
+  d.firstChild.textContent=r[0];d.lastChild.textContent=r[1];box.appendChild(d);
+ },i*320)});
+ setTimeout(function(){
+  $("total").textContent=total+"/"+max;$("time").textContent="Tiempo total: "+fmt(tt);
+  $("grade").textContent=rank;$("bottom").classList.add("show");
+  void $("grade").offsetWidth;$("grade").classList.add("stamp");
+ },rows.length*320+300);
+});
+$("play").addEventListener("click",function(){if(audio){audio.play();$("play").style.display="none"}});
+$("again").addEventListener("click",function(){if(audio)audio.pause();refreshStreak();show("home")});
+refreshStreak();
+window.addEventListener("resize",fit);window.addEventListener("orientationchange",function(){setTimeout(fit,250)});fit();
+if("serviceWorker" in navigator){navigator.serviceWorker.register("sw.js").catch(function(){})}
+})();
+</script>
+</body>
+</html>
